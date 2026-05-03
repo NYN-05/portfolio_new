@@ -1,0 +1,197 @@
+{
+  "identity": {
+    "name": "Jhashank Nayan",
+    "initials": "JN",
+    "role": "ML Engineer & Backend Developer",
+    "location": "Bangalore, India",
+    "email": "jhashank.nayan@gmail.com",
+    "phone": "09632867181"
+  },
+  "social": {
+    "github": "https://github.com/NYN-05",
+    "linkedin": "https://linkedin.com/in/jhashanknayan",
+    "email": "jhashank.nayan@gmail.com"
+  },
+  "hero": {
+    "tag": "AI ENGINEER, SYSTEMS BUILDER, DATA PROBLEM SOLVER.",
+    "headline": "I Build ML Systems That Solve Real Problems, At Scale",
+    "description": "I build scalable machine learning systems and backend infrastructure that solve real-world problems through clean architecture and data-driven thinking.",
+    "note": "Open to ML engineering roles | Available for high-impact projects",
+    "cta_primary": "Get in Touch",
+    "cta_secondary": "View Work",
+    "image_alt": "3D ML systems visualization"
+  },
+  "technologies": [
+    { "name": "Python", "type": "icon" },
+    { "name": "FastAPI", "type": "label" },
+    { "name": "PyTorch", "type": "icon" },
+    { "name": "React.js", "type": "icon" },
+    { "name": "Node.js", "type": "icon" },
+    { "name": "Docker", "type": "icon" },
+    { "name": "AWS", "type": "label" },
+    { "name": "Git", "type": "label" }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "VeriSight V1 - Image Authenticity Verification",
+      "icon": "BarChart3",
+      "image": "/assets/project-verisight.png",
+      "problem": "No reliable method to verify image authenticity in high-volume applications.",
+      "solution": "Built a multi-layer AI system using FastAPI with async orchestration, integrating CNN, ViT, GAN, and OCR models with parallel execution and meta-model fusion.",
+      "impact": "45%",
+      "impact_desc": "improvement in fraud detection accuracy",
+      "technologies": ["Python", "FastAPI", "PyTorch", "CNN", "ViT", "GAN", "OCR"],
+      "status": "Production"
+    },
+    {
+      "id": 2,
+      "title": "Preventive Movement Intelligence - Posture Analytics",
+      "icon": "BookOpen",
+      "image": "/assets/project-pmi.png",
+      "problem": "Athletes and fitness enthusiasts lack real-time injury risk assessment during exercise.",
+      "solution": "Developed real-time posture analysis system using Android ML Kit and FastAPI with MoveNet-based pose inference for landmark extraction and risk scoring.",
+      "impact": "72%",
+      "impact_desc": "reduction in exercise-related injuries",
+      "technologies": ["Android", "ML Kit", "FastAPI", "MoveNet", "Python"],
+      "status": "BIRAC Prototype"
+    },
+    {
+      "id": 3,
+      "title": "EduShield - Phishing Email Detection System",
+      "icon": "Utensils",
+      "image": "/assets/project-edushield.png",
+      "problem": "Educational institutions face rising phishing attacks targeting user credentials and data.",
+      "solution": "Built an AI-powered Flask application using TF-IDF and ML models (Logistic Regression, SVM) for real-time email classification with explainable outputs.",
+      "impact": "88%",
+      "impact_desc": "accuracy in phishing detection",
+      "technologies": ["Python", "Flask", "TF-IDF", "Scikit-learn", "SVM"],
+      "status": "Production"
+    },
+    {
+      "id": 4,
+      "title": "Scalable ML Pipeline Backend - Production Infrastructure",
+      "icon": "MapPinned",
+      "image": "/assets/project-backend.png",
+      "problem": "ML models need robust backend infrastructure for production deployment and scaling.",
+      "solution": "Designed and deployed scalable FastAPI infrastructure with async processing, caching, CI/CD pipelines, and Docker containerization for ML model serving.",
+      "impact": "60%",
+      "impact_desc": "reduction in API latency",
+      "technologies": ["FastAPI", "Docker", "CI/CD", "Python", "AWS"],
+      "status": "Production"
+    }
+  ],
+  "skills": [
+    {
+      "icon": "Atom",
+      "name": "Python",
+      "description": "Built 3+ production ML systems and data pipelines",
+      "proficiency": 92,
+      "category": "Programming"
+    },
+    {
+      "icon": "Server",
+      "name": "FastAPI / Flask",
+      "description": "Developed scalable async REST APIs with caching and orchestration",
+      "proficiency": 88,
+      "category": "Backend"
+    },
+    {
+      "icon": "Code2",
+      "name": "ML Engineering",
+      "description": "Implemented CNN, ViT, GAN, OCR, and ML models for real-world problems",
+      "proficiency": 85,
+      "category": "Machine Learning"
+    },
+    {
+      "icon": "Database",
+      "name": "Data Processing",
+      "description": "Designed ML pipelines with preprocessing, feature engineering, and model fusion",
+      "proficiency": 87,
+      "category": "Data Science"
+    },
+    {
+      "icon": "Cloud",
+      "name": "Backend Infrastructure",
+      "description": "Deployed apps with Docker, CI/CD, and cloud scalability",
+      "proficiency": 82,
+      "category": "DevOps"
+    },
+    {
+      "icon": "BarChart3",
+      "name": "React.js / Frontend",
+      "description": "Built responsive interfaces integrated with ML backends",
+      "proficiency": 78,
+      "category": "Frontend"
+    }
+  ],
+  "skills_footer": "I don't just learn. I build, ship, optimize, and deploy.",
+  "journey": [
+    {
+      "year": "2024 - Present",
+      "text": "Building ML systems & backend infrastructure for real-world problem-solving.",
+      "detail": "Focused on AI engineering, system design, scalability & data-driven solutions."
+    },
+    {
+      "year": "2023",
+      "text": "Started B.E. in Computer Science (Data Science) at Acharya Institute.",
+      "detail": "Achieved 9.3 CGPA. Exploring ML frameworks, algorithms & system architecture."
+    },
+    {
+      "year": "2023",
+      "text": "Built first production ML system (VeriSight V1) for image verification.",
+      "detail": "Integrated multiple AI models with async orchestration & parallel execution."
+    },
+    {
+      "year": "2022-2023",
+      "text": "Developed phishing detection & posture analysis systems.",
+      "detail": "Gained hands-on experience with FastAPI, Flask, ML models & cloud deployment."
+    }
+  ],
+  "journey_footer": "Continuously learning. Continuously shipping at scale.",
+  "values": [
+    {
+      "icon": "Zap",
+      "title": "Fast Execution",
+      "description": "I build and ship ML systems quickly without compromising on quality or accuracy."
+    },
+    {
+      "icon": "BarChart3",
+      "title": "Data-Driven Thinking",
+      "description": "I focus on metrics, benchmarks, and real-world impact through rigorous testing."
+    },
+    {
+      "icon": "Brain",
+      "title": "System Thinking",
+      "description": "I design scalable, production-ready ML systems with clean architecture and async processing."
+    },
+    {
+      "icon": "Rocket",
+      "title": "Learning & Shipping",
+      "description": "I adapt fast to new frameworks, learn deeper, and deploy immediately to production."
+    }
+  ],
+  "footer": {
+    "title": "Let's Build Something That Scales",
+    "description": "I'm always open to discussing ML engineering challenges, system architecture, and impactful projects.",
+    "cta": "Get in Touch"
+  },
+  "metadata": {
+    "title": "Jhashank Nayan - ML Engineer & Backend Developer",
+    "description": "Jhashank Nayan - ML Engineer specializing in scalable AI systems, backend infrastructure, and data-driven solutions.",
+    "favicon": "/favicon.svg"
+  },
+  "education": {
+    "degree": "B.E. in Computer Science (Data Science)",
+    "institution": "Acharya Institute of Technology, Bangalore, India",
+    "duration": "Sept 2023 – Present",
+    "cgpa": "9.3"
+  },
+  "achievements": [
+    {
+      "title": "Certificate of Appreciation for Outstanding Academic Performance",
+      "category": "CSE – Data Science",
+      "year": "2024"
+    }
+  ]
+}
