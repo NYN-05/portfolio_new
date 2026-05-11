@@ -6,6 +6,7 @@ import {
   Server,
   Ship,
 } from "lucide-react";
+import LazyImage from "./LazyImage";
 
 function Hero() {
   const technologies = [
@@ -20,15 +21,15 @@ function Hero() {
   ];
 
   return (
-    <section className="hero" id="home">
+    <section className="hero" id="home" aria-labelledby="hero-heading">
       <div className="hero-main">
         <div className="hero-left">
-          <span className="hero-tag">
+          <span className="hero-tag" role="text">
             <span aria-hidden="true" />
             AI ENGINEER, SYSTEMS BUILDER, DATA PROBLEM SOLVER.
           </span>
 
-          <h1 className="hero-title">
+          <h1 id="hero-heading" className="hero-title">
             I Build ML Systems
             <br />
             That Solve Real Problems,
@@ -45,43 +46,43 @@ function Hero() {
           <div className="hero-buttons">
             <a className="btn-primary" href="#contact">
               Get in Touch
-              <ArrowRight size={18} strokeWidth={2.2} />
+              <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </a>
             <a className="btn-secondary" href="#projects">
               View Work
-              <ArrowRight size={18} strokeWidth={2.2} />
+              <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </a>
           </div>
 
-          <p className="hero-note">
+          <p className="hero-note" role="note">
             Open to ML engineering roles | Available for high-impact projects
           </p>
         </div>
 
         <div className="hero-right" aria-hidden="true">
-          <img
-            className="hero-visual"
+          <LazyImage
             src="/assets/hero-visual.png"
-            alt="3D ML systems visualization"
+            alt="3D visualization of machine learning systems"
+            className="hero-visual"
           />
         </div>
       </div>
 
-      <div className="trusted-section">
+      <div className="trusted-section" aria-label="Technologies I work with">
         <div className="trusted-heading">
           <p className="trusted-label">TRUSTED BY TECHNOLOGIES & PLATFORMS</p>
           <span aria-hidden="true" />
         </div>
-        <div className="tech-logos">
+        <div className="tech-logos" role="list">
           {technologies.map((tech) => {
             const Icon = tech.icon;
 
             return (
-              <div className="tech-logo" key={tech.name}>
+              <div className="tech-logo" key={tech.name} role="listitem" aria-label={tech.name}>
                 {tech.label ? (
                   <span className="tech-wordmark">{tech.label}</span>
                 ) : (
-                  <Icon size={20} strokeWidth={2.2} />
+                  <Icon size={20} strokeWidth={2.2} aria-hidden="true" />
                 )}
                 <span>{tech.name}</span>
               </div>

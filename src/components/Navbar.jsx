@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
 
   const navItems = [
     { label: "Home", href: "#home", id: "home" },
@@ -12,66 +13,65 @@ function Navbar() {
   ];
 
   useEffect(() => {
-    const sectionIds = ["home", "projects", "about", "journey", "contact"];
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
 
-    const updateActiveSection = () => {
       let current = "home";
+      const sectionIds = ["home", "projects", "about", "journey", "contact"];
 
-      for (let index = sectionIds.length - 1; index >= 0; index -= 1) {
-        const id = sectionIds[index];
-        const section = document.getElementById(id);
-        if (!section) continue;
-
-        if (section.getBoundingClientRect().top <= 140) {
-          current = id;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionIds[i]);
+        if (section && section.getBoundingClientRect().top <= 140) {
+          current = sectionIds[i];
           break;
         }
       }
-
       setActiveSection(current);
     };
 
-    updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-
-    return () => window.removeEventListener("scroll", updateActiveSection);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar${scrolled ? " navbar--scrolled" : ""}`} aria-label="Main navigation">
       <div className="nav-container">
         <div className="nav-left">
-          <a className="logo" href="#home" aria-label="Jhashank Nayan home">
+          <a className="logo" href="#home" aria-label="Jhashank Nayan - home">
             <span>J</span>
             <span>N</span>
           </a>
-          <div className="name">
+          <div className="name" aria-hidden="true">
             <p className="title">Jhashank Nayan</p>
             <span className="subtitle">ML Engineer & Backend Developer</span>
           </div>
         </div>
 
-        <div className="nav-center">
+        <div className="nav-center" role="list">
           {navItems.map((item) => (
             <a
               key={item.id}
               href={item.href}
               className={activeSection === item.id ? "active" : undefined}
+              role="listitem"
+              aria-current={activeSection === item.id ? "page" : undefined}
             >
               {item.label}
             </a>
           ))}
-          <a href="/resume.pdf" download>
-            Resume
-          </a>
         </div>
 
         <div className="nav-right">
-          <a className="connect-btn" href="#contact">
-            Let's Connect
-            <ArrowRight size={13} strokeWidth={2.3} />
+          <a
+            className="btn-primary connect-btn"
+            href="mailto:jnyn2005@gmail.com"
+            aria-label="Send email to Jhashank Nayan"
+          >
+            Let&apos;s Connect
+            <ArrowRight size={13} strokeWidth={2.3} aria-hidden="true" />
           </a>
-          <span className="nav-dot" aria-hidden="true" />
+          <span className="nav-dot" aria-hidden="true" title="Available for work" />
         </div>
       </div>
     </nav>

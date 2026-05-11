@@ -1,0 +1,18 @@
+{
+  "name": "Jhashank Nayan - Portfolio",
+  "short_name": "Portfolio",
+  "description": "Portfolio of Jhashank Nayan - ML Engineer & Backend Developer",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#ff6a00",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

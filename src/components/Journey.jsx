@@ -23,27 +23,27 @@ function Journey() {
   ];
 
   return (
-    <section className="journey-section" id="journey">
-      <h2 className="section-title">
+    <section className="journey-section" id="journey" aria-labelledby="journey-title">
+      <h2 className="section-title" id="journey-title">
         <span className="section-dot" aria-hidden="true" />
         JOURNEY
       </h2>
 
-      <div className="timeline">
+      <ol className="timeline" aria-label="Professional journey timeline">
         {timeline.map((item, index) => (
-          <div key={item.year} className="timeline-item">
-            <div className="timeline-marker">
+          <li key={item.year} className="timeline-item">
+            <div className="timeline-marker" aria-hidden="true">
               <div className="timeline-dot" />
-              {index < timeline.length - 1 && <div className="timeline-line" />}
+              {index < timeline.length - 1 && <div className="timeline-line" style={{ height: 'calc(100% + 14px)' }} />}
             </div>
             <div className="timeline-content">
               <div className="timeline-year">{item.year}</div>
               <p className="timeline-text">{item.text}</p>
               <p className="timeline-detail">{item.detail}</p>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
 
       <p className="journey-footer">
         Continuously learning. Continuously{" "}

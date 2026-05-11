@@ -8,17 +8,22 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="app-container">
-      <Navbar />
-      <Hero />
-      <Projects />
-      <div className="proof-grid" id="about">
-        <Skills />
-        <Journey />
+    <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <div className="app-container">
+        <Navbar />
+        <main id="main-content">
+          <Hero />
+          <Projects />
+          <div className="proof-grid" id="about">
+            <Skills />
+            <Journey />
+          </div>
+          <Values />
+        </main>
+        <Footer />
       </div>
-      <Values />
-      <Footer />
-    </div>
+    </>
   );
 }
 

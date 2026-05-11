@@ -1,4 +1,5 @@
 import { Atom, BarChart3, Cloud, Code2, Database, Server } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 function Skills() {
   const skills = [
@@ -40,27 +41,52 @@ function Skills() {
     },
   ];
 
+  const listRef = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (listRef.current) {
+      observer.observe(listRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="skills-section">
-      <h2 className="section-title">
+    <section className="skills-section" aria-labelledby="skills-title">
+      <h2 className="section-title" id="skills-title">
         <span className="section-dot" aria-hidden="true" />
         SKILLS WITH PROOF
       </h2>
 
-      <div className="skills-list">
+      <div className="skills-list" ref={listRef}>
         {skills.map((skill) => {
           const Icon = skill.icon;
 
           return (
-            <div key={skill.name} className="skill-row">
+            <div
+              key={skill.name}
+              className={`skill-row${inView ? " in-view" : ""}`}
+              role="listitem"
+            >
               <div className="skill-name-wrapper">
                 <span className="skill-icon">
-                  <Icon size={15} strokeWidth={2.2} />
+                  <Icon size={15} strokeWidth={2.2} aria-hidden="true" />
                 </span>
                 <span className="skill-name">{skill.name}</span>
               </div>
-              <span className="skill-desc">{skill.desc}</span>
-              <div className="skill-bar">
+              <span className="skill-desc" aria-label={`${skill.desc}`}>{skill.desc}</span>
+              <div className="skill-bar" role="progressbar" aria-valuenow={skill.value} aria-valuemin="0" aria-valuemax="100" aria-label={`${skill.value}% proficiency in ${skill.name}`}>
                 <div className="bar" aria-hidden="true">
                   <div className="fill" style={{ width: `${skill.value}%` }} />
                 </div>
@@ -72,7 +98,7 @@ function Skills() {
       </div>
 
       <p className="skills-footer">
-        I don't just learn.{" "}
+        I don&apos;t just learn.{" "}
         <span className="emphasis">I build, ship, optimize, and deploy.</span>
       </p>
     </section>
