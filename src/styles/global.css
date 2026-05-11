@@ -1298,6 +1298,26 @@ a:focus-visible {
 }
 
 /* ===== REDUCED MOTION ===== */
+.footer-bottom {
+  max-width: var(--content-max);
+  margin: 24px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: var(--soft-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.social-links nav {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
