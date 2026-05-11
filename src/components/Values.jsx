@@ -25,18 +25,18 @@ function Values() {
   ];
 
   return (
-    <section className="values-section">
-      <h2 className="section-title">
+    <section className="values-section" aria-labelledby="values-title">
+      <h2 className="section-title" id="values-title">
         <span className="section-dot" aria-hidden="true" />
         WHAT MAKES ME VALUABLE
       </h2>
 
-      <div className="values-grid">
+      <div className="values-grid" role="list">
         {values.map((value) => {
           const Icon = value.icon;
 
           return (
-            <article key={value.title} className="value-card">
+            <article key={value.title} className="value-card" role="listitem">
               <div className="value-icon" aria-hidden="true">
                 <Icon size={34} strokeWidth={2.5} />
               </div>
