@@ -1,107 +1,67 @@
-import { Atom, BarChart3, Cloud, Code2, Database, Server } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Atom, Server, Code2, Database, Cloud, LayoutDashboard } from "lucide-react";
+import { Card } from "./ui/card";
+import { useReveal } from "../hooks/useReveal";
+import { cn } from "../lib/utils";
+
+const SKILLS = [
+  { icon: Atom, name: "Python", desc: "3+ production ML systems and data pipelines", projects: "6+", confidence: 92 },
+  { icon: Server, name: "FastAPI / Flask", desc: "Scalable async REST APIs with caching", projects: "8", confidence: 88 },
+  { icon: Code2, name: "ML Engineering", desc: "CNN, ViT, GAN, OCR for real-world problems", projects: "5", confidence: 85 },
+  { icon: Database, name: "Data Processing", desc: "ML pipelines with feature engineering & fusion", projects: "4+", confidence: 87 },
+  { icon: Cloud, name: "Backend Infrastructure", desc: "Docker, CI/CD, and cloud scalability", projects: "5", confidence: 82 },
+  { icon: LayoutDashboard, name: "React / Frontend", desc: "Responsive interfaces with ML backends", projects: "3", confidence: 78 },
+];
+
+const FEATURED_TAGS = [
+  "Production APIs", "Authentication", "Caching", "Docker",
+  "Async Processing", "Redis", "PostgreSQL", "CI/CD",
+];
 
 function Skills() {
-  const skills = [
-    {
-      icon: Atom,
-      name: "Python",
-      desc: "Built 3+ production ML systems and data pipelines",
-      value: 92,
-    },
-    {
-      icon: Server,
-      name: "FastAPI / Flask",
-      desc: "Developed scalable async REST APIs with caching and orchestration",
-      value: 88,
-    },
-    {
-      icon: Code2,
-      name: "ML Engineering",
-      desc: "Implemented CNN, ViT, GAN, OCR, and ML models for real-world problems",
-      value: 85,
-    },
-    {
-      icon: Database,
-      name: "Data Processing",
-      desc: "Designed ML pipelines with preprocessing, feature engineering, and model fusion",
-      value: 87,
-    },
-    {
-      icon: Cloud,
-      name: "Backend Infrastructure",
-      desc: "Deployed apps with Docker, CI/CD, and cloud scalability",
-      value: 82,
-    },
-    {
-      icon: BarChart3,
-      name: "React.js / Frontend",
-      desc: "Built responsive interfaces integrated with ML backends",
-      value: 78,
-    },
-  ];
-
-  const listRef = useRef(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (listRef.current) {
-      observer.observe(listRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const [ref, visible] = useReveal();
 
   return (
-    <section className="skills-section" aria-labelledby="skills-title">
-      <h2 className="section-title" id="skills-title">
-        <span className="section-dot" aria-hidden="true" />
-        SKILLS WITH PROOF
-      </h2>
-
-      <div className="skills-list" ref={listRef}>
-        {skills.map((skill) => {
+    <div ref={ref} className={cn("space-y-2", visible ? "animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" : "opacity-0")}>
+      <div className="grid gap-2">
+        {SKILLS.map((skill) => {
           const Icon = skill.icon;
-
           return (
-            <div
-              key={skill.name}
-              className={`skill-row${inView ? " in-view" : ""}`}
-              role="listitem"
-            >
-              <div className="skill-name-wrapper">
-                <span className="skill-icon">
-                  <Icon size={15} strokeWidth={2.2} aria-hidden="true" />
-                </span>
-                <span className="skill-name">{skill.name}</span>
-              </div>
-              <span className="skill-desc" aria-label={`${skill.desc}`}>{skill.desc}</span>
-              <div className="skill-bar" role="progressbar" aria-valuenow={skill.value} aria-valuemin="0" aria-valuemax="100" aria-label={`${skill.value}% proficiency in ${skill.name}`}>
-                <div className="bar" aria-hidden="true">
-                  <div className="fill" style={{ width: `${skill.value}%` }} />
+            <Card key={skill.name} className="p-3 border-border/50 hover:border-border/80 transition-colors group">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/15 transition-colors">
+                  <Icon className="h-4 w-4 text-primary" />
                 </div>
-                <span className="skill-value">{skill.value}%</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-semibold text-foreground">{skill.name}</span>
+                    <span className="text-[11px] text-muted-foreground shrink-0 font-mono">{skill.confidence}%</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5">{skill.desc}</p>
+                </div>
               </div>
-            </div>
+              <div className="mt-2 pt-2 border-t border-border/30 flex items-center gap-2 text-[11px] text-muted-foreground">
+                <span><span className="text-foreground font-medium">{skill.projects}</span> projects</span>
+                <div className="h-1 flex-1 rounded-full bg-muted overflow-hidden max-w-[120px]">
+                  <div
+                    className="h-full rounded-full bg-primary/60"
+                    style={{ width: `${skill.confidence}%` }}
+                  />
+                </div>
+              </div>
+            </Card>
           );
         })}
       </div>
 
-      <p className="skills-footer">
-        I don&apos;t just learn.{" "}
-        <span className="emphasis">I build, ship, optimize, and deploy.</span>
-      </p>
-    </section>
+      <div className="pt-1.5">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5">Related Technologies</p>
+        <div className="flex flex-wrap gap-1.5">
+          {FEATURED_TAGS.map((tag) => (
+            <span key={tag} className="px-2 py-0.5 text-[10px] font-medium text-muted-foreground bg-muted/40 border border-border/50 rounded">{tag}</span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [tailwindcss(), react()],
   build: {
     target: 'esnext',
     outDir: 'dist',
@@ -26,10 +27,9 @@ export default defineConfig({
     minify: 'esbuild',
     sourcemap: false,
   },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
   server: {
+    host: '0.0.0.0',
+    allowedHosts: ['missions-zinc-commands-compatibility.trycloudflare.com'],
     hmr: {
       overlay: false,
     },
