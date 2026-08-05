@@ -41,11 +41,8 @@ function Node({ x, y, label, sub, accent }) {
   );
 }
 
-function Flow({ x1, y1, x2, y2, vertical = false, label }) {
-  const path = vertical
-    ? `M ${x1} ${y1} V ${y2}`
-    : `M ${x1} ${y1} H ${x2}`;
-  const markerEnd = vertical ? "none" : "url(#arrow)";
+function Flow({ x1, y1, x2, y2, label }) {
+  const path = `M ${x1} ${y1} L ${x2} ${y2}`;
   return (
     <g>
       <path
@@ -53,7 +50,7 @@ function Flow({ x1, y1, x2, y2, vertical = false, label }) {
         fill="none"
         stroke="var(--color-border)"
         strokeWidth={1.5}
-        markerEnd={markerEnd}
+        markerEnd="url(#arrow)"
       />
       <path
         d={path}
@@ -108,7 +105,6 @@ function ArchDiagram({ project }) {
   const fusion = { x: 482, y: centerY - NODE_H / 2 };
   const out = { x: 618, y: centerY - NODE_H / 2 };
 
-  const workerXs = 320;
   const workerHeights = models.map((_, i) => 14 + i * 44);
 
   return (

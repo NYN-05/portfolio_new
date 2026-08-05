@@ -21,6 +21,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
+import ArchDiagram from "../components/ArchDiagram";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { PROJECTS } from "../lib/content";
@@ -278,6 +279,7 @@ function CaseStudyPage() {
               {SECTIONS.map((section, i) => (
                 <div key={section.id} className={cn(i === 0 ? "" : "border-t border-border")}>
                   <SectionBody section={section} value={cs[section.key]} />
+                  {section.id === "architecture" && <ArchDiagram project={project} />}
                 </div>
               ))}
 
