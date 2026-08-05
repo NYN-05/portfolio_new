@@ -71,26 +71,47 @@ function Skills() {
 }
 
 function Journey() {
+  const reduce = useReducedMotion();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-64px" });
+
   return (
-    <ol className="relative space-y-8 border-l border-border pl-8">
-      <span
+    <ol ref={ref} className="relative space-y-8 border-l border-border pl-8">
+      <motion.span
         aria-hidden="true"
+        initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
+        animate={inView ? { scaleY: 1 } : undefined}
+        transition={{ duration: 1.4, ease: EASE }}
         className="absolute -left-px top-0 bottom-0 w-px origin-top bg-gradient-to-b from-signal via-signal/40 to-transparent"
       />
       {TIMELINE.map((entry, i) => (
-        <li key={`${entry.year}-${i}`} className="group relative">
+        <motion.li
+          key={`${entry.year}-${i}`}
+          initial={reduce ? false : { opacity: 0, x: 24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-64px" }}
+          transition={{ duration: 0.55, delay: i * 0.08, ease: EASE }}
+          className="group relative"
+        >
           <span
             aria-hidden="true"
-            className="absolute -left-[2.6rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-signal bg-card transition-transform duration-300 group-hover:scale-125"
-          />
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-signal">
+            className="absolute -left-8 top-0 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-md border border-border bg-card font-mono text-[9px] font-semibold text-muted-foreground transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-primary-foreground"
+          >
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <p className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-signal">
             {entry.year}
+            {i === 0 && (
+              <span className="rounded-full border border-signal/40 bg-signal/10 px-2 py-0.5 text-[9px] font-medium tracking-[0.14em] text-signal">
+                Now
+              </span>
+            )}
           </p>
           <p className="mt-1.5 font-display text-[17px] font-semibold leading-snug tracking-tight">
             {entry.text}
           </p>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{entry.detail}</p>
-        </li>
+        </motion.li>
       ))}
     </ol>
   );
