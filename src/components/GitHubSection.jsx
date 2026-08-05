@@ -3,6 +3,7 @@ import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import useGitHubRepos from "../hooks/useGitHubRepos";
 import { CONTACT } from "../lib/content";
+import { cn } from "../lib/utils";
 
 const LANGUAGE_DOTS = {
   Python: "bg-blue-500",
