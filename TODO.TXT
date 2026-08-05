@@ -1,0 +1,17 @@
+▼Todo
+[✓] Item 6: Experience Timeline — animated timeline with scroll-driven line, markers, milestones
+[✓] Item 7: Engineering Metrics — animated counters band (projects, models, APIs, tech)
+[✓] Item 8: Background & Visual Design — subtle animated gradient blobs (performance-friendly, reduced-motion safe)
+[✓] Item 9: Modern Animations — page transitions added (reveals/hovers/micro existing)
+[✓] Item 10: GitHub Integration — live repos fetch w/ fallback, languages, stats
+[✓] Item 11: Architecture Diagrams — SVG data-flow diagrams per case study
+[•] Item 12+18: Production — sitemap.xml, robots.txt, 404 page, ErrorBoundary, meta/code-split audit
+[ ] Item 13: Dark Mode — toggle, persistence, prefers-color-scheme, dark palette
+[ ] Item 14: Resume Section — /resume page (interactive + print/PDF) + nav link
+[ ] Item 15: AI Assistant — client-side portfolio chatbot widget
+[ ] Item 16: Blog — /blog + 2-3 technical articles from project lessons
+[ ] Item 17: Contact Section — inquiry form (service/budget/timeline) via mailto
+[ ] Item 19+20: Accessibility + Mobile polish — focus-visible, touch targets, verify
+[ ] Item 22+23: Personal branding + Future roadmap — mission, learning goals, Currently Building
+[ ] Item 21+24: Note in impl.md (TS/Next.js migration skip, final goal)
+[ ] Final: lint, build, Playwright sweep, mark impl.md items done
