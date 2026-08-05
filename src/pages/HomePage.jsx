@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 
 const Projects = lazy(() => import("../components/Projects"));
 const AboutSection = lazy(() => import("../components/AboutSection"));
+const Metrics = lazy(() => import("../components/Metrics"));
 const Principles = lazy(() => import("../components/Principles"));
 const Footer = lazy(() => import("../components/Footer"));
 
@@ -16,6 +17,7 @@ function HomePage() {
         <Suspense fallback={null}>
           <Projects />
           <AboutSection />
+          <Metrics />
           <Principles />
           <Footer />
         </Suspense>

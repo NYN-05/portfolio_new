@@ -1,9 +1,10 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence, MotionConfig } from "motion/react";
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "motion/react";
 import { useLenis } from "lenis/react";
 import IntroLoader from "./components/IntroLoader";
 import HomePage from "./pages/HomePage";
+import AmbientBackground from "./components/effects/AmbientBackground";
 
 const CaseStudyPage = lazy(() => import("./pages/CaseStudyPage"));
 
@@ -51,10 +52,12 @@ function RouteEffects() {
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const timer = setTimeout(() => setLoading(false), reduce ? 50 : 1150);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timer = setTimeout(() => setLoading(false), reduceMotion ? 50 : 1150);
     return () => clearTimeout(timer);
   }, []);
 
@@ -70,21 +73,30 @@ function App() {
       </a>
 
       <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[65] opacity-[0.05]" />
+      <AmbientBackground />
 
       <RouteEffects />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/projects/:slug"
-          element={
-            <Suspense fallback={null}>
-              <CaseStudyPage />
-            </Suspense>
-          }
-        />
-        <Route path="*" element={<HomePage />} />
-      </Routes>
+      <motion.div
+        key={location.pathname}
+        initial={reduce ? false : { opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10"
+      >
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/projects/:slug"
+            element={
+              <Suspense fallback={null}>
+                <CaseStudyPage />
+              </Suspense>
+            }
+          />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+      </motion.div>
     </MotionConfig>
   );
 }
