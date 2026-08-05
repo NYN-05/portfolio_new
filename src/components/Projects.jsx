@@ -1,217 +1,161 @@
 import { useState } from "react";
-import { ArrowRight, BarChart3, BookOpen, UtensilsCrossed, MapPinned, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogTrigger,
-} from "./ui/dialog";
-import { useReveal } from "../hooks/useReveal";
+import SectionHeading from "./SectionHeading";
+import CountUp from "./CountUp";
+import Reveal from "./Reveal";
+import { CONTACT, PROJECTS } from "../lib/content";
 import { cn } from "../lib/utils";
 
-const PROJECTS = [
-  {
-    icon: BarChart3,
-    image: "/assets/project-verisight.png",
-    title: "VeriSight V1",
-    subtitle: "Image Authenticity Verification",
-    desc: "Multi-layer AI system with CNN, ViT, GAN, and OCR models running in parallel via async FastAPI orchestration.",
-    problem: "No reliable method to verify image authenticity in high-volume applications.",
-    solution: "Multi-layer AI system with CNN, ViT, GAN, and OCR models running in parallel via async FastAPI orchestration.",
-    impact: "45%",
-    impactLabel: "fraud detection improvement",
-    tags: ["Python", "FastAPI", "PyTorch", "CNN", "ViT", "GAN", "OCR"],
-    url: "https://github.com/NYN-05/verisight",
-    status: "Production",
-  },
-  {
-    icon: BookOpen,
-    image: "/assets/project-pmi.png",
-    title: "Preventive Movement Intelligence",
-    subtitle: "Real-Time Posture Analytics",
-    desc: "MoveNet-based pose inference with FastAPI for real-time landmark extraction and injury risk scoring.",
-    problem: "Athletes and fitness enthusiasts lack real-time injury risk assessment during exercise.",
-    solution: "MoveNet-based pose inference with FastAPI for real-time landmark extraction and risk scoring.",
-    impact: "72%",
-    impactLabel: "injury risk reduction",
-    tags: ["Python", "FastAPI", "TensorFlow", "MoveNet", "Pose Estimation"],
-    url: "#projects",
-    status: "BIRAC Prototype",
-  },
-  {
-    icon: UtensilsCrossed,
-    image: "/assets/project-edushield.png",
-    title: "EduShield",
-    subtitle: "Phishing Email Detection",
-    desc: "TF-IDF + Logistic Regression & SVM for real-time email classification with explainable outputs.",
-    problem: "Rising phishing attacks in educational institutions targeting user credentials and data.",
-    solution: "TF-IDF + Logistic Regression & SVM for real-time email classification with explainable outputs.",
-    impact: "88%",
-    impactLabel: "detection accuracy",
-    tags: ["Python", "scikit-learn", "NLP", "TF-IDF", "SVM"],
-    url: "#projects",
-    status: "Production",
-  },
-  {
-    icon: MapPinned,
-    image: "/assets/project-backend.png",
-    title: "Scalable ML Backend",
-    subtitle: "Production Infrastructure",
-    desc: "FastAPI with async processing, Redis caching, CI/CD pipelines, and Docker containerization.",
-    problem: "ML models need robust backend infrastructure for production deployment and scaling.",
-    solution: "FastAPI with async processing, Redis caching, CI/CD pipelines, and Docker containerization.",
-    impact: "60%",
-    impactLabel: "API latency reduction",
-    tags: ["FastAPI", "Redis", "Docker", "CI/CD", "PostgreSQL"],
-    url: "#projects",
-    status: "Production",
-  },
-];
-
-function ProjectCard({ project, index }) {
-  const [ref, visible] = useReveal();
-  const Icon = project.icon;
-  const [imgLoaded, setImgLoaded] = useState(false);
+function ProjectImage({ project, className, eager = false }) {
+  const [loaded, setLoaded] = useState(false);
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <article
-          ref={ref}
-          className={cn(
-            "group cursor-pointer rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-300 hover:border-border hover:shadow-lg hover:-translate-y-0.5",
-            visible ? "animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" : "opacity-0",
-            index % 2 === 1 ? "delay-150" : ""
-          )}
-        >
-          <div className="relative aspect-[16/10] bg-muted overflow-hidden">
-            {!imgLoaded && (
-              <div className="absolute inset-0 bg-muted animate-pulse" />
-            )}
-            <img
-              src={project.image}
-              alt={`${project.title} — ${project.subtitle}`}
-              className={cn(
-                "w-full h-full object-cover transition-all duration-500 group-hover:scale-105",
-                imgLoaded ? "opacity-100" : "opacity-0"
-              )}
-              loading="lazy"
-              decoding="async"
-              onLoad={() => setImgLoaded(true)}
-            />
-          </div>
-          <div className="p-4 space-y-2.5">
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Icon className="h-4 w-4 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground">{project.title}</h3>
-                  <p className="text-[11px] text-muted-foreground">{project.subtitle}</p>
-                </div>
-              </div>
-              <Badge variant="outline" className="text-[10px] px-2 py-0">
-                {project.status}
-              </Badge>
-            </div>
-            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{project.desc}</p>
-            <div className="flex items-center justify-between pt-1 border-t border-border/50">
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-lg font-bold font-sans text-primary">{project.impact}</span>
-                <span className="text-[11px] text-muted-foreground">{project.impactLabel}</span>
-              </div>
-              <span className="text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors inline-flex items-center gap-1">
-                Details
-                <ArrowRight className="h-3 w-3" />
-              </span>
-            </div>
-          </div>
-        </article>
-      </DialogTrigger>
+    <div className={cn("relative overflow-hidden bg-muted", className)}>
+      {!loaded && <div className="absolute inset-0 animate-pulse bg-muted" aria-hidden="true" />}
+      <img
+        src={project.image}
+        alt={`${project.title} — ${project.subtitle}`}
+        width={1280}
+        height={800}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        className={cn(
+          "h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04]",
+          loaded ? "opacity-100" : "opacity-0"
+        )}
+      />
+    </div>
+  );
+}
 
-      <DialogContent className="sm:max-w-2xl">
-        <DialogHeader>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Icon className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <DialogTitle className="font-sans">{project.title}</DialogTitle>
-              <DialogDescription>{project.subtitle}</DialogDescription>
-            </div>
-          </div>
-        </DialogHeader>
-        <div className="space-y-4">
+function ProjectCard({ project }) {
+  return (
+    <Link
+      to={`/projects/${project.slug}`}
+      prefetch="viewport"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
+    >
+      <ProjectImage project={project} className="aspect-[16/10]" />
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <div className="flex items-start justify-between gap-3">
           <div>
-            <h4 className="text-sm font-semibold text-foreground mb-1">Problem</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">{project.problem}</p>
+            <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-signal">
+              ({project.index})
+            </p>
+            <h3 className="mt-1 font-display text-lg font-semibold tracking-tight">{project.title}</h3>
           </div>
-          <div>
-            <h4 className="text-sm font-semibold text-foreground mb-1">Solution</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">{project.solution}</p>
-          </div>
-          <div>
-            <h4 className="text-sm font-semibold text-foreground mb-1.5">Tech Stack</h4>
-            <div className="flex flex-wrap gap-1.5">
-              {project.tags.map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-[10px]">{tag}</Badge>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center justify-between pt-2 border-t border-border">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-bold font-sans text-primary">{project.impact}</span>
-              <span className="text-xs text-muted-foreground">{project.impactLabel}</span>
-            </div>
-            <div className="flex gap-2">
-              {project.url.startsWith("http") && (
-                <Button variant="outline" size="sm" asChild>
-                  <a href={project.url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-3.5 w-3.5" />
-                    Source
-                  </a>
-                </Button>
-              )}
-              <Button size="sm" asChild>
-                <a href={project.url} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  Live
-                </a>
-              </Button>
-            </div>
-          </div>
+          <span className="inline-flex shrink-0 items-center rounded-full border border-border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+            {project.status}
+          </span>
         </div>
-      </DialogContent>
-    </Dialog>
+        <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{project.desc}</p>
+        <div className="flex items-center justify-between border-t border-border/70 pt-3">
+          <div className="flex items-baseline gap-1.5">
+            <CountUp value={project.impact} suffix="%" className="font-display text-xl font-bold tracking-tight text-signal" />
+            <span className="text-[11px] text-muted-foreground">{project.impactLabel}</span>
+          </div>
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-signal">
+            Case study
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function FeaturedProject({ project }) {
+  return (
+    <Link
+      to={`/projects/${project.slug}`}
+      prefetch="viewport"
+      className="group relative grid overflow-hidden rounded-3xl border border-border/80 bg-card shadow-sm transition-all duration-300 hover:border-signal/40 hover:shadow-xl hover:shadow-ink/5 lg:grid-cols-2"
+    >
+      <ProjectImage project={project} className="aspect-[16/11] lg:h-full" eager />
+      <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-signal">
+            ({project.index}) — Featured
+          </p>
+          <span className="inline-flex items-center rounded-full border border-border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+            {project.status}
+          </span>
+        </div>
+        <h3 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.02] tracking-tight">
+          {project.title}
+        </h3>
+        <p className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          {project.subtitle}
+        </p>
+        <p className="mt-4 max-w-md text-pretty text-[15px] leading-relaxed text-muted-foreground">
+          {project.desc}
+        </p>
+        <div className="mt-5 flex flex-wrap gap-1.5">
+          {project.tags.slice(0, 5).map((tag) => (
+            <Badge key={tag} variant="outline" className="text-muted-foreground">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+        <div className="mt-7 flex items-center justify-between border-t border-border pt-5">
+          <div className="flex items-baseline gap-2">
+            <CountUp value={project.impact} suffix="%" className="font-display text-3xl font-bold tracking-tight text-signal" />
+            <span className="text-xs text-muted-foreground">{project.impactLabel}</span>
+          </div>
+          <span className="inline-flex translate-y-1 items-center gap-2 text-sm font-semibold opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            Read case study
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
 
 function Projects() {
-  const [ref, visible] = useReveal();
+  const [featured, ...rest] = PROJECTS;
 
   return (
-    <section className="py-16" id="projects" aria-labelledby="projects-title">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <div ref={ref} className={cn("space-y-2", visible ? "animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" : "opacity-0")}>
-          <p className="text-xs font-semibold text-primary uppercase tracking-[0.15em]">Featured Work</p>
-          <h2 className="text-3xl sm:text-4xl font-sans font-bold tracking-tight" id="projects-title">
-            Projects That{" "}
-            <span className="bg-gradient-to-r from-primary to-indigo-400 bg-clip-text text-transparent">
-              Shipped & Scaled
-            </span>
-          </h2>
+    <section className="scroll-mt-24 py-20 sm:py-28" id="projects" aria-labelledby="projects-title">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 flex flex-col gap-6 sm:mb-16 sm:flex-row sm:items-end sm:justify-between">
+          <SectionHeading
+            num="01"
+            eyebrow="Selected work"
+            title={
+              <span id="projects-title">
+                Projects that <em className="marker relative not-italic">shipped</em> and scaled
+              </span>
+            }
+          />
+          <Reveal delay={0.1}>
+            <a
+              href={CONTACT.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-signal"
+            >
+              More on GitHub
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </Reveal>
         </div>
-      </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid sm:grid-cols-2 gap-4">
-        {PROJECTS.map((project, i) => (
-          <ProjectCard key={project.title} project={project} index={i} />
-        ))}
+        <div className="space-y-6">
+          <Reveal>
+            <FeaturedProject project={featured} />
+          </Reveal>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((project, i) => (
+              <Reveal key={project.slug} delay={i * 0.08} className="h-full">
+                <ProjectCard project={project} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
