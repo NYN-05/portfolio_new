@@ -1,42 +1,57 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
 import { RELATED_TAGS, SKILLS, TIMELINE } from "../lib/content";
 
+const EASE = [0.22, 1, 0.36, 1];
+
 function Skills() {
-  const reduce = useReducedMotion();
-
   return (
-    <div className="space-y-2.5">
-      {SKILLS.map((skill) => (
-        <Reveal key={skill.name} y={18}>
-          <div className="group rounded-xl border border-border/70 bg-card p-4 transition-all duration-300 hover:border-signal/40 hover:shadow-md hover:shadow-ink/5">
-            <div className="flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-sm font-semibold">{skill.name}</p>
-                <p className="mt-0.5 truncate text-xs text-muted-foreground">{skill.desc}</p>
-              </div>
-              <div className="flex shrink-0 flex-col items-end">
-                <span className="font-display text-base font-bold tracking-tight text-signal">{skill.level}%</span>
-                <span className="font-mono text-[10px] text-muted-foreground">{skill.projects} projects</span>
-              </div>
-            </div>
-            <div className="mt-3 h-1 overflow-hidden rounded-full bg-muted">
-              <motion.div
-                className="h-full origin-left rounded-full bg-gradient-to-r from-signal to-signal/60"
-                initial={reduce ? { scaleX: 1 } : { scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true, margin: "-48px" }}
-                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-                style={{ width: `${skill.level}%` }}
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {SKILLS.map((skill) => (
+          <Reveal key={skill.name} y={18}>
+            <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5">
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-signal to-signal/30 transition-transform duration-500 group-hover:scale-x-100"
               />
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="font-display text-[15px] font-semibold tracking-tight">{skill.name}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{skill.desc}</p>
+                </div>
+                <span className="shrink-0 rounded-full border border-border px-2.5 py-1 font-mono text-[10px] text-signal">
+                  {skill.years} yrs
+                </span>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {skill.stack.map((lib) => (
+                  <span
+                    key={lib}
+                    className="rounded-full bg-muted px-2 py-0.5 font-mono text-[10px] text-muted-foreground transition-colors group-hover:text-foreground"
+                  >
+                    {lib}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-3 flex items-center justify-between border-t border-border/70 pt-2.5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                  {skill.projects} projects
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full bg-signal/50 transition-all duration-300 group-hover:bg-signal group-hover:shadow-[0_0_8px] group-hover:shadow-signal/50"
+                />
+              </div>
             </div>
-          </div>
-        </Reveal>
-      ))}
+          </Reveal>
+        ))}
+      </div>
 
-      <Reveal y={18} className="pt-1.5">
+      <Reveal y={18} className="pt-1">
         <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
           Related tooling
         </p>

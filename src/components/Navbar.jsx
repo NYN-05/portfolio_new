@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, Search, X } from "lucide-react";
 import { Button } from "./ui/button";
+import CommandPalette from "./CommandPalette";
 import { CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE, SECTION_IDS } from "../lib/content";
 import { useGoToSection } from "../hooks/useGoToSection";
 import { cn } from "../lib/utils";
@@ -12,6 +13,15 @@ function Navbar() {
   const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -91,6 +101,17 @@ function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPaletteOpen(true)}
+              className="hidden h-10 items-center gap-2 rounded-full border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:border-signal/40 hover:text-foreground sm:inline-flex"
+              aria-label="Open command palette"
+            >
+              <Search className="h-4 w-4" aria-hidden="true" />
+              <span className="hidden md:inline">Search…</span>
+              <kbd className="rounded-md border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px]">
+                Ctrl K
+              </kbd>
+            </button>
             <Button size="sm" className="hidden sm:inline-flex" asChild>
               <a href={`mailto:${CONTACT.email}`}>
                 Let&apos;s talk
@@ -144,6 +165,24 @@ function Navbar() {
                     <ArrowUpRight className="h-4 w-4 opacity-40" />
                   </motion.a>
                 ))}
+                <motion.a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(false);
+                    setPaletteOpen(true);
+                  }}
+                  initial={reduce ? false : { opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: NAV_ITEMS.length * 0.05, duration: 0.3 }}
+                  className="flex items-center justify-between rounded-xl px-3 py-3 text-base font-medium text-muted-foreground"
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="font-mono text-[10px] text-signal">(⌘K)</span>
+                    Command palette
+                  </span>
+                  <Search className="h-4 w-4 opacity-40" />
+                </motion.a>
                 <motion.div
                   initial={reduce ? false : { opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -162,6 +201,7 @@ function Navbar() {
           )}
         </AnimatePresence>
       </nav>
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </motion.header>
   );
 }

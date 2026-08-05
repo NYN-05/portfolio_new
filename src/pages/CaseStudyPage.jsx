@@ -203,7 +203,7 @@ function CaseStudyPage() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:max-w-3xl">
+            <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:max-w-3xl">
               {[
                 ["Status", project.status],
                 ["Duration", project.duration],
@@ -283,12 +283,12 @@ function CaseStudyPage() {
 
               <div className="flex flex-col gap-4 py-14">
                 <h2 className="font-display text-2xl font-semibold tracking-tight">More case studies</h2>
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {related.map((p) => (
                     <Link
                       key={p.slug}
                       to={`/projects/${p.slug}`}
-                      className="group flex items-center gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
+                      className="group flex min-w-0 items-center gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
                     >
                       <img
                         src={p.image}

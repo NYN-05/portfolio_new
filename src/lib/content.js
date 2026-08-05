@@ -34,14 +34,29 @@ export const TECHNOLOGIES = [
   "CI/CD",
 ];
 
+export const HERO_ROLES = [
+  "an ML Engineer",
+  "a Systems Architect",
+  "a Data-Driven Problem Solver",
+];
+
+export const HERO_STATUSES = [
+  "Available for internships & ML roles",
+  "Building VeriSight V2 — deepfake detection",
+  "Learning · LLM agents & Kubernetes",
+];
+
 export const TERMINAL_LINES = [
-  { type: "comment", text: "// profile.json" },
+  { type: "boot", text: "[ OK ] loading profile · systems online" },
+  { type: "boot", text: "[ OK ] mounted models · config ready" },
+  { type: "comment", text: "cat profile.json" },
   { type: "brace", text: "{" },
-  { type: "key", key: '"role"', value: '"ML Engineer"' },
-  { type: "key", key: '"focus"', value: '"production AI systems"' },
-  { type: "key", key: '"impact"', value: '"45% fraud detection ↑"' },
-  { type: "key", key: '"status"', value: '"open to opportunities"' },
+  { type: "key", text: '"role": "ML Engineer"' },
+  { type: "key", text: '"focus": "production AI systems"' },
+  { type: "key", text: '"impact": "+45% fraud detection"' },
+  { type: "key", text: '"status": "open to opportunities"' },
   { type: "brace", text: "}" },
+  { type: "boot", text: "[ OK ] profile rendered" },
 ];
 
 export const PROJECTS = [
@@ -294,12 +309,48 @@ export const PROJECTS = [
 ];
 
 export const SKILLS = [
-  { name: "Python", desc: "3+ production ML systems and data pipelines", projects: "6+", level: 92 },
-  { name: "FastAPI / Flask", desc: "Scalable async REST APIs with caching", projects: "8", level: 88 },
-  { name: "ML Engineering", desc: "CNN, ViT, GAN, OCR for real-world problems", projects: "5", level: 85 },
-  { name: "Data Processing", desc: "Feature engineering, fusion & ML pipelines", projects: "4+", level: 87 },
-  { name: "Backend Infrastructure", desc: "Docker, CI/CD, and cloud scalability", projects: "5", level: 82 },
-  { name: "React / Frontend", desc: "Responsive interfaces wired to ML backends", projects: "3", level: 78 },
+  {
+    name: "Python",
+    desc: "3+ production ML systems and data pipelines",
+    years: "3+",
+    projects: "6+",
+    stack: ["NumPy", "Pandas", "AsyncIO"],
+  },
+  {
+    name: "FastAPI / Flask",
+    desc: "Scalable async REST APIs with caching",
+    years: "2+",
+    projects: "8",
+    stack: ["FastAPI", "Redis", "Uvicorn"],
+  },
+  {
+    name: "ML Engineering",
+    desc: "CNN, ViT, GAN, OCR for real-world problems",
+    years: "2+",
+    projects: "5",
+    stack: ["PyTorch", "TensorFlow", "OpenCV"],
+  },
+  {
+    name: "Data Processing",
+    desc: "Feature engineering, fusion & ML pipelines",
+    years: "2+",
+    projects: "4+",
+    stack: ["scikit-learn", "TF-IDF", "Polars"],
+  },
+  {
+    name: "Backend Infrastructure",
+    desc: "Docker, CI/CD, and cloud scalability",
+    years: "1+",
+    projects: "5",
+    stack: ["Docker", "GitHub Actions", "AWS"],
+  },
+  {
+    name: "React / Frontend",
+    desc: "Responsive interfaces wired to ML backends",
+    years: "1+",
+    projects: "3",
+    stack: ["React", "Vite", "Tailwind"],
+  },
 ];
 
 export const RELATED_TAGS = [
