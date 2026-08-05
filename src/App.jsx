@@ -25,7 +25,15 @@ function RouteEffects() {
       const tryScroll = () => {
         const el = document.getElementById(requested);
         if (el) {
-          lenis?.scrollTo(el, { offset: -84, duration: 0.8 });
+          const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 84);
+          lenis?.resize();
+          lenis?.scrollTo(top, { duration: 0.9 });
+          // Fallback if Lenis carried stale measurements for the fresh route.
+          window.setTimeout(() => {
+            if (Math.abs((el).getBoundingClientRect().top - 84) > 220) {
+              window.scrollTo({ top, behavior: "smooth" });
+            }
+          }, 500);
         } else if (attempts < 12) {
           attempts += 1;
           setTimeout(tryScroll, 100);
