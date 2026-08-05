@@ -81,6 +81,9 @@
   --animate-dialog-out: dialog-out 0.2s ease-in forwards;
   --animate-overlay-in: overlay-in 0.25s ease-out;
   --animate-overlay-out: overlay-out 0.2s ease-in forwards;
+  --animate-drift-a: drift-a 26s ease-in-out infinite alternate;
+  --animate-drift-b: drift-b 32s ease-in-out infinite alternate;
+  --animate-dash: dash 1.6s linear infinite;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -122,6 +125,22 @@
   @keyframes overlay-out {
     from { opacity: 1; }
     to { opacity: 0; }
+  }
+
+  @keyframes drift-a {
+    0% { transform: translate3d(-6%, -4%, 0) scale(1); }
+    50% { transform: translate3d(7%, 6%, 0) scale(1.12); }
+    100% { transform: translate3d(-3%, 3%, 0) scale(0.96); }
+  }
+
+  @keyframes drift-b {
+    0% { transform: translate3d(4%, 3%, 0) scale(1.05); }
+    50% { transform: translate3d(-8%, -5%, 0) scale(0.94); }
+    100% { transform: translate3d(5%, -2%, 0) scale(1.08); }
+  }
+
+  @keyframes dash {
+    to { stroke-dashoffset: -20; }
   }
 }
 
