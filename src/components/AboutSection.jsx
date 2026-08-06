@@ -3,31 +3,31 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
-import { RELATED_TAGS, SKILLS, TIMELINE } from "../lib/content";
+import { BRANDING, RELATED_TAGS, SKILLS, TIMELINE } from "../lib/content";
 
 const EASE = [0.22, 1, 0.36, 1];
 
 function Skills() {
   return (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div className="space-y-10">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {SKILLS.map((skill) => (
           <Reveal key={skill.name} y={18}>
-            <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5">
+            <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5">
               <span
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-signal to-signal/30 transition-transform duration-500 group-hover:scale-x-100"
               />
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-display text-[15px] font-semibold tracking-tight">{skill.name}</p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{skill.desc}</p>
+                  <p className="font-display text-base font-semibold tracking-tight">{skill.name}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{skill.desc}</p>
                 </div>
                 <span className="shrink-0 rounded-full border border-border px-2.5 py-1 font-mono text-[10px] text-signal">
                   {skill.years} yrs
                 </span>
               </div>
-              <div className="mt-3 flex flex-wrap gap-1.5">
+              <div className="mt-4 flex flex-wrap gap-2">
                 {skill.stack.map((lib) => (
                   <span
                     key={lib}
@@ -37,7 +37,7 @@ function Skills() {
                   </span>
                 ))}
               </div>
-              <div className="mt-3 flex items-center justify-between border-t border-border/70 pt-2.5">
+              <div className="mt-4 flex items-center justify-between border-t border-border/70 pt-3">
                 <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
                   {skill.projects} projects
                 </span>
@@ -76,7 +76,7 @@ function Journey() {
   const inView = useInView(ref, { once: true, margin: "-64px" });
 
   return (
-    <ol ref={ref} className="relative space-y-8 border-l border-border pl-8">
+    <ol ref={ref} className="relative space-y-10 border-l border-border pl-8">
       <motion.span
         aria-hidden="true"
         initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
@@ -107,13 +107,78 @@ function Journey() {
               </span>
             )}
           </p>
-          <p className="mt-1.5 font-display text-[17px] font-semibold leading-snug tracking-tight">
+          <p className="mt-1.5 font-display text-lg font-semibold leading-snug tracking-tight">
             {entry.text}
           </p>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{entry.detail}</p>
+          <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{entry.detail}</p>
         </motion.li>
       ))}
     </ol>
+  );
+}
+
+function Branding() {
+  return (
+    <div className="space-y-6 rounded-2xl border border-border/70 bg-card p-6">
+      <div>
+        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-signal">
+          Mission
+        </p>
+        <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{BRANDING.mission}</p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-5 border-t border-border/70 pt-4">
+        <div>
+          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            Learning now
+          </p>
+          <ul className="mt-2 space-y-1.5">
+            {BRANDING.learningGoals.map((goal) => (
+              <li key={goal} className="flex gap-2 text-sm leading-relaxed text-muted-foreground">
+                <span aria-hidden="true" className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-signal/70" />
+                {goal}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            Favorite tools
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {BRANDING.favorites.map((tool) => (
+              <span
+                key={tool}
+                className="rounded-full border border-border bg-muted px-2 py-0.5 font-mono text-[10px] text-muted-foreground"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-border/70 pt-4">
+        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+          Career objective
+        </p>
+        <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{BRANDING.objective}</p>
+      </div>
+
+      <div className="border-t border-border/70 pt-4">
+        <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+          Fun facts
+        </p>
+        <ul className="mt-2 space-y-1.5">
+          {BRANDING.funFacts.map((fact) => (
+              <li key={fact} className="flex gap-2 text-sm leading-relaxed text-muted-foreground">
+              <span aria-hidden="true" className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-signal/70" />
+              {fact}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -132,7 +197,7 @@ function AboutSection() {
                 </span>
               }
             />
-            <Reveal delay={0.15} className="mt-6 space-y-4">
+            <Reveal delay={0.15} className="mt-6 max-w-prose space-y-4">
               <p className="text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                 I&apos;m an ML engineer who takes models past the notebook — into async
                 APIs, containerized services, and production pipelines that hold up
@@ -161,8 +226,11 @@ function AboutSection() {
               </div>
             </Reveal>
           </div>
+          <div className="space-y-14">
+            <Reveal>
+              <Branding />
+            </Reveal>
 
-          <div className="space-y-12">
             <Reveal>
               <h3 className="mb-5 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
                 Skills with proof

@@ -111,7 +111,11 @@ function TerminalCard({ start = 0, reduce = false }) {
         aria-hidden="true"
         className="absolute -inset-4 rounded-[28px] bg-signal/10 blur-2xl"
       />
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-xl shadow-ink/5">
+      <div
+        role="region"
+        aria-label="Interactive terminal"
+        className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-xl shadow-ink/5"
+      >
         <div className="flex items-center gap-2 border-b border-border px-4 py-3 sm:px-5">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
@@ -160,7 +164,11 @@ function StatusChip({ reduce }) {
   }, [reduce]);
 
   return (
-    <span className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-medium text-foreground shadow-xs">
+    <span
+      role="status"
+      aria-label="Availability status"
+      className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-medium text-foreground shadow-xs"
+    >
       <span className="h-1.5 w-1.5 shrink-0 animate-pulse-dot rounded-full bg-signal" aria-hidden="true" />
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span

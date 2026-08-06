@@ -12,7 +12,7 @@ function Principles() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 sm:mb-16">
           <SectionHeading
-            num="03"
+            num="04"
             eyebrow="Principles"
             title={
               <span id="principles-title">
@@ -22,12 +22,12 @@ function Principles() {
           />
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {PRINCIPLES.map((principle, i) => {
             const Icon = ICONS[i];
             return (
               <Reveal key={principle.num} delay={i * 0.08} className="h-full">
-                <article className="group flex h-full flex-col rounded-2xl border border-border/80 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5">
+                <article className="group flex h-full flex-col rounded-2xl border border-border/80 bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]">
                   <div className="flex items-start justify-between">
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-signal/10 text-signal transition-colors duration-300 group-hover:bg-signal group-hover:text-primary-foreground">
                       <Icon className="h-5 w-5" />
@@ -36,9 +36,9 @@ function Principles() {
                       {principle.num}
                     </span>
                   </div>
-                  <h3 className="mt-5 font-display text-lg font-semibold tracking-tight">{principle.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{principle.desc}</p>
-                  <div className="mt-5 flex items-baseline gap-2 border-t border-border/70 pt-4">
+                  <h3 className="mt-5 font-display text-xl font-semibold tracking-tight">{principle.title}</h3>
+                  <p className="mt-2.5 flex-1 text-[15px] leading-relaxed text-muted-foreground">{principle.desc}</p>
+                  <div className="mt-6 flex items-baseline gap-2 border-t border-border/70 pt-4">
                     <span className="font-display text-xl font-bold tracking-tight text-signal">{principle.metric}</span>
                     <span className="text-[11px] text-muted-foreground">{principle.metricLabel}</span>
                   </div>

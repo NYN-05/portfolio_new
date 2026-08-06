@@ -38,28 +38,28 @@ function GitHubSection() {
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {visible.map((repo, i) => (
             <Reveal key={repo.name} delay={i * 0.05}>
               <a
                 href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex min-w-0 items-start gap-4 rounded-2xl border border-border/80 bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
+                className="group flex min-w-0 items-start gap-4 rounded-2xl border border-border/80 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-signal/10 text-signal">
                   <GitBranch className="h-4 w-4" aria-hidden="true" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-display text-[15px] font-semibold tracking-tight">
+                  <p className="truncate font-display text-base font-semibold tracking-tight transition-colors group-hover:text-signal">
                     {repo.name}
                   </p>
-                  <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                     {repo.description ?? "No description provided."}
                   </p>
-                  <div className="mt-3 flex items-center gap-4 font-mono text-[10px] text-muted-foreground">
+                  <div className="mt-4 flex items-center gap-3 font-mono text-[10px] text-muted-foreground">
                     {repo.language && (
-                      <span className="inline-flex items-center gap-1.5">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/60 px-2.5 py-1">
                         <span
                           className={cn(
                             "h-1.5 w-1.5 rounded-full",
@@ -70,6 +70,7 @@ function GitHubSection() {
                         {repo.language}
                       </span>
                     )}
+                    <span className="h-3.5 w-px bg-border" aria-hidden="true" />
                     <span className="inline-flex items-center gap-1">
                       <Star className="h-3 w-3" aria-hidden="true" />
                       {repo.stars}

@@ -46,8 +46,8 @@ function CardExpander({ project }) {
   return (
     <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-400 ease-out group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr]">
       <div className="overflow-hidden">
-        <div className="space-y-3 pt-3">
-          <p className="text-xs leading-relaxed text-muted-foreground">{project.problem}</p>
+        <div className="space-y-3 pt-4">
+          <p className="text-sm leading-relaxed text-muted-foreground">{project.problem}</p>
           <div className="flex flex-wrap gap-1.5">
             {project.tags.map((tag) => (
               <Badge
@@ -70,31 +70,31 @@ function ProjectCard({ project }) {
     <Link
       to={`/projects/${project.slug}`}
       prefetch="viewport"
-      className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
+      className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]"
     >
       <ProjectImage project={project} className="aspect-[16/10]" overlay />
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="flex flex-1 flex-col gap-4 p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-signal">
               ({project.index})
             </p>
-            <h3 className="mt-1 font-display text-lg font-semibold tracking-tight">{project.title}</h3>
+            <h3 className="mt-1.5 font-display text-xl font-semibold tracking-tight">{project.title}</h3>
           </div>
           <span className="inline-flex shrink-0 items-center rounded-full border border-border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
             {project.status}
           </span>
         </div>
-        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-muted-foreground">{project.desc}</p>
+        <p className="line-clamp-2 flex-1 text-[15px] leading-relaxed text-muted-foreground">{project.desc}</p>
         <CardExpander project={project} />
-        <div className="flex items-center justify-between border-t border-border/70 pt-3">
+        <div className="flex items-center justify-between gap-3 border-t border-border/70 pt-4">
           <div className="flex items-baseline gap-1.5">
-            <CountUp value={project.impact} suffix="%" className="font-display text-xl font-bold tracking-tight text-signal" />
+            <CountUp value={project.impact} suffix="%" className="font-display text-2xl font-bold tracking-tight text-signal" />
             <span className="text-[11px] text-muted-foreground">{project.impactLabel}</span>
           </div>
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-signal">
+          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground transition-colors group-hover:text-signal">
             Case study
-            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>
         </div>
       </div>
@@ -119,16 +119,16 @@ function FeaturedProject({ project }) {
             {project.status}
           </span>
         </div>
-        <h3 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.02] tracking-tight">
+        <h3 className="mt-5 font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.02] tracking-tight">
           {project.title}
         </h3>
-        <p className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        <p className="mt-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
           {project.subtitle}
         </p>
-        <p className="mt-4 max-w-md text-pretty text-[15px] leading-relaxed text-muted-foreground">
+        <p className="mt-5 max-w-md text-pretty text-base leading-relaxed text-muted-foreground">
           {project.desc}
         </p>
-        <div className="mt-5 flex flex-wrap gap-1.5">
+        <div className="mt-6 flex flex-wrap gap-2">
           {project.tags.slice(0, 5).map((tag) => (
             <Badge key={tag} variant="outline" className="text-muted-foreground">
               {tag}
@@ -137,7 +137,7 @@ function FeaturedProject({ project }) {
         </div>
         <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-400 ease-out group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr]">
           <div className="overflow-hidden">
-            <p className="max-w-md pt-4 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="max-w-md pt-4 text-sm leading-relaxed text-muted-foreground">
               <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-signal">
                 Problem&nbsp;
               </span>
@@ -145,7 +145,7 @@ function FeaturedProject({ project }) {
             </p>
           </div>
         </div>
-        <div className="mt-7 flex items-center justify-between border-t border-border pt-5">
+        <div className="mt-8 flex items-center justify-between gap-3 border-t border-border pt-5">
           <div className="flex items-baseline gap-2">
             <CountUp value={project.impact} suffix="%" className="font-display text-3xl font-bold tracking-tight text-signal" />
             <span className="text-xs text-muted-foreground">{project.impactLabel}</span>
@@ -189,11 +189,11 @@ function Projects() {
           </Reveal>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           <Reveal>
             <FeaturedProject project={featured} />
           </Reveal>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map((project, i) => (
               <Reveal key={project.slug} delay={i * 0.08} className="h-full">
                 <ProjectCard project={project} />

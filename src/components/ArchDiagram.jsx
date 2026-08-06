@@ -97,7 +97,14 @@ function ArrowMarker() {
 
 function ArchDiagram({ project }) {
   const models = project.tags.slice(0, 4);
-  const stepLabels = ["Input", project.pipeline[0]?.split("—")[0] ?? "Ingest", "Parallel workers", "Fusion", "Verdict"];
+  const pipeline = project.caseStudy?.pipeline ?? [];
+  const stepLabels = [
+    "Input",
+    pipeline[0]?.split("—")[0] ?? "Ingest",
+    "Parallel workers",
+    "Fusion",
+    "Verdict",
+  ];
 
   const centerY = 110;
   const io = { x: 16, y: centerY - NODE_H / 2 };

@@ -1,11 +1,43 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, Menu, Search, X } from "lucide-react";
+import { ArrowUpRight, Menu, Moon, Search, Sun, X } from "lucide-react";
 import { Button } from "./ui/button";
 import CommandPalette from "./CommandPalette";
 import { CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE, SECTION_IDS } from "../lib/content";
 import { useGoToSection } from "../hooks/useGoToSection";
+import { useTheme } from "../hooks/useTheme";
 import { cn } from "../lib/utils";
+
+function ThemeToggle({ className }) {
+  const { theme, toggleTheme } = useTheme();
+  const dark = theme === "dark";
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className={cn(
+        "flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-all duration-200 hover:border-signal/40 hover:text-signal active:scale-95",
+        className
+      )}
+      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+      title={dark ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={dark ? "moon" : "sun"}
+          initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+          animate={{ rotate: 0, opacity: 1, scale: 1 }}
+          exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          aria-hidden="true"
+        >
+          {dark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+        </motion.span>
+      </AnimatePresence>
+    </button>
+  );
+}
 
 function Navbar() {
   const scrollToAnchor = useGoToSection();
@@ -30,16 +62,25 @@ function Navbar() {
       for (let i = SECTION_IDS.length - 1; i >= 0; i--) {
         const id = SECTION_IDS[i];
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 120) {
+        if (el && el.getBoundingClientRect().top <= 200) {
           current = id;
           break;
         }
       }
       setActive(current);
     };
+    // Fonts/GitHub data can shift the layout after the last scroll event,
+    // so re-evaluate on resize and periodically to keep the highlight honest.
+    const ro = new ResizeObserver(() => onScroll());
+    ro.observe(document.body);
+    const iv = window.setInterval(onScroll, 1000);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+      window.clearInterval(iv);
+    };
   }, []);
 
   const closeAndGo = (e, href) => {
@@ -83,7 +124,7 @@ function Navbar() {
                 href={item.href}
                 onClick={(e) => scrollToAnchor(e, item.href)}
                 className={cn(
-                  "group relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                  "group relative flex min-h-11 items-center rounded-full px-4 py-2.5 text-sm font-medium transition-colors",
                   active === item.id ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 )}
                 aria-current={active === item.id ? "true" : undefined}
@@ -101,9 +142,10 @@ function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={() => setPaletteOpen(true)}
-              className="hidden h-10 items-center gap-2 rounded-full border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:border-signal/40 hover:text-foreground sm:inline-flex"
+              className="hidden h-11 items-center gap-2 rounded-full border border-border bg-card px-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-signal/40 hover:text-foreground active:scale-[0.98] sm:inline-flex"
               aria-label="Open command palette"
             >
               <Search className="h-4 w-4" aria-hidden="true" />
@@ -119,7 +161,7 @@ function Navbar() {
               </a>
             </Button>
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground md:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-all duration-200 active:scale-95 md:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -187,8 +229,9 @@ function Navbar() {
                   initial={reduce ? false : { opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.3 }}
-                  className="mt-2"
+                  className="mt-2 flex items-center gap-2"
                 >
+                  <ThemeToggle className="shrink-0" />
                   <Button className="w-full" size="lg" asChild>
                     <a href={`mailto:${CONTACT.email}`}>
                       Let&apos;s talk

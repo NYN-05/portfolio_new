@@ -80,7 +80,7 @@ function Toc({ slug }) {
                 }}
                 aria-current={isActive ? "true" : undefined}
                 className={cn(
-                  "-ml-px flex items-center gap-2.5 border-l-2 py-1.5 pl-4 text-xs transition-colors",
+                  "-ml-px flex min-h-9 items-center gap-2.5 border-l-2 py-2 pl-4 text-[13px] transition-colors",
                   isActive
                     ? "border-signal font-medium text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
@@ -123,20 +123,20 @@ function SectionBody({ section, value }) {
               >
                 {i + 1}
               </span>
-              <p className="pt-0.5 text-pretty text-[15px] leading-relaxed text-foreground/85">{step}</p>
+              <p className="pt-0.5 text-pretty text-base leading-relaxed text-foreground/90">{step}</p>
             </li>
           ))}
         </ol>
       )}
 
       {section.type === "prose" && (
-        <p className="max-w-2xl text-pretty text-[15px] leading-relaxed text-foreground/85">{value}</p>
+        <p className="max-w-prose text-pretty text-base leading-relaxed text-foreground/90">{value}</p>
       )}
 
       {section.type === "list" && (
-        <ul className="max-w-2xl space-y-3">
+        <ul className="max-w-prose space-y-3">
           {value.map((item) => (
-            <li key={item} className="flex gap-3 text-[15px] leading-relaxed text-foreground/85">
+            <li key={item} className="flex gap-3 text-base leading-relaxed text-foreground/90">
               <span
                 aria-hidden="true"
                 className={cn(
@@ -198,7 +198,7 @@ function CaseStudyPage() {
           </Reveal>
 
           <Reveal delay={0.16}>
-            <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-foreground/80">
+            <p className="mt-6 max-w-prose text-pretty text-lg leading-relaxed text-foreground/90">
               {cs.tagline}
             </p>
           </Reveal>
@@ -285,7 +285,7 @@ function CaseStudyPage() {
 
               <div className="flex flex-col gap-4 py-14">
                 <h2 className="font-display text-2xl font-semibold tracking-tight">More case studies</h2>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {related.map((p) => (
                     <Link
                       key={p.slug}
