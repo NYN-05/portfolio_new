@@ -25,3 +25,13 @@ skills/
 *.njsproj
 *.sln
 *.sw?
+
+# Test artifacts
+.pytest_cache/
+__pycache__/
+play_test/reports/
+play_test/screenshots/
+play_test/traces/
+play_test/videos/
+*.pyc
+play-
