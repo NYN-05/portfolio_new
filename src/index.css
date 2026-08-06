@@ -41,27 +41,27 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: hsl(42 25% 95%);
-  --color-foreground: hsl(40 14% 8%);
-  --color-card: hsl(43 30% 98%);
-  --color-card-foreground: hsl(40 14% 8%);
-  --color-popover: hsl(43 30% 98%);
-  --color-popover-foreground: hsl(40 14% 8%);
-  --color-primary: hsl(17 90% 47%);
-  --color-primary-foreground: hsl(40 30% 97%);
-  --color-secondary: hsl(40 18% 90%);
-  --color-secondary-foreground: hsl(40 14% 12%);
-  --color-muted: hsl(42 18% 90%);
-  --color-muted-foreground: hsl(40 8% 42%);
-  --color-accent: hsl(40 22% 90%);
-  --color-accent-foreground: hsl(40 14% 8%);
-  --color-destructive: hsl(0 72% 45%);
-  --color-destructive-foreground: hsl(40 30% 97%);
-  --color-border: hsl(40 16% 83%);
-  --color-input: hsl(40 16% 83%);
-  --color-ring: hsl(17 90% 45%);
-  --color-ink: hsl(40 14% 8%);
-  --color-signal: hsl(17 90% 47%);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-signal: var(--signal);
 
   --font-sans: "Instrument Sans Variable", "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
@@ -144,6 +144,67 @@
   }
 }
 
+:root {
+  color-scheme: light;
+  --background: hsl(42 25% 95%);
+  --foreground: hsl(40 14% 8%);
+  --card: hsl(43 30% 98%);
+  --card-foreground: hsl(40 14% 8%);
+  --popover: hsl(43 30% 98%);
+  --popover-foreground: hsl(40 14% 8%);
+  --primary: hsl(17 90% 47%);
+  --primary-foreground: hsl(40 30% 97%);
+  --secondary: hsl(40 18% 90%);
+  --secondary-foreground: hsl(40 14% 12%);
+  --muted: hsl(42 18% 90%);
+  --muted-foreground: hsl(40 9% 48%);
+  --accent: hsl(40 22% 90%);
+  --accent-foreground: hsl(40 14% 8%);
+  --destructive: hsl(0 72% 45%);
+  --destructive-foreground: hsl(40 30% 97%);
+  --border: hsl(40 16% 83%);
+  --input: hsl(40 16% 83%);
+  --ring: hsl(17 90% 45%);
+  --ink: hsl(40 14% 8%);
+  --signal: hsl(17 90% 47%);
+}
+
+.dark {
+  color-scheme: dark;
+  --background: hsl(228 22% 7%);
+  --foreground: hsl(40 22% 94%);
+  --card: hsl(226 20% 10%);
+  --card-foreground: hsl(40 22% 94%);
+  --popover: hsl(226 20% 10%);
+  --popover-foreground: hsl(40 22% 94%);
+  --primary: hsl(17 92% 56%);
+  --primary-foreground: hsl(228 22% 7%);
+  --secondary: hsl(226 16% 16%);
+  --secondary-foreground: hsl(40 20% 90%);
+  --muted: hsl(226 16% 16%);
+  --muted-foreground: hsl(40 13% 72%);
+  --accent: hsl(226 16% 18%);
+  --accent-foreground: hsl(40 22% 94%);
+  --destructive: hsl(0 70% 55%);
+  --destructive-foreground: hsl(40 30% 97%);
+  --border: hsl(226 14% 22%);
+  --input: hsl(226 14% 22%);
+  --ring: hsl(17 92% 60%);
+  --ink: hsl(40 22% 94%);
+  --signal: hsl(17 92% 56%);
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.2s ease,
+    fill 0.35s ease !important;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -156,6 +217,8 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
     font-variation-settings: "slnt" 0;
     overflow-x: hidden;
   }
@@ -179,6 +242,34 @@
   }
 }
 
+@media print {
+  @page {
+    margin: 1.2cm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  header,
+  footer,
+  .grain,
+  .fixed,
+  .ambient-bg {
+    display: none !important;
+  }
+
+  .resume-page {
+    padding-top: 0 !important;
+  }
+
+  .resume-page > * {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
@@ -192,7 +283,7 @@
 
   /* Editorial dotted grid */
   .dot-grid {
-    background-image: radial-gradient(circle, hsl(40 14% 30% / 0.16) 1px, transparent 1px);
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1px);
     background-size: 26px 26px;
   }
 
@@ -204,7 +295,7 @@
     height: 0.34em;
     z-index: -1;
     border-radius: 0.2em;
-    background: hsl(17 90% 47% / 0.18);
+    background: color-mix(in srgb, var(--signal) 18%, transparent);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
