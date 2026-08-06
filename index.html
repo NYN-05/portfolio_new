@@ -18,6 +18,15 @@
     <meta name="twitter:card" content="summary" />
     <title>Jhashank Nayan — ML Engineer</title>
     <link rel="manifest" href="/manifest.json" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("portfolio-theme");
+          var dark = t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
