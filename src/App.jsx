@@ -3,10 +3,18 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "motion/react";
 import { useLenis } from "lenis/react";
 import IntroLoader from "./components/IntroLoader";
+import ErrorBoundary from "./components/ErrorBoundary";
 import HomePage from "./pages/HomePage";
 import AmbientBackground from "./components/effects/AmbientBackground";
+import AiAssistant from "./components/AiAssistant";
+import BackToTop from "./components/BackToTop";
+import PageLoader from "./components/PageLoader";
 
 const CaseStudyPage = lazy(() => import("./pages/CaseStudyPage"));
+const ResumePage = lazy(() => import("./pages/ResumePage"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function RouteEffects() {
   const location = useLocation();
@@ -74,29 +82,64 @@ function App() {
 
       <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[65] opacity-[0.05]" />
       <AmbientBackground />
+      <AiAssistant />
+      <BackToTop />
 
       <RouteEffects />
 
-      <motion.div
-        key={location.pathname}
-        initial={reduce ? false : { opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10"
-      >
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route
-            path="/projects/:slug"
-            element={
-              <Suspense fallback={null}>
-                <CaseStudyPage />
-              </Suspense>
-            }
-          />
-          <Route path="*" element={<HomePage />} />
-        </Routes>
-      </motion.div>
+        <motion.div
+          key={location.pathname}
+          initial={reduce ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10"
+        >
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/resume"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <ResumePage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/blog"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <BlogPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/blog/:slug"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <BlogPostPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/projects/:slug"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <CaseStudyPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <Suspense fallback={<PageLoader />}>
+                    <NotFoundPage />
+                  </Suspense>
+                }
+              />
+            </Routes>
+          </ErrorBoundary>
+        </motion.div>
     </MotionConfig>
   );
 }
