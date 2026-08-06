@@ -36,6 +36,22 @@ function buildActions(goTo, navigate) {
       run: () => navigate(`/projects/${project.slug}`),
     })),
     {
+      id: "resume",
+      group: "Pages",
+      label: "View resume",
+      hint: "PDF",
+      icon: FileText,
+      run: () => navigate("/resume"),
+    },
+    {
+      id: "blog",
+      group: "Pages",
+      label: "Read the blog",
+      hint: "✎",
+      icon: FileText,
+      run: () => navigate("/blog"),
+    },
+    {
       id: "github",
       group: "Links",
       label: "GitHub profile",
@@ -99,6 +115,28 @@ function CommandPalette({ open, onOpenChange }) {
       clearTimeout(timer);
       document.documentElement.style.overflow = "";
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onTab = (e) => {
+      if (e.key !== "Tab") return;
+      const focusables = listRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusables?.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onTab);
+    return () => window.removeEventListener("keydown", onTab);
   }, [open]);
 
   const current = Math.min(active, Math.max(filtered.length - 1, 0));
