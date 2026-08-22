@@ -24,9 +24,11 @@ import Reveal from "../components/Reveal";
 import ArchDiagram from "../components/ArchDiagram";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import { PROJECTS } from "../lib/content";
+import { PROJECTS } from "../content/projects";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { cn } from "../lib/utils";
+
+const caseStudies = import.meta.glob("../content/case-studies/*.js", { import: "default" });
 
 const SECTIONS = [
   { id: "problem", icon: Target, label: "Problem", type: "prose", key: "problem" },
@@ -159,7 +161,19 @@ function CaseStudyPage() {
   const project = useMemo(() => PROJECTS.find((p) => p.slug === slug), [slug]);
   const index = useMemo(() => PROJECTS.findIndex((p) => p.slug === slug), [slug]);
 
-  const cs = project?.caseStudy;
+  const csModule = useMemo(() => {
+    const key = `../content/case-studies/${slug}.js`;
+    const module = caseStudies[key];
+    if (!module) return null;
+    return module();
+  }, [slug, caseStudies]);
+
+  const cs = useMemo(() => {
+    const mod = csModule;
+    if (!mod) return null;
+    return mod.default ?? mod;
+  }, [csModule]);
+
   const related = useMemo(() => PROJECTS.filter((p) => p.slug !== slug), [slug]);
   const next = index >= 0 ? PROJECTS[(index + 1) % PROJECTS.length] : null;
 

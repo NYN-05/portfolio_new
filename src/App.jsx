@@ -2,6 +2,8 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "motion/react";
 import { useLenis } from "lenis/react";
+import { EASE } from "./lib/motion";
+import { scrollToSectionWithRetry, scrollToTopImmediate } from "./lib/scroll";
 import IntroLoader from "./components/IntroLoader";
 import ErrorBoundary from "./components/ErrorBoundary";
 import HomePage from "./pages/HomePage";
@@ -27,39 +29,11 @@ function RouteEffects() {
       return;
     }
 
-    let cancelled = false;
     const requested = location.state?.scrollTo;
     if (requested) {
-      // Sections may still be lazy-loading after navigation — retry until mounted.
-      let attempts = 0;
-      const timeouts = [];
-      const tryScroll = () => {
-        const el = document.getElementById(requested);
-        if (el) {
-          const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 84);
-          lenis?.resize();
-          lenis?.scrollTo(top, { duration: 0.9 });
-          // Fallback if Lenis carried stale measurements for the fresh route.
-          timeouts.push(
-            window.setTimeout(() => {
-              if (!cancelled && Math.abs(el.getBoundingClientRect().top - 84) > 220) {
-                window.scrollTo({ top, behavior: "smooth" });
-              }
-            }, 500)
-          );
-        } else if (attempts < 12 && !cancelled) {
-          attempts += 1;
-          timeouts.push(setTimeout(tryScroll, 100));
-        }
-      };
-      tryScroll();
-      return () => {
-        cancelled = true;
-        timeouts.forEach(clearTimeout);
-      };
+      return scrollToSectionWithRetry(lenis, requested);
     }
-    lenis?.scrollTo(0, { immediate: true });
-    window.scrollTo(0, 0);
+    scrollToTopImmediate(lenis);
   }, [location, lenis]);
 
   return null;
@@ -98,7 +72,7 @@ function App() {
           key={location.pathname}
           initial={reduce ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.4, ease: EASE }}
           className="relative z-10"
         >
           <ErrorBoundary>

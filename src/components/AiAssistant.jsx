@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Bot, Send, Sparkles, X } from "lucide-react";
-import { CONTACT, NAME, PROJECTS, RESUME, ROLE, SKILLS } from "../lib/content";
+import { CONTACT, NAME, ROLE } from "../content/profile";
+import { PROJECTS } from "../content/projects";
+import { RESUME, SKILLS } from "../content/career";
 import { cn } from "../lib/utils";
-
-const EASE = [0.22, 1, 0.36, 1];
+import { EASE } from "../lib/motion";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { useScrollLock } from "../hooks/useScrollLock";
 
 const replyDelay = () => 500 + Math.random() * 400;
 
@@ -105,40 +108,24 @@ function AiAssistant() {
   const toggleRef = useRef(null);
   const openedRef = useRef(false);
 
+  useScrollLock(open);
+
   useEffect(() => {
     if (open) {
       openedRef.current = true;
       inputRef.current?.focus();
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      document.documentElement.style.overflow = "";
-      if (openedRef.current) toggleRef.current?.focus();
+    } else if (openedRef.current) {
+      toggleRef.current?.focus();
     }
-    return () => {
-      document.documentElement.style.overflow = "";
-    };
   }, [open]);
+
+  useFocusTrap(listRef, open);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => {
       if (e.key === "Escape") {
         setOpen(false);
-        return;
-      }
-      if (e.key !== "Tab") return;
-      const focusables = listRef.current?.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (!focusables?.length) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
       }
     };
     window.addEventListener("keydown", onKey);

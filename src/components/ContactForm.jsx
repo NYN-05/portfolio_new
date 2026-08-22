@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
-import { CONTACT } from "../lib/content";
+import { CONTACT } from "../content/profile";
 
 const FIELD_CLASSES =
   "h-12 w-full rounded-xl border border-border bg-background px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-signal/50 focus-visible:ring-2 focus-visible:ring-ring/40";

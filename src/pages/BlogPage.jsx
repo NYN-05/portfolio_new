@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import { Badge } from "../components/ui/badge";
-import { BLOG_POSTS } from "../lib/content";
+import { BLOG_POSTS } from "../content/posts";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function BlogPage() {

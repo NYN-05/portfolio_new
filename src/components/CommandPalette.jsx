@@ -10,11 +10,13 @@ import {
   Mail,
   Search,
 } from "lucide-react";
-import { CONTACT, NAV_ITEMS, PROJECTS } from "../lib/content";
+import { CONTACT, NAV_ITEMS } from "../content/profile";
+import { PROJECTS } from "../content/projects";
 import { useGoToSection } from "../hooks/useGoToSection";
 import { cn } from "../lib/utils";
-
-const EASE = [0.22, 1, 0.36, 1];
+import { EASE } from "../lib/motion";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { useScrollLock } from "../hooks/useScrollLock";
 const noopEvent = { preventDefault: () => {} };
 
 function buildActions(goTo, navigate) {
@@ -116,42 +118,20 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
     onOpenChange(false);
   };
 
+  useScrollLock(open);
+
   useEffect(() => {
     if (open) {
       wasOpenRef.current = true;
       const timer = setTimeout(() => inputRef.current?.focus(), 30);
-      document.documentElement.style.overflow = "hidden";
-      return () => {
-        clearTimeout(timer);
-        document.documentElement.style.overflow = "";
-      };
+      return () => clearTimeout(timer);
     }
     if (wasOpenRef.current && triggerRef?.current) {
       triggerRef.current.focus();
     }
   }, [open, triggerRef]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onTab = (e) => {
-      if (e.key !== "Tab") return;
-      const focusables = listRef.current?.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (!focusables?.length) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener("keydown", onTab);
-    return () => window.removeEventListener("keydown", onTab);
-  }, [open]);
+  useFocusTrap(listRef, open);
 
   useEffect(() => {
     const el = listRef.current?.querySelector('[data-palette-active="true"]');

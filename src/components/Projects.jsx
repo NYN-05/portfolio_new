@@ -5,7 +5,8 @@ import { Badge } from "./ui/badge";
 import SectionHeading from "./SectionHeading";
 import CountUp from "./CountUp";
 import Reveal from "./Reveal";
-import { CONTACT, PROJECTS } from "../lib/content";
+import { CONTACT } from "../content/profile";
+import { PROJECTS } from "../content/projects";
 import { cn } from "../lib/utils";
 
 function ProjectImage({ project, className, eager = false, overlay = false }) {

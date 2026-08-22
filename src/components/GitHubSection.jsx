@@ -2,7 +2,7 @@ import { GitBranch, GitFork, Star } from "lucide-react";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import useGitHubRepos from "../hooks/useGitHubRepos";
-import { CONTACT } from "../lib/content";
+import { CONTACT } from "../content/profile";
 import { cn } from "../lib/utils";
 
 const LANGUAGE_DOTS = {

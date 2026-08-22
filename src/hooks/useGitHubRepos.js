@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PROJECTS } from "../lib/content";
+import { PROJECTS } from "../content/projects";
 
 const FALLBACK_REPOS = PROJECTS.map((project) => ({
   name: project.slug,

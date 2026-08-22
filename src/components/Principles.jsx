@@ -1,7 +1,7 @@
 import { FlaskConical, Network, ShieldCheck, Zap } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
-import { PRINCIPLES } from "../lib/content";
+import { PRINCIPLES } from "../content/career";
 
 const ICONS = [Network, FlaskConical, ShieldCheck, Zap];
 

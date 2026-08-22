@@ -3,10 +3,9 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Hammer, Rocket } from "lucide-react";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
-import { ROADMAP } from "../lib/content";
+import { ROADMAP } from "../content/career";
 import { cn } from "../lib/utils";
-
-const EASE = [0.22, 1, 0.36, 1];
+import { EASE } from "../lib/motion";
 
 const TAG_STYLES = {
   Research: "border-signal/40 bg-signal/10 text-signal",

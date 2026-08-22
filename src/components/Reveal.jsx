@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from "motion/react";
-
-const EASE = [0.22, 1, 0.36, 1];
+import { EASE } from "../lib/motion";
 
 function Reveal({ children, className, delay = 0, y = 28, as = "div", ...props }) {
   const reduce = useReducedMotion();

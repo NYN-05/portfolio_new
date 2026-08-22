@@ -2,7 +2,7 @@ import { ArrowUpRight, GitBranch, Globe, Mail } from "lucide-react";
 import { useLenis } from "lenis/react";
 import Reveal from "./Reveal";
 import ContactForm from "./ContactForm";
-import { CONTACT, NAME, NAV_ITEMS } from "../lib/content";
+import { CONTACT, NAME, NAV_ITEMS } from "../content/profile";
 import { useGoToSection } from "../hooks/useGoToSection";
 
 function Footer() {

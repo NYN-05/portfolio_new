@@ -2,8 +2,7 @@ import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import CountUp from "./CountUp";
 import Reveal from "./Reveal";
-
-const EASE = [0.22, 1, 0.36, 1];
+import { EASE } from "../lib/motion";
 
 const METRICS = [
   { value: 8, suffix: "+", label: "Models in production", desc: "CNN, ViT, GAN & OCR workloads" },

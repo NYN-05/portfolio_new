@@ -11,10 +11,10 @@ import {
   HERO_STATUSES,
   TECHNOLOGIES,
   TERMINAL_LINES,
-} from "../lib/content";
+} from "../content/profile";
 import { useGoToSection } from "../hooks/useGoToSection";
+import { EASE } from "../lib/motion";
 
-const EASE = [0.22, 1, 0.36, 1];
 const LINE_STEP = 150;
 const TYPE_SPEED = 14;
 

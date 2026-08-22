@@ -4,7 +4,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import { Button } from "../components/ui/button";
-import { CONTACT, NAME, RESUME, ROLE } from "../lib/content";
+import { CONTACT, NAME, ROLE } from "../content/profile";
+import { RESUME } from "../content/career";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function ResumeSection({ title, children }) {

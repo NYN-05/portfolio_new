@@ -3,9 +3,8 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
-import { BRANDING, RELATED_TAGS, SKILLS, TIMELINE } from "../lib/content";
-
-const EASE = [0.22, 1, 0.36, 1];
+import { BRANDING, RELATED_TAGS, SKILLS, TIMELINE } from "../content/career";
+import { EASE } from "../lib/motion";
 
 function Skills() {
   return (

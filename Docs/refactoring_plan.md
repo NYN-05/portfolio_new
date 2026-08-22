@@ -72,6 +72,7 @@ portfolio_new/
 ```
 
 Design notes:
+
 - `components/` stays **flat**. Regrouping 16 working components buys nothing
   and maximizes diff noise — deliberately excluded from scope.
 - The eager bundle graph ends up containing only `profile.js`, `career.js`,
@@ -89,46 +90,46 @@ Design notes:
 
 `src/lib/content.js` (660 lines) decomposes as:
 
-| Old symbol block (approx. lines) | New location |
-|---|---|
-| CONTACT, INITIALS, NAME, ROLE (1–11) | `src/content/profile.js` |
-| NAV_ITEMS (13–19) | `src/content/profile.js` |
-| HERO_IDENTITY, TECHNOLOGIES, HERO_ROLES, HERO_STATUSES, TERMINAL_LINES (21–67) | `src/content/profile.js` |
-| PROJECTS **metadata** fields (69–316: index, slug, image, title, subtitle, desc, problem, solution, impact, impactLabel, tags, url, status, featured, duration, role) | `src/content/projects.js` |
-| PROJECTS[n].caseStudy objects (89–131, 151–192, 212–253, 273–315) | `src/content/case-studies/{slug}.js` — one default export each, filename == project slug |
-| SKILLS, RELATED_TAGS (318–372) | `src/content/career.js` |
-| TIMELINE (374–395) | `src/content/career.js` |
-| RESUME (397–453) | `src/content/career.js` |
-| BLOG_POSTS (455–581) | `src/content/posts.js` |
-| BRANDING (583–598) | `src/content/career.js` |
-| ROADMAP (600–629) | `src/content/career.js` |
-| PRINCIPLES (631–660) | `src/content/career.js` |
+| Old symbol block (approx. lines)                                                                                                                                            | New location                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| CONTACT, INITIALS, NAME, ROLE (1–11)                                                                                                                                       | `src/content/profile.js`                                                                  |
+| NAV_ITEMS (13–19)                                                                                                                                                          | `src/content/profile.js`                                                                  |
+| HERO_IDENTITY, TECHNOLOGIES, HERO_ROLES, HERO_STATUSES, TERMINAL_LINES (21–67)                                                                                             | `src/content/profile.js`                                                                  |
+| PROJECTS**metadata** fields (69–316: index, slug, image, title, subtitle, desc, problem, solution, impact, impactLabel, tags, url, status, featured, duration, role) | `src/content/projects.js`                                                                 |
+| PROJECTS[n].caseStudy objects (89–131, 151–192, 212–253, 273–315)                                                                                                       | `src/content/case-studies/{slug}.js` — one default export each, filename == project slug |
+| SKILLS, RELATED_TAGS (318–372)                                                                                                                                             | `src/content/career.js`                                                                   |
+| TIMELINE (374–395)                                                                                                                                                         | `src/content/career.js`                                                                   |
+| RESUME (397–453)                                                                                                                                                           | `src/content/career.js`                                                                   |
+| BLOG_POSTS (455–581)                                                                                                                                                       | `src/content/posts.js`                                                                    |
+| BRANDING (583–598)                                                                                                                                                         | `src/content/career.js`                                                                   |
+| ROADMAP (600–629)                                                                                                                                                          | `src/content/career.js`                                                                   |
+| PRINCIPLES (631–660)                                                                                                                                                       | `src/content/career.js`                                                                   |
 
 Duplicated logic extractions:
 
-| Duplicated code | New home | Consumers rewired |
-|---|---|---|
-| Focus-trap useEffect (AiAssistant 122–146 ≡ CommandPalette 134–154) | `src/hooks/useFocusTrap(ref, active)` | AiAssistant, CommandPalette |
-| `documentElement.style.overflow` lock (both files) | `src/hooks/useScrollLock(active)` | AiAssistant, CommandPalette |
-| `EASE = [0.22, 1, 0.36, 1]` ×3 | `src/lib/motion.js` | App, AiAssistant, CommandPalette, Hero |
-| Scroll offset −84 + retry loop (App RouteEffects ≡ useGoToSection) | `src/lib/scroll.js` (`HEADER_OFFSET`, `scrollToSectionWithRetry(lenis,id)`, `scrollToTopImmediate(lenis)`) | App.jsx, useGoToSection.js |
+| Duplicated code                                                        | New home                                                                                                           | Consumers rewired                      |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------- |
+| Focus-trap useEffect (AiAssistant 122–146 ≡ CommandPalette 134–154) | `src/hooks/useFocusTrap(ref, active)`                                                                            | AiAssistant, CommandPalette            |
+| `documentElement.style.overflow` lock (both files)                   | `src/hooks/useScrollLock(active)`                                                                                | AiAssistant, CommandPalette            |
+| `EASE = [0.22, 1, 0.36, 1]` ×3                                      | `src/lib/motion.js`                                                                                              | App, AiAssistant, CommandPalette, Hero |
+| Scroll offset −84 + retry loop (App RouteEffects ≡ useGoToSection)   | `src/lib/scroll.js` (`HEADER_OFFSET`, `scrollToSectionWithRetry(lenis,id)`, `scrollToTopImmediate(lenis)`) | App.jsx, useGoToSection.js             |
 
 ### 2b. Moves
 
-| old_path | new_path | Reason |
-|---|---|---|
-| `public/theme-init.js` | *(inline `<script>` in `index.html`)* | H1: untracked load-bearing file; inlining removes file + key duplication surface |
-| `lib/content.js` title/meta responsibility | `src/lib/routeMeta.js` + single effect in `App.jsx` | M5 race fix |
+| old_path                                     | new_path                                                | Reason                                                                           |
+| -------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `public/theme-init.js`                     | *(inline `<script>` in `index.html`)*             | H1: untracked load-bearing file; inlining removes file + key duplication surface |
+| `lib/content.js` title/meta responsibility | `src/lib/routeMeta.js` + single effect in `App.jsx` | M5 race fix                                                                      |
 
 ### 2c. Deletions
 
-| Path | Status today | Action |
-|---|---|---|
-| `src/components/ui/card.jsx` | Deleted on disk, still tracked | Stage deletion (Phase 0) |
-| `src/components/ui/separator.jsx` | Deleted on disk, still tracked | Stage deletion (Phase 0) |
-| `src/hooks/usePageMeta.js` | Active | Delete after routeMeta driver lands (Phase 3) |
-| `src/lib/content.js` | Active | Delete at end of Phase 2 |
-| `public/theme-init.js` | Untracked | Inline then delete (Phase 3); update `package.json` lint script same commit |
+| Path                                | Status today                   | Action                                                                       |
+| ----------------------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
+| `src/components/ui/card.jsx`      | Deleted on disk, still tracked | Stage deletion (Phase 0)                                                     |
+| `src/components/ui/separator.jsx` | Deleted on disk, still tracked | Stage deletion (Phase 0)                                                     |
+| `src/hooks/usePageMeta.js`        | Active                         | Delete after routeMeta driver lands (Phase 3)                                |
+| `src/lib/content.js`              | Active                         | Delete at end of Phase 2                                                     |
+| `public/theme-init.js`            | Untracked                      | Inline then delete (Phase 3); update`package.json` lint script same commit |
 
 ---
 
@@ -136,39 +137,39 @@ Duplicated logic extractions:
 
 ### 3a. Verified consumer map of `content.js` (16 files)
 
-| Consumer | Current symbols | New imports after Phase 2 |
-|---|---|---|
-| `components/AiAssistant.jsx` | CONTACT, NAME, PROJECTS, RESUME, ROLE, SKILLS | `{CONTACT,NAME,ROLE}` ← profile; `{PROJECTS}` ← projects; `{RESUME,SKILLS}` ← career |
-| `components/CommandPalette.jsx` | CONTACT, NAV_ITEMS, PROJECTS | `{CONTACT,NAV_ITEMS}` ← profile; `{PROJECTS}` ← projects |
-| `components/ContactForm.jsx` | CONTACT | profile |
-| `components/GitHubSection.jsx` | CONTACT | profile |
-| `components/Navbar.jsx` | CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE | profile |
-| `components/Footer.jsx` | CONTACT, NAME, NAV_ITEMS | profile |
-| `components/Hero.jsx` | CONTACT, HERO_IDENTITY, HERO_ROLES, HERO_STATUSES, TECHNOLOGIES, TERMINAL_LINES | profile |
-| `components/Projects.jsx` | CONTACT, PROJECTS | `{CONTACT}` ← profile; `{PROJECTS}` ← projects |
-| `components/AboutSection.jsx` | BRANDING, RELATED_TAGS, SKILLS, TIMELINE | career |
-| `components/Principles.jsx` | PRINCIPLES | career |
-| `components/Roadmap.jsx` | ROADMAP | career |
-| `hooks/useGitHubRepos.js` | PROJECTS | projects |
-| `pages/BlogPage.jsx` | BLOG_POSTS | posts |
-| `pages/BlogPostPage.jsx` | BLOG_POSTS | posts |
-| `pages/CaseStudyPage.jsx` | PROJECTS | `{PROJECTS}` ← projects **plus** `import.meta.glob("../content/case-studies/*.js")` resolver |
-| `pages/ResumePage.jsx` | CONTACT, NAME, RESUME, ROLE | `{CONTACT,NAME,ROLE}` ← profile; `{RESUME}` ← career |
+| Consumer                          | Current symbols                                                                 | New imports after Phase 2                                                                               |
+| --------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `components/AiAssistant.jsx`    | CONTACT, NAME, PROJECTS, RESUME, ROLE, SKILLS                                   | `{CONTACT,NAME,ROLE}` ← profile; `{PROJECTS}` ← projects; `{RESUME,SKILLS}` ← career           |
+| `components/CommandPalette.jsx` | CONTACT, NAV_ITEMS, PROJECTS                                                    | `{CONTACT,NAV_ITEMS}` ← profile; `{PROJECTS}` ← projects                                          |
+| `components/ContactForm.jsx`    | CONTACT                                                                         | profile                                                                                                 |
+| `components/GitHubSection.jsx`  | CONTACT                                                                         | profile                                                                                                 |
+| `components/Navbar.jsx`         | CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE                                        | profile                                                                                                 |
+| `components/Footer.jsx`         | CONTACT, NAME, NAV_ITEMS                                                        | profile                                                                                                 |
+| `components/Hero.jsx`           | CONTACT, HERO_IDENTITY, HERO_ROLES, HERO_STATUSES, TECHNOLOGIES, TERMINAL_LINES | profile                                                                                                 |
+| `components/Projects.jsx`       | CONTACT, PROJECTS                                                               | `{CONTACT}` ← profile; `{PROJECTS}` ← projects                                                    |
+| `components/AboutSection.jsx`   | BRANDING, RELATED_TAGS, SKILLS, TIMELINE                                        | career                                                                                                  |
+| `components/Principles.jsx`     | PRINCIPLES                                                                      | career                                                                                                  |
+| `components/Roadmap.jsx`        | ROADMAP                                                                         | career                                                                                                  |
+| `hooks/useGitHubRepos.js`       | PROJECTS                                                                        | projects                                                                                                |
+| `pages/BlogPage.jsx`            | BLOG_POSTS                                                                      | posts                                                                                                   |
+| `pages/BlogPostPage.jsx`        | BLOG_POSTS                                                                      | posts                                                                                                   |
+| `pages/CaseStudyPage.jsx`       | PROJECTS                                                                        | `{PROJECTS}` ← projects **plus** `import.meta.glob("../content/case-studies/*.js")` resolver |
+| `pages/ResumePage.jsx`          | CONTACT, NAME, RESUME, ROLE                                                     | `{CONTACT,NAME,ROLE}` ← profile; `{RESUME}` ← career                                              |
 
 (`Metrics.jsx` imports nothing from content — verified.)
 
 ### 3b. Risk register
 
-| Risk | Severity | Mitigation |
-|---|---|---|
-| Missed `../lib/content` import after split → build failure | Low (build catches it) | Gate: `npm run build` must pass; grep `from ["']\.\.?/(lib/)?content["']` returns zero before deleting the file |
-| Case-study slug ≠ filename → runtime undefined essay | Medium (silent) | Enforce convention in `projects.js`: slug doubles as filename; CaseStudyPage falls back to NotFound render when glob key missing; Playwright visits all 4 `/projects/:slug` routes in smoke gate |
-| `import.meta.glob` path wrong relative to `pages/` | Low | Use `../content/case-studies/*.js` from `src/pages/`; verify keys logged during dev smoke |
-| Circular import accidentally introduced (e.g., projects.js importing case-studies) | Medium | Rule: `content/*` modules import **nothing**; case-study files are leaf modules. ESLint `import/no-cycle` optional later |
-| Theme inline script diverges from `useTheme.jsx` again | Medium (regression of M3) | Cross-reference comment in both locations naming the other as twin; STORAGE_KEY documented once in useTheme.jsx |
-| Deleting `usePageMeta.js` while a page still calls it | Low | Grep `usePageMeta` before delete; Phase 3 migrates all callers in same commit |
-| `package.json` lint script pointing at deleted theme-init | Low | Same-commit edit; `npm run lint` in gate |
-| Lenis behavior change from consolidated scroll fn | Medium | Keep byte-identical logic (retry count, timeouts, easing); only deduplicate — do not "improve" during move. Manual scroll smoke on home anchors + cross-page anchor nav |
+| Risk                                                                               | Severity                  | Mitigation                                                                                                                                                                                          |
+| ---------------------------------------------------------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Missed`../lib/content` import after split → build failure                       | Low (build catches it)    | Gate:`npm run build` must pass; grep `from ["']\.\.?/(lib/)?content["']` returns zero before deleting the file                                                                                  |
+| Case-study slug ≠ filename → runtime undefined essay                             | Medium (silent)           | Enforce convention in`projects.js`: slug doubles as filename; CaseStudyPage falls back to NotFound render when glob key missing; Playwright visits all 4 `/projects/:slug` routes in smoke gate |
+| `import.meta.glob` path wrong relative to `pages/`                             | Low                       | Use`../content/case-studies/*.js` from `src/pages/`; verify keys logged during dev smoke                                                                                                        |
+| Circular import accidentally introduced (e.g., projects.js importing case-studies) | Medium                    | Rule:`content/*` modules import **nothing**; case-study files are leaf modules. ESLint `import/no-cycle` optional later                                                                   |
+| Theme inline script diverges from`useTheme.jsx` again                            | Medium (regression of M3) | Cross-reference comment in both locations naming the other as twin; STORAGE_KEY documented once in useTheme.jsx                                                                                     |
+| Deleting`usePageMeta.js` while a page still calls it                             | Low                       | Grep`usePageMeta` before delete; Phase 3 migrates all callers in same commit                                                                                                                      |
+| `package.json` lint script pointing at deleted theme-init                        | Low                       | Same-commit edit;`npm run lint` in gate                                                                                                                                                           |
+| Lenis behavior change from consolidated scroll fn                                  | Medium                    | Keep byte-identical logic (retry count, timeouts, easing); only deduplicate — do not "improve" during move. Manual scroll smoke on home anchors + cross-page anchor nav                            |
 
 ---
 
@@ -225,6 +226,7 @@ git add -A; git commit -m "refactor: extract motion/scroll/focus-trap primitives
 5. `grep -r "lib/content"` → zero hits ⇒ `git rm src/lib/content.js`.
 
 **Gate:** build green **and** chunk audit proves laziness:
+
 - `dist/assets/index-*.js` must NOT contain essay strings (e.g. search for `"tamper-localization literature"`)
 - `dist/assets/` contains separate case-study/post chunks
 - Playwright: `pytest -m smoke` incl. all four `/projects/:slug` + one blog post route.

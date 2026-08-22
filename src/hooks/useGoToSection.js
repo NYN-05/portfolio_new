@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLenis } from "lenis/react";
+import { HEADER_OFFSET } from "../lib/scroll";
 
 export function useGoToSection() {
   const lenis = useLenis();
@@ -14,7 +15,7 @@ export function useGoToSection() {
       e.preventDefault();
 
       if (pathname === "/") {
-        lenis?.scrollTo(href, { offset: -84, duration: 1.1 });
+        lenis?.scrollTo(href, { offset: HEADER_OFFSET, duration: 1.1 });
       } else {
         // Navigate to home without leaving a "#..." fragment in the URL;
         // RouteEffects reads location.state.scrollTo after mount.

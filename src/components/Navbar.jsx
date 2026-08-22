@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Menu, Moon, Search, Sun, X } from "lucide-react";
 import { Button } from "./ui/button";
 import CommandPalette from "./CommandPalette";
-import { CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE } from "../lib/content";
+import { CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE } from "../content/profile";
 import { useGoToSection } from "../hooks/useGoToSection";
 import { useTheme } from "../hooks/useTheme";
 import { cn } from "../lib/utils";
