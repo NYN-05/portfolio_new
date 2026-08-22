@@ -101,7 +101,6 @@ function ArchDiagram({ project }) {
   const stepLabels = [
     "Input",
     pipeline[0]?.split("—")[0] ?? "Ingest",
-    "Parallel workers",
     "Fusion",
     "Verdict",
   ];
@@ -130,7 +129,7 @@ function ArchDiagram({ project }) {
 
       <div className="overflow-x-auto rounded-2xl border border-border bg-card p-4">
         <svg
-          viewBox="0 0 750 176"
+          viewBox="0 0 750 200"
           role="img"
           aria-label={`${project.title} architecture diagram: ${stepLabels.join(" → ")}`}
           className="mx-auto h-auto w-full min-w-[640px] select-none"
@@ -142,7 +141,7 @@ function ArchDiagram({ project }) {
             <Node key={model} x={320} y={workerHeights[i]} label={model} sub="model" />
           ))}
           <Node x={fusion.x} y={fusion.y} label="Fusion" sub="weighted score" accent />
-          <Node x={out.x} y={out.y} label={stepLabels[4]} sub="verified" />
+          <Node x={out.x} y={out.y} label={stepLabels[3]} sub="verified" />
 
           <Flow x1={16 + NODE_W} y1={centerY} x2={152} y2={centerY} />
           {models.map((model, i) => (
@@ -156,7 +155,7 @@ function ArchDiagram({ project }) {
               />
             </g>
           ))}
-          <Flow x1={482 + NODE_W} y1={centerY} x2={618} y2={centerY} label={stepLabels[3]} />
+          <Flow x1={482 + NODE_W} y1={centerY} x2={618} y2={centerY} label={stepLabels[2]} />
         </svg>
       </div>
     </Reveal>

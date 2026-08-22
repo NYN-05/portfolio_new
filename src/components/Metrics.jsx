@@ -9,9 +9,9 @@ const METRICS = [
   { value: 8, suffix: "+", label: "Models in production", desc: "CNN, ViT, GAN & OCR workloads" },
   { value: 6, suffix: "+", label: "Systems shipped", desc: "End-to-end, deployed & serving" },
   { value: 14, suffix: "+", label: "APIs developed", desc: "Async FastAPI & REST services" },
-  { value: 12, suffix: "+", label: "Technologies learned", desc: "Python, MLOps, infra & more" },
+  { value: 12, suffix: "+", label: "Repositories shipped", desc: "Public and working on GitHub" },
   { value: 45, suffix: "%", label: "Fraud detection gain", desc: "VeriSight multi-model ensemble" },
-  { value: 4, suffix: " wks", label: "Avg. project delivery", desc: "Concept to production" },
+  { value: 4, suffix: " wks", label: "Avg. project cycle", desc: "Concept to production" },
 ];
 
 function Metrics() {
@@ -31,7 +31,7 @@ function Metrics() {
             initial={reduce ? false : { opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.6, delay: i * 0.07, ease: EASE }}
-            className="bg-card px-6 py-10 sm:px-8 lg:py-12"
+            className="bg-card px-6 py-9 sm:px-8 lg:py-10"
           >
             <p className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
               <CountUp value={metric.value} suffix={metric.suffix} />

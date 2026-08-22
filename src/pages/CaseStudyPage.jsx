@@ -100,6 +100,7 @@ function Toc({ slug }) {
 
 function SectionBody({ section, value }) {
   const Icon = section.icon;
+  const items = section.type === "steps" || section.type === "list" ? (Array.isArray(value) ? value : []) : null;
 
   return (
     <Reveal as="section" id={`cs-${section.id}`} className="scroll-mt-28 py-12">
@@ -112,13 +113,13 @@ function SectionBody({ section, value }) {
 
       {section.type === "steps" && (
         <ol className="relative space-y-5 border-l border-border pl-8">
-          {value.map((step, i) => (
+          {items.map((step, i) => (
             <li key={step} className="relative">
               <span
                 aria-hidden="true"
                 className={cn(
                   "absolute -left-8 top-0 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border bg-card font-mono text-[10px] font-semibold",
-                  i === value.length - 1 ? "border-signal text-signal" : "border-border text-muted-foreground"
+                  i === items.length - 1 ? "border-signal text-signal" : "border-border text-muted-foreground"
                 )}
               >
                 {i + 1}
@@ -135,7 +136,7 @@ function SectionBody({ section, value }) {
 
       {section.type === "list" && (
         <ul className="max-w-prose space-y-3">
-          {value.map((item) => (
+          {items.map((item) => (
             <li key={item} className="flex gap-3 text-base leading-relaxed text-foreground/90">
               <span
                 aria-hidden="true"

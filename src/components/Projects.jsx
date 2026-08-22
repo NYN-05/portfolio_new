@@ -23,7 +23,7 @@ function ProjectImage({ project, className, eager = false, overlay = false }) {
         decoding="async"
         onLoad={() => setLoaded(true)}
         className={cn(
-          "h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.06]",
+          "h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.03]",
           loaded ? "opacity-100" : "opacity-0"
         )}
       />
@@ -86,13 +86,24 @@ function ProjectCard({ project }) {
           </span>
         </div>
         <p className="line-clamp-2 flex-1 text-[15px] leading-relaxed text-muted-foreground">{project.desc}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {project.tags.slice(0, 3).map((tag) => (
+            <Badge
+              key={tag}
+              variant="outline"
+              className="px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
+            >
+              {tag}
+            </Badge>
+          ))}
+        </div>
         <CardExpander project={project} />
         <div className="flex items-center justify-between gap-3 border-t border-border/70 pt-4">
-          <div className="flex items-baseline gap-1.5">
+          <div className="flex min-w-0 items-baseline gap-1.5">
             <CountUp value={project.impact} suffix="%" className="font-display text-2xl font-bold tracking-tight text-signal" />
-            <span className="text-[11px] text-muted-foreground">{project.impactLabel}</span>
+            <span className="truncate text-[11px] text-muted-foreground">{project.impactLabel}</span>
           </div>
-          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground transition-colors group-hover:text-signal">
+          <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-foreground transition-colors group-hover:text-signal">
             Case study
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>
@@ -128,31 +139,45 @@ function FeaturedProject({ project }) {
         <p className="mt-5 max-w-md text-pretty text-base leading-relaxed text-muted-foreground">
           {project.desc}
         </p>
-        <div className="mt-6 flex flex-wrap gap-2">
+
+        <div className="mt-6 max-w-md space-y-3.5 border-l-2 border-signal/40 pl-4">
+          <div>
+            <p className="font-mono text-[10px] font-medium uppercase tracking-widest text-signal">
+              Problem
+            </p>
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{project.problem}</p>
+          </div>
+          <div>
+            <p className="font-mono text-[10px] font-medium uppercase tracking-widest text-signal">
+              Result
+            </p>
+            <p className="mt-1 flex items-baseline gap-2 text-sm leading-relaxed text-muted-foreground">
+              <CountUp
+                value={project.impact}
+                suffix="%"
+                className="font-display text-2xl font-bold tracking-tight text-signal"
+              />
+              {project.impactLabel}
+            </p>
+          </div>
+        </div>
+
+        <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+          {project.duration} · {project.role}
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-2">
           {project.tags.slice(0, 5).map((tag) => (
             <Badge key={tag} variant="outline" className="text-muted-foreground">
               {tag}
             </Badge>
           ))}
         </div>
-        <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-400 ease-out group-hover:grid-rows-[1fr] group-focus-visible:grid-rows-[1fr]">
-          <div className="overflow-hidden">
-            <p className="max-w-md pt-4 text-sm leading-relaxed text-muted-foreground">
-              <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-signal">
-                Problem&nbsp;
-              </span>
-              {project.problem}
-            </p>
-          </div>
-        </div>
-        <div className="mt-8 flex items-center justify-between gap-3 border-t border-border pt-5">
-          <div className="flex items-baseline gap-2">
-            <CountUp value={project.impact} suffix="%" className="font-display text-3xl font-bold tracking-tight text-signal" />
-            <span className="text-xs text-muted-foreground">{project.impactLabel}</span>
-          </div>
-          <span className="inline-flex translate-y-1 items-center gap-2 text-sm font-semibold opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-            Read case study
-            <ArrowUpRight className="h-4 w-4" />
+
+        <div className="mt-7 flex items-center justify-end border-t border-border pt-5">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground transition-colors group-hover:text-signal">
+            Read the case study
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>
         </div>
       </div>
@@ -161,12 +186,13 @@ function FeaturedProject({ project }) {
 }
 
 function Projects() {
-  const [featured, ...rest] = PROJECTS;
+  const featured = PROJECTS.find((p) => p.featured) ?? PROJECTS[0];
+  const rest = PROJECTS.filter((p) => p !== featured);
 
   return (
-    <section className="scroll-mt-24 py-20 sm:py-28" id="projects" aria-labelledby="projects-title">
+    <section className="scroll-mt-24 py-16 sm:py-20" id="projects" aria-labelledby="projects-title">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 flex flex-col gap-6 sm:mb-16 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
             num="01"
             eyebrow="Selected work"
@@ -181,7 +207,7 @@ function Projects() {
               href={CONTACT.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-signal"
+              className="group inline-flex min-h-9 items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               More on GitHub
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -189,11 +215,11 @@ function Projects() {
           </Reveal>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           <Reveal>
             <FeaturedProject project={featured} />
           </Reveal>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map((project, i) => (
               <Reveal key={project.slug} delay={i * 0.08} className="h-full">
                 <ProjectCard project={project} />

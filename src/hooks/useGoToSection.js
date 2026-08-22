@@ -16,7 +16,9 @@ export function useGoToSection() {
       if (pathname === "/") {
         lenis?.scrollTo(href, { offset: -84, duration: 1.1 });
       } else {
-        navigate(`/${href}`, { state: { scrollTo: href.slice(1) } });
+        // Navigate to home without leaving a "#..." fragment in the URL;
+        // RouteEffects reads location.state.scrollTo after mount.
+        navigate("/", { state: { scrollTo: href.slice(1) } });
       }
     },
     [lenis, navigate, pathname]

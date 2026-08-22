@@ -80,7 +80,7 @@ function buildActions(goTo, navigate) {
   ];
 }
 
-function CommandPalette({ open, onOpenChange }) {
+function CommandPalette({ open, onOpenChange, triggerRef = null }) {
   const reduce = useReducedMotion();
   const navigate = useNavigate();
   const goTo = useGoToSection();
@@ -89,6 +89,7 @@ function CommandPalette({ open, onOpenChange }) {
   const [active, setActive] = useState(0);
   const inputRef = useRef(null);
   const listRef = useRef(null);
+  const wasOpenRef = useRef(false);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -107,15 +108,28 @@ function CommandPalette({ open, onOpenChange }) {
     return [...map.entries()];
   }, [filtered]);
 
+  const current = Math.min(active, Math.max(filtered.length - 1, 0));
+
+  const close = () => {
+    setQuery("");
+    setActive(0);
+    onOpenChange(false);
+  };
+
   useEffect(() => {
-    if (!open) return;
-    const timer = setTimeout(() => inputRef.current?.focus(), 30);
-    document.documentElement.style.overflow = "hidden";
-    return () => {
-      clearTimeout(timer);
-      document.documentElement.style.overflow = "";
-    };
-  }, [open]);
+    if (open) {
+      wasOpenRef.current = true;
+      const timer = setTimeout(() => inputRef.current?.focus(), 30);
+      document.documentElement.style.overflow = "hidden";
+      return () => {
+        clearTimeout(timer);
+        document.documentElement.style.overflow = "";
+      };
+    }
+    if (wasOpenRef.current && triggerRef?.current) {
+      triggerRef.current.focus();
+    }
+  }, [open, triggerRef]);
 
   useEffect(() => {
     if (!open) return;
@@ -138,14 +152,6 @@ function CommandPalette({ open, onOpenChange }) {
     window.addEventListener("keydown", onTab);
     return () => window.removeEventListener("keydown", onTab);
   }, [open]);
-
-  const current = Math.min(active, Math.max(filtered.length - 1, 0));
-
-  const close = () => {
-    setQuery("");
-    setActive(0);
-    onOpenChange(false);
-  };
 
   useEffect(() => {
     const el = listRef.current?.querySelector('[data-palette-active="true"]');
@@ -192,8 +198,6 @@ function CommandPalette({ open, onOpenChange }) {
     }
   };
 
-  let flatIndex = -1;
-
   return (
     <AnimatePresence>
       {open && (
@@ -202,7 +206,7 @@ function CommandPalette({ open, onOpenChange }) {
           aria-modal="true"
           aria-label="Command palette"
           className="fixed inset-0 z-[60]"
-          initial={reduce ? { opacity: 0 } : { opacity: 0 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
@@ -234,7 +238,11 @@ function CommandPalette({ open, onOpenChange }) {
                   onKeyDown={onKeyDown}
                   placeholder="Type a command or search…"
                   aria-label="Search commands"
-                  className="h-13 w-full bg-transparent py-4 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                  role="combobox"
+                  aria-expanded="true"
+                  aria-controls="palette-listbox"
+                  aria-activedescendant={filtered[current] ? `palette-action-${current}` : undefined}
+                  className="h-13 w-full bg-transparent py-4 text-sm text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/40"
                 />
                 <button
                   onClick={close}
@@ -245,56 +253,67 @@ function CommandPalette({ open, onOpenChange }) {
                 </button>
               </div>
 
-              <div ref={listRef} className="max-h-[46vh] overflow-y-auto overscroll-contain p-2">
+              <div
+                ref={listRef}
+                id="palette-listbox"
+                role="listbox"
+                aria-label="Commands"
+                className="max-h-[46vh] overflow-y-auto overscroll-contain p-2"
+              >
                 {filtered.length === 0 && (
                   <p className="px-3 py-8 text-center text-sm text-muted-foreground">
                     No results for &ldquo;{query}&rdquo;
                   </p>
                 )}
-                {groups.map(([group, items]) => (
-                  <div key={group} className="mb-1">
-                    <p className="px-3 pb-1.5 pt-2 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                      {group}
-                    </p>
-                    {items.map((action) => {
-                      flatIndex += 1;
-                      const idx = flatIndex;
-                      const Icon = action.icon;
-                      const isActive = idx === current;
-                      return (
-                        <button
-                          key={action.id}
-                          type="button"
-                          data-palette-active={isActive}
-                          onMouseEnter={() => setActive(idx)}
-                          onClick={() => {
-                            action.run();
-                            close();
-                          }}
-                          className={cn(
-                            "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-colors",
-                            isActive ? "bg-accent text-foreground" : "text-muted-foreground"
-                          )}
-                        >
-                          <span
+                {groups.flatMap(([group, items]) => {
+                  const offset = filtered.indexOf(items[0]);
+                  return [
+                    <div key={group} className="mb-1">
+                      <p className="px-3 pb-1.5 pt-2 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                        {group}
+                      </p>
+                      {items.map((action, i) => {
+                        const idx = offset + i;
+                        const Icon = action.icon;
+                        const isActive = idx === current;
+                        return (
+                          <button
+                            key={action.id}
+                            id={`palette-action-${idx}`}
+                            type="button"
+                            role="option"
+                            aria-selected={isActive}
+                            data-palette-active={isActive}
+                            onMouseEnter={() => setActive(idx)}
+                            onClick={() => {
+                              action.run();
+                              close();
+                            }}
                             className={cn(
-                              "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border",
-                              isActive
-                                ? "border-signal/40 bg-signal/10 text-signal"
-                                : "border-border bg-card text-muted-foreground"
+                              "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-colors",
+                              isActive ? "bg-accent text-foreground" : "text-muted-foreground"
                             )}
                           >
-                            <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-                          </span>
-                          <span className="min-w-0 flex-1 truncate">{action.label}</span>
-                          <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                            {action.hint}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                ))}
+                            <span
+                              className={cn(
+                                "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border",
+                                isActive
+                                  ? "border-signal/40 bg-signal/10 text-signal"
+                                  : "border-border bg-card text-muted-foreground"
+                              )}
+                            >
+                              <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                            </span>
+                            <span className="min-w-0 flex-1 truncate">{action.label}</span>
+                            <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                              {action.hint}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>,
+                  ];
+                })}
               </div>
 
               <div className="flex items-center gap-4 border-t border-border bg-muted/40 px-4 py-2.5 font-mono text-[10px] text-muted-foreground">

@@ -219,6 +219,7 @@ function AiAssistant() {
               {typing && (
                 <div className="flex w-full justify-start">
                   <span
+                    role="status"
                     className="rounded-2xl rounded-bl-sm border border-border bg-card px-3.5 py-2.5 text-[13px] text-muted-foreground"
                     aria-label="Assistant is typing"
                   >

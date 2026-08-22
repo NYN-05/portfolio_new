@@ -1,9 +1,14 @@
-const CACHE = "portfolio-v1";
+const CACHE = "portfolio-v2";
 const APP_SHELL = ["/", "/index.html", "/manifest.json", "/favicon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())
+    caches
+      .open(CACHE)
+      .then((cache) =>
+        Promise.allSettled(APP_SHELL.map((url) => cache.add(url)))
+      )
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -21,13 +26,23 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== location.origin) return;
 
+  const isNavigation = event.request.mode === "navigate";
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+        if (response.ok && !isNavigation) {
+          const copy = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy)).catch(() => {});
+        }
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match("/index.html")))
+      .catch(() =>
+        caches.match(event.request).then(
+          (cached) =>
+            cached ||
+            (isNavigation ? caches.match("/index.html") : undefined)
+        )
+      )
   );
 });

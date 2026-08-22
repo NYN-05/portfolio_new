@@ -7,6 +7,7 @@ export function usePageMeta(title, description) {
 
     let meta = document.querySelector('meta[name="description"]');
     const previousDescription = meta?.getAttribute("content");
+    let created = false;
     if (description && meta) {
       meta.setAttribute("content", description);
     } else if (description) {
@@ -14,11 +15,14 @@ export function usePageMeta(title, description) {
       meta.name = "description";
       meta.content = description;
       document.head.appendChild(meta);
+      created = true;
     }
 
     return () => {
       document.title = previousTitle;
-      if (meta && previousDescription !== undefined) {
+      if (created && meta) {
+        document.head.removeChild(meta);
+      } else if (meta && previousDescription !== undefined) {
         meta.setAttribute("content", previousDescription);
       }
     };

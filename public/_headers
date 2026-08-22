@@ -1,5 +1,6 @@
 # Production Security Headers
 # Generated for Portfolio - Jhashank Nayan
+# Netlify _headers format: section header per path pattern.
 
 # Content Security Policy
 # Restricts resources to same-origin and CDN
@@ -17,8 +18,30 @@
 # Referrer Policy
 |Referrer-Policy: strict-origin-when-cross-origin
 
-# Cache Control for static assets
-|Cache-Control: public, max-age=31536000, immutable
+# Strict Transport Security (forced HTTPS)
+|Strict-Transport-Security: max-age=31536000; includeSubDomains
 
 # Permissions Policy
 |Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# HTML entry points must revalidate on every deploy — the hashed assets below
+# are immutable, but index.html and friends change with each build.
+|Cache-Control: public, no-cache
+
+/*
+  Cache-Control: public, no-cache
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://api.github.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/sw.js
+  Cache-Control: public, no-cache
+
+/theme-init.js
+  Cache-Control: public, no-cache

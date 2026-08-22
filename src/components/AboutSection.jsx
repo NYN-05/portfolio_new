@@ -184,13 +184,13 @@ function Branding() {
 
 function AboutSection() {
   return (
-    <section className="scroll-mt-24 border-t border-border bg-card/40 py-20 sm:py-28" id="about" aria-labelledby="about-title">
+    <section className="scroll-mt-24 border-t border-border bg-card/40 py-16 sm:py-20" id="about" aria-labelledby="about-title">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div>
             <SectionHeading
-              num="02"
-              eyebrow="About"
+              num="03"
+              eyebrow="Engineering"
               title={
                 <span id="about-title">
                   Engineer. Builder. <em className="marker relative not-italic">Systems</em> thinker.
@@ -198,14 +198,18 @@ function AboutSection() {
               }
             />
             <Reveal delay={0.15} className="mt-6 max-w-prose space-y-4">
+              <p className="border-l-2 border-signal/50 pl-4 font-display text-xl font-semibold leading-snug tracking-tight">
+                I don&apos;t optimize for demos. I optimize for systems that
+                survive real usage.
+              </p>
               <p className="text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-                I&apos;m an ML engineer who takes models past the notebook — into async
-                APIs, containerized services, and production pipelines that hold up
+                That means taking models past the notebook — into async APIs,
+                containerized services, and production pipelines that hold up
                 under real load.
               </p>
               <p className="text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                 My work pairs computer vision, NLP, and systems engineering with a
-                bias for measurable outcomes: a 45% cut in undetected fraud, a 72%
+                bias for measurable outcomes — a 45% cut in undetected fraud, a 72%
                 reduction in exercise injury risk, an 88% phishing detection rate.
               </p>
               <div className="grid grid-cols-3 gap-6 pt-2">
@@ -226,7 +230,7 @@ function AboutSection() {
               </div>
             </Reveal>
           </div>
-          <div className="space-y-14">
+          <div className="space-y-12">
             <Reveal>
               <Branding />
             </Reveal>

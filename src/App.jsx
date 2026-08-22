@@ -27,10 +27,12 @@ function RouteEffects() {
       return;
     }
 
+    let cancelled = false;
     const requested = location.state?.scrollTo;
     if (requested) {
       // Sections may still be lazy-loading after navigation — retry until mounted.
       let attempts = 0;
+      const timeouts = [];
       const tryScroll = () => {
         const el = document.getElementById(requested);
         if (el) {
@@ -38,21 +40,26 @@ function RouteEffects() {
           lenis?.resize();
           lenis?.scrollTo(top, { duration: 0.9 });
           // Fallback if Lenis carried stale measurements for the fresh route.
-          window.setTimeout(() => {
-            if (Math.abs((el).getBoundingClientRect().top - 84) > 220) {
-              window.scrollTo({ top, behavior: "smooth" });
-            }
-          }, 500);
-        } else if (attempts < 12) {
+          timeouts.push(
+            window.setTimeout(() => {
+              if (!cancelled && Math.abs(el.getBoundingClientRect().top - 84) > 220) {
+                window.scrollTo({ top, behavior: "smooth" });
+              }
+            }, 500)
+          );
+        } else if (attempts < 12 && !cancelled) {
           attempts += 1;
-          setTimeout(tryScroll, 100);
+          timeouts.push(setTimeout(tryScroll, 100));
         }
       };
       tryScroll();
-    } else {
-      lenis?.scrollTo(0, { immediate: true });
-      window.scrollTo(0, 0);
+      return () => {
+        cancelled = true;
+        timeouts.forEach(clearTimeout);
+      };
     }
+    lenis?.scrollTo(0, { immediate: true });
+    window.scrollTo(0, 0);
   }, [location, lenis]);
 
   return null;
@@ -75,7 +82,7 @@ function App() {
 
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-signal"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[80] focus-visible:rounded-full focus-visible:bg-ink focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-medium focus-visible:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         Skip to main content
       </a>

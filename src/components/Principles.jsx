@@ -1,30 +1,30 @@
-import { Zap, BarChart3, Brain, Rocket } from "lucide-react";
+import { FlaskConical, Network, ShieldCheck, Zap } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import { PRINCIPLES } from "../lib/content";
 
-const ICONS = [Zap, BarChart3, Brain, Rocket];
+const ICONS = [Network, FlaskConical, ShieldCheck, Zap];
 
 function Principles() {
-
   return (
-    <section className="scroll-mt-24 py-20 sm:py-28" id="principles" aria-labelledby="principles-title">
+    <section className="scroll-mt-24 py-16 sm:py-20" id="principles" aria-labelledby="principles-title">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 sm:mb-16">
+        <div className="mb-10 sm:mb-14">
           <SectionHeading
-            num="04"
-            eyebrow="Principles"
+            num="05"
+            eyebrow="How I work"
             title={
               <span id="principles-title">
                 What I bring <em className="marker relative not-italic">as an</em> engineer
               </span>
             }
+            intro="Four engineering differentiators — each backed by a measured outcome from a shipped system."
           />
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PRINCIPLES.map((principle, i) => {
-            const Icon = ICONS[i];
+            const Icon = ICONS[i] ?? Zap;
             return (
               <Reveal key={principle.num} delay={i * 0.08} className="h-full">
                 <article className="group flex h-full flex-col rounded-2xl border border-border/80 bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]">

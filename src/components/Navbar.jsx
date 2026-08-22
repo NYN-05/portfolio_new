@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Menu, Moon, Search, Sun, X } from "lucide-react";
 import { Button } from "./ui/button";
 import CommandPalette from "./CommandPalette";
-import { CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE, SECTION_IDS } from "../lib/content";
+import { CONTACT, INITIALS, NAME, NAV_ITEMS, ROLE } from "../lib/content";
 import { useGoToSection } from "../hooks/useGoToSection";
 import { useTheme } from "../hooks/useTheme";
 import { cn } from "../lib/utils";
+
+const SPY_SECTION_IDS = NAV_ITEMS.map((item) => item.id);
 
 function ThemeToggle({ className }) {
   const { theme, toggleTheme } = useTheme();
@@ -46,6 +48,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const paletteTriggerRef = useRef(null);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -58,9 +61,12 @@ function Navbar() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
+      // The hero (#home) is the implicit default; the spy must only consider
+      // the scrollable sections, otherwise "home" (checked first from the
+      // bottom of the page) matches as soon as the hero is scrolled past.
       let current = "home";
-      for (let i = SECTION_IDS.length - 1; i >= 0; i--) {
-        const id = SECTION_IDS[i];
+      for (let i = SPY_SECTION_IDS.length - 1; i >= 0; i--) {
+        const id = SPY_SECTION_IDS[i];
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 200) {
           current = id;
@@ -144,9 +150,11 @@ function Navbar() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
+              ref={paletteTriggerRef}
               onClick={() => setPaletteOpen(true)}
               className="hidden h-11 items-center gap-2 rounded-full border border-border bg-card px-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-signal/40 hover:text-foreground active:scale-[0.98] sm:inline-flex"
               aria-label="Open command palette"
+              aria-haspopup="dialog"
             >
               <Search className="h-4 w-4" aria-hidden="true" />
               <span className="hidden md:inline">Search…</span>
@@ -244,7 +252,7 @@ function Navbar() {
           )}
         </AnimatePresence>
       </nav>
-      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} triggerRef={paletteTriggerRef} />
     </motion.header>
   );
 }

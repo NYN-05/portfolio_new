@@ -11,14 +11,19 @@ export const NAME = "Jhashank Nayan";
 export const ROLE = "ML Engineer";
 
 export const NAV_ITEMS = [
-  { label: "Projects", href: "#projects", id: "projects", num: "01" },
-  { label: "About", href: "#about", id: "about", num: "02" },
-  { label: "Building", href: "#roadmap", id: "roadmap", num: "03" },
-  { label: "Principles", href: "#principles", id: "principles", num: "04" },
+  { label: "Work", href: "#projects", id: "projects", num: "01" },
+  { label: "Repositories", href: "#repositories", id: "repositories", num: "02" },
+  { label: "About", href: "#about", id: "about", num: "03" },
+  { label: "Now", href: "#roadmap", id: "roadmap", num: "04" },
   { label: "Contact", href: "#contact", id: "contact", num: "05" },
 ];
 
-export const SECTION_IDS = NAV_ITEMS.map((item) => item.id).concat("home");
+export const HERO_IDENTITY = [
+  "ML Engineer",
+  "Computer Vision",
+  "Applied AI",
+  "Systems",
+];
 
 export const TECHNOLOGIES = [
   "Python",
@@ -54,7 +59,8 @@ export const TERMINAL_LINES = [
   { type: "brace", text: "{" },
   { type: "key", text: '"role": "ML Engineer"' },
   { type: "key", text: '"focus": "production AI systems"' },
-  { type: "key", text: '"impact": "+45% fraud detection"' },
+  { type: "key", text: '"pipeline": "ingest → infer → validate"' },
+  { type: "key", text: '"fraud_caught": "+45% vs baseline"' },
   { type: "key", text: '"status": "open to opportunities"' },
   { type: "brace", text: "}" },
   { type: "boot", text: "[ OK ] profile rendered" },
@@ -596,50 +602,59 @@ export const ROADMAP = [
     title: "VeriSight V2 — Deepfake Detection",
     desc: "Next-generation forgery detection with attention-based fusion and continual learning.",
     tag: "Research",
+    status: "Researching",
+    stack: "PyTorch · ViT · FastAPI",
   },
   {
     title: "AI Agent Development",
     desc: "Building autonomous agents with tool use, memory, and production guardrails.",
     tag: "Building",
+    status: "Building",
+    stack: "Python · LLM APIs · FastAPI",
   },
   {
     title: "Open Source Contributions",
     desc: "Contributing to MLOps and ML tooling projects that power real deployments.",
     tag: "Contributing",
+    status: "Contributing",
+    stack: "MLOps tooling · CI/CD",
   },
   {
     title: "Learning Kubernetes",
     desc: "From container orchestration to autoscaling model deployments in clusters.",
     tag: "Learning",
+    status: "Learning",
+    stack: "Docker · Kubernetes · AWS",
   },
 ];
 
-export const PRINCIPLES = [  {
+export const PRINCIPLES = [
+  {
     num: "01",
-    title: "Fast Execution",
-    desc: "I build and ship ML systems quickly without compromising on quality or accuracy. Speed without shortcuts.",
-    metric: "3-4 weeks",
-    metricLabel: "avg. project delivery",
+    title: "Systems Thinking",
+    desc: "I design the data, model, inference, and deployment pipeline as one system instead of optimizing isolated components in a notebook.",
+    metric: "45%",
+    metricLabel: "fraud detection improvement",
   },
   {
     num: "02",
-    title: "Data-Driven Thinking",
-    desc: "I focus on metrics, benchmarks, and real-world impact through rigorous testing. Numbers guide decisions.",
-    metric: "100%",
-    metricLabel: "data-backed decisions",
+    title: "Experimental Discipline",
+    desc: "I validate assumptions with measurable experiments — baselines, splits, and honest benchmarks — instead of relying on intuition.",
+    metric: "88%",
+    metricLabel: "phishing detection accuracy",
   },
   {
     num: "03",
-    title: "System Thinking",
-    desc: "I design scalable, production-ready ML systems with clean architecture and async processing. End-to-end ownership.",
-    metric: "5+",
-    metricLabel: "production systems",
+    title: "Production Mindset",
+    desc: "I weigh latency, reliability, failure modes, and maintainability alongside model performance — because real load exposes everything.",
+    metric: "72%",
+    metricLabel: "injury risk reduction",
   },
   {
     num: "04",
-    title: "Learning & Shipping",
-    desc: "I adapt fast to new frameworks, learn deeper, and deploy immediately to production. Ship fast, learn faster.",
-    metric: "10+",
-    metricLabel: "technologies mastered",
+    title: "Fast Iteration",
+    desc: "I ship small, measurable versions first and expand only when the evidence supports it — concept to production in weeks, not quarters.",
+    metric: "3-4 wks",
+    metricLabel: "avg. project cycle",
   },
 ];

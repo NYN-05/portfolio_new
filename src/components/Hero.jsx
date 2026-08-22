@@ -6,6 +6,7 @@ import GridPattern from "./effects/GridPattern";
 import Marquee from "./effects/Marquee";
 import {
   CONTACT,
+  HERO_IDENTITY,
   HERO_ROLES,
   HERO_STATUSES,
   TECHNOLOGIES,
@@ -275,37 +276,60 @@ function Hero() {
               real problems, at scale
             </motion.h1>
 
-            <WhoAmI start={reduce ? 0 : 1.45} reduce={reduce} />
+            <motion.p
+              variants={item}
+              className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[12.5px] font-medium tracking-tight text-foreground sm:text-[13.5px]"
+            >
+              {HERO_IDENTITY.map((part, i) => (
+                <span key={part} className="inline-flex items-center gap-3 whitespace-nowrap">
+                  {i > 0 && (
+                    <span className="h-1 w-1 rounded-full bg-signal" aria-hidden="true" />
+                  )}
+                  {part}
+                </span>
+              ))}
+            </motion.p>
 
             <motion.p
               variants={item}
-              className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+              className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               I design and deploy production-grade machine learning infrastructure —
               from multi-model AI pipelines to scalable backend systems that carry
               real-world load. Measured in outcomes, not outputs.
             </motion.p>
 
-            <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
+            <WhoAmI start={reduce ? 0 : 1.45} reduce={reduce} />
+
+            <motion.div variants={item} className="mt-7 flex flex-wrap items-center gap-3">
               <Button size="lg" asChild>
-                <a href={`mailto:${CONTACT.email}`}>
-                  Get in touch
-                  <ArrowUpRight className="h-4 w-4" />
+                <a href="#projects" onClick={(e) => goTo(e, "#projects")}>
+                  View projects
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="#projects" onClick={(e) => goTo(e, "#projects")}>
-                  View projects
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <a href={`mailto:${CONTACT.email}`}>
+                  Contact me
+                  <ArrowUpRight className="h-4 w-4" />
                 </a>
               </Button>
+              <a
+                href={CONTACT.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center gap-1.5 px-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                GitHub
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
             </motion.div>
 
             <motion.dl variants={item} className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
               {[
-                ["45%", "Fraud det. improvement"],
+                ["45%", "Fraud detection gain"],
                 ["72%", "Injury risk reduction"],
-                ["3-4", "Week avg. delivery"],
+                ["88%", "Phishing accuracy"],
               ].map(([value, label]) => (
                 <div key={label} className="flex flex-col">
                   <dt className="sr-only">{label}</dt>

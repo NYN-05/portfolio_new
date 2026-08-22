@@ -19,7 +19,7 @@ Production-grade portfolio for Jhashank Nayan, ML Engineer. Built with React 19,
 | Styling   | Tailwind CSS v4 (`@tailwindcss/vite`) |
 | Motion    | Motion (motion/react)                 |
 | Scroll    | Lenis (`lenis/react`)                 |
-| Primitives| Radix UI (dialog, separator, slot)    |
+| Primitives| Radix UI (slot)                        |
 | Icons     | lucide-react                          |
 
 ## Getting started

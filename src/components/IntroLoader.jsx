@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from "motion/react";
 
-function IntroLoader({ done }) {
+function IntroLoader() {
   const reduce = useReducedMotion();
 
   return (
@@ -38,7 +38,6 @@ function IntroLoader({ done }) {
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
-      {!done && <span className="sr-only">Preparing interface…</span>}
     </motion.div>
   );
 }

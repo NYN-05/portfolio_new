@@ -146,24 +146,24 @@
 
 :root {
   color-scheme: light;
-  --background: hsl(42 25% 95%);
+  --background: hsl(42 18% 90%);
   --foreground: hsl(40 14% 8%);
-  --card: hsl(43 30% 98%);
+  --card: hsl(43 35% 98%);
   --card-foreground: hsl(40 14% 8%);
-  --popover: hsl(43 30% 98%);
+  --popover: hsl(43 35% 98%);
   --popover-foreground: hsl(40 14% 8%);
   --primary: hsl(17 90% 47%);
   --primary-foreground: hsl(40 30% 97%);
   --secondary: hsl(40 18% 90%);
   --secondary-foreground: hsl(40 14% 12%);
   --muted: hsl(42 18% 90%);
-  --muted-foreground: hsl(40 9% 48%);
+  --muted-foreground: hsl(40 9% 45%);
   --accent: hsl(40 22% 90%);
   --accent-foreground: hsl(40 14% 8%);
   --destructive: hsl(0 72% 45%);
   --destructive-foreground: hsl(40 30% 97%);
-  --border: hsl(40 16% 83%);
-  --input: hsl(40 16% 83%);
+  --border: hsl(40 16% 78%);
+  --input: hsl(40 16% 78%);
   --ring: hsl(17 90% 45%);
   --ink: hsl(40 14% 8%);
   --signal: hsl(17 90% 47%);
@@ -182,7 +182,7 @@
   --secondary: hsl(226 16% 16%);
   --secondary-foreground: hsl(40 20% 90%);
   --muted: hsl(226 16% 16%);
-  --muted-foreground: hsl(40 13% 72%);
+  --muted-foreground: hsl(40 15% 77%);
   --accent: hsl(226 16% 18%);
   --accent-foreground: hsl(40 22% 94%);
   --destructive: hsl(0 70% 55%);
@@ -247,8 +247,26 @@ html.theme-transition *::after {
     margin: 1.2cm;
   }
 
+  :root,
+  .dark {
+    color-scheme: light;
+    --background: #ffffff !important;
+    --foreground: #111111 !important;
+    --card: #ffffff !important;
+    --card-foreground: #111111 !important;
+    --muted: #f4f4f4 !important;
+    --muted-foreground: #3f3f3f !important;
+    --accent: #f4f4f4 !important;
+    --accent-foreground: #111111 !important;
+    --border: #d4d4d4 !important;
+    --signal: #b03a0a !important;
+    --ink: #111111 !important;
+    --primary-foreground: #ffffff !important;
+  }
+
   body {
     background: #fff !important;
+    color: #111 !important;
   }
 
   header,

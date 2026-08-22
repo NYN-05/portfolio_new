@@ -15,6 +15,13 @@ const TAG_STYLES = {
   Learning: "border-amber-500/40 bg-amber-500/10 text-amber-600",
 };
 
+const STATUS_DOTS = {
+  Research: "animate-pulse-dot bg-signal",
+  Building: "animate-pulse-dot bg-emerald-500",
+  Contributing: "bg-blue-500",
+  Learning: "bg-amber-500",
+};
+
 function Roadmap() {
   const reduce = useReducedMotion();
   const ref = useRef(null);
@@ -22,14 +29,14 @@ function Roadmap() {
 
   return (
     <section
-      className="scroll-mt-24 border-t border-border bg-card/40 py-20 sm:py-28"
+      className="scroll-mt-24 border-t border-border bg-card/40 py-16 sm:py-20"
       id="roadmap"
       aria-labelledby="roadmap-title"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            num="03"
+            num="04"
             eyebrow="In motion"
             title={
               <span id="roadmap-title">
@@ -53,7 +60,7 @@ function Roadmap() {
               initial={reduce ? false : { opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-              className="group relative flex h-full flex-col bg-card p-7"
+              className="group relative flex h-full flex-col bg-card p-6 sm:p-7"
             >
               <span
                 aria-hidden="true"
@@ -80,6 +87,18 @@ function Roadmap() {
                 {item.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+              <div className="mt-4 space-y-1.5 border-t border-border/70 pt-4">
+                <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                  <span
+                    aria-hidden="true"
+                    className={cn("h-1.5 w-1.5 rounded-full", STATUS_DOTS[item.tag] ?? "bg-muted-foreground/40")}
+                  />
+                  Status: {item.status}
+                </p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                  {item.stack}
+                </p>
+              </div>
               <ArrowUpRight
                 aria-hidden="true"
                 className="mt-auto ml-auto h-4 w-4 pt-2 text-muted-foreground/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal"

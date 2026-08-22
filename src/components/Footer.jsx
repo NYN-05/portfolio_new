@@ -13,10 +13,10 @@ function Footer() {
 
   return (
     <footer className="border-t border-border bg-card/60" id="contact" aria-labelledby="contact-title">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <Reveal>
           <p className="flex items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-signal">
-            <span className="text-muted-foreground">(05)</span>
+            <span className="text-muted-foreground">(06)</span>
             Contact
             <span className="hidden h-px w-10 bg-border sm:block" aria-hidden="true" />
           </p>
@@ -37,9 +37,8 @@ function Footer() {
 
         <Reveal delay={0.12}>
           <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            I&apos;m always open to ML engineering challenges, system architecture
-            discussions, and impactful projects. Tell me what you&apos;re building —
-            the inbox is open.
+            Have a project, research problem, or engineering challenge worth
+            solving? Tell me what you&apos;re building — the inbox is open.
           </p>
         </Reveal>
 
@@ -50,7 +49,7 @@ function Footer() {
         <Reveal delay={0.2}>
           <a
             href={`mailto:${CONTACT.email}`}
-            className="group mt-12 inline-flex items-center gap-3 font-display text-[clamp(1.1rem,3vw,1.75rem)] font-semibold tracking-tight text-foreground hover:underline hover:decoration-signal/50 hover:underline-offset-8"
+            className="group mt-10 inline-flex items-center gap-3 font-display text-[clamp(1.1rem,3vw,1.75rem)] font-semibold tracking-tight text-foreground hover:underline hover:decoration-signal/50 hover:underline-offset-8"
           >
             <span className="marker relative">{CONTACT.email}</span>
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-primary-foreground">
@@ -60,7 +59,7 @@ function Footer() {
         </Reveal>
 
         <Reveal delay={0.28}>
-          <div className="mt-14 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href={`mailto:${CONTACT.email}`}
               className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium transition-colors hover:border-signal/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -90,7 +89,7 @@ function Footer() {
         </Reveal>
 
         <Reveal delay={0.36}>
-          <div className="mt-16 flex flex-col items-start justify-between gap-6 border-t border-border pt-8 sm:flex-row sm:items-center">
+          <div className="mt-12 flex flex-col items-start justify-between gap-6 border-t border-border pt-8 sm:flex-row sm:items-center">
             <p className="font-mono text-[11px] text-muted-foreground">
               &copy; {year} {NAME} — ML Engineer. All rights reserved.
             </p>
