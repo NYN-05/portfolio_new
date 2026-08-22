@@ -25,4 +25,12 @@ skills/
 *.njsproj
 *.sln
 *.sw?
-*play_test/
+
+# Playwright test artifacts (the play_test suite itself IS tracked)
+__pycache__/
+*.py[cod]
+.pytest_cache/
+play_test/screenshots/
+play_test/videos/
+play_test/traces/
+play_test/reports/
