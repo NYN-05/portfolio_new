@@ -305,7 +305,7 @@ function CaseStudyPage() {
                     <Link
                       key={p.slug}
                       to={`/projects/${p.slug}`}
-                      className="group flex min-w-0 items-center gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
+                      className="group flex min-w-0 items-center gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
                     >
                       <img
                         src={p.image}
@@ -321,7 +321,7 @@ function CaseStudyPage() {
                         <p className="truncate font-display text-sm font-semibold tracking-tight">{p.title}</p>
                         <p className="truncate text-xs text-muted-foreground">{p.subtitle}</p>
                       </div>
-                      <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-signal" />
+                      <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-muted-foreground transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-signal" />
                     </Link>
                   ))}
                 </div>

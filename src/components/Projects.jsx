@@ -71,7 +71,7 @@ function ProjectCard({ project }) {
     <Link
       to={`/projects/${project.slug}`}
       prefetch="viewport"
-      className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]"
+      className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]"
     >
       <ProjectImage project={project} className="aspect-[16/10]" overlay />
       <div className="flex flex-1 flex-col gap-4 p-6">
@@ -119,7 +119,7 @@ function FeaturedProject({ project }) {
     <Link
       to={`/projects/${project.slug}`}
       prefetch="viewport"
-      className="group relative grid min-w-0 grid-cols-1 overflow-hidden rounded-3xl border border-border/80 bg-card shadow-sm transition-all duration-300 hover:border-signal/40 hover:shadow-xl hover:shadow-ink/5 lg:grid-cols-2"
+      className="group relative grid min-w-0 grid-cols-1 overflow-hidden rounded-3xl border border-border/80 bg-card shadow-sm transition-colors transition-shadow duration-300 hover:border-signal/40 hover:shadow-xl hover:shadow-ink/5 lg:grid-cols-2"
     >
       <ProjectImage project={project} className="aspect-[16/11] lg:h-full" eager overlay />
       <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">

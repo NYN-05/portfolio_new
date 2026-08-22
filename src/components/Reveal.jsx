@@ -1,9 +1,10 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import { EASE } from "../lib/motion";
 
 function Reveal({ children, className, delay = 0, y = 28, as = "div", ...props }) {
   const reduce = useReducedMotion();
-  const Comp = motion[as];
+  const Comp = m[as];
 
   return (
     <Comp

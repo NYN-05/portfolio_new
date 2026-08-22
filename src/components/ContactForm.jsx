@@ -112,7 +112,7 @@ function ContactForm() {
       <div className="flex flex-wrap items-center gap-3">
         <button
           type="submit"
-          className="inline-flex h-12 items-center gap-2 rounded-full bg-ink px-7 text-sm font-medium text-background shadow-sm transition-all hover:bg-ink/85 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="inline-flex h-12 items-center gap-2 rounded-full bg-ink px-7 text-sm font-medium text-background shadow-sm transition-colors transition-transform hover:bg-ink/85 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Send message
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

@@ -52,7 +52,7 @@ function Footer() {
             className="group mt-10 inline-flex items-center gap-3 font-display text-[clamp(1.1rem,3vw,1.75rem)] font-semibold tracking-tight text-foreground hover:underline hover:decoration-signal/50 hover:underline-offset-8"
           >
             <span className="marker relative">{CONTACT.email}</span>
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-primary-foreground">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-primary-foreground">
               <ArrowUpRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </span>
           </a>

@@ -264,7 +264,7 @@ function AiAssistant() {
                 <button
                   type="submit"
                   disabled={!input.trim() || typing}
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-background transition-all disabled:opacity-40 enabled:hover:bg-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-background transition-colors transition-opacity disabled:opacity-40 enabled:hover:bg-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label="Send message"
                 >
                   <Send className="h-4 w-4" />

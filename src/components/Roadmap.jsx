@@ -100,7 +100,7 @@ function Roadmap() {
               </div>
               <ArrowUpRight
                 aria-hidden="true"
-                className="mt-auto ml-auto h-4 w-4 pt-2 text-muted-foreground/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal"
+                className="mt-auto ml-auto h-4 w-4 pt-2 text-muted-foreground/40 transition-transform transition-colors duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal"
               />
             </motion.li>
           ))}

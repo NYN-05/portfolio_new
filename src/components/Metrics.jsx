@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { useInView, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import CountUp from "./CountUp";
 import Reveal from "./Reveal";
 import { EASE } from "../lib/motion";
@@ -25,7 +26,7 @@ function Metrics() {
         className="mx-auto grid max-w-6xl grid-cols-2 gap-px bg-border sm:grid-cols-3"
       >
         {METRICS.map((metric, i) => (
-          <motion.div
+          <m.div
             key={metric.label}
             initial={reduce ? false : { opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}

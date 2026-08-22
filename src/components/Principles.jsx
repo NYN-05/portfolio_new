@@ -27,7 +27,7 @@ function Principles() {
             const Icon = ICONS[i] ?? Zap;
             return (
               <Reveal key={principle.num} delay={i * 0.08} className="h-full">
-                <article className="group flex h-full flex-col rounded-2xl border border-border/80 bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]">
+                <article className="group flex h-full flex-col rounded-2xl border border-border/80 bg-card p-7 shadow-sm transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]">
                   <div className="flex items-start justify-between">
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-signal/10 text-signal transition-colors duration-300 group-hover:bg-signal group-hover:text-primary-foreground">
                       <Icon className="h-5 w-5" />

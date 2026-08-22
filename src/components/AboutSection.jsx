@@ -12,7 +12,7 @@ function Skills() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {SKILLS.map((skill) => (
           <Reveal key={skill.name} y={18}>
-            <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5">
+            <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-5 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5">
               <span
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-signal to-signal/30 transition-transform duration-500 group-hover:scale-x-100"
@@ -42,7 +42,7 @@ function Skills() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full bg-signal/50 transition-all duration-300 group-hover:bg-signal group-hover:shadow-[0_0_8px] group-hover:shadow-signal/50"
+                  className="h-1.5 w-1.5 rounded-full bg-signal/50 transition-colors transition-shadow duration-300 group-hover:bg-signal group-hover:shadow-[0_0_8px] group-hover:shadow-signal/50"
                 />
               </div>
             </div>
@@ -94,7 +94,7 @@ function Journey() {
         >
           <span
             aria-hidden="true"
-            className="absolute -left-8 top-0 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-md border border-border bg-card font-mono text-[9px] font-semibold text-muted-foreground transition-all duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-primary-foreground"
+            className="absolute -left-8 top-0 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-md border border-border bg-card font-mono text-[9px] font-semibold text-muted-foreground transition-colors duration-300 group-hover:border-signal group-hover:bg-signal group-hover:text-primary-foreground"
           >
             {String(i + 1).padStart(2, "0")}
           </span>

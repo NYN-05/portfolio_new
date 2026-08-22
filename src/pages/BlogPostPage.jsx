@@ -115,7 +115,7 @@ function BlogPostPage() {
                   <Link
                     key={p.slug}
                     to={`/blog/${p.slug}`}
-                    className="group flex min-w-0 items-start gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
+                    className="group flex min-w-0 items-start gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
                   >
                     <img
                       src={p.hero}
@@ -134,7 +134,7 @@ function BlogPostPage() {
                         {p.readTime} read
                       </p>
                     </div>
-                    <ArrowRight className="ml-auto h-4 w-4 shrink-0 self-center text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-signal" />
+                    <ArrowRight className="ml-auto h-4 w-4 shrink-0 self-center text-muted-foreground transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-signal" />
                   </Link>
                 ))}
               </div>

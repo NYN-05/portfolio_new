@@ -64,7 +64,7 @@ function GitHubSection() {
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex min-w-0 items-start gap-4 rounded-2xl border border-border/80 bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]"
+                  className="group flex min-w-0 items-start gap-4 rounded-2xl border border-border/80 bg-card p-5 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 active:scale-[0.99]"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-signal/10 text-signal">
                     <GitBranch className="h-4 w-4" aria-hidden="true" />
@@ -101,7 +101,7 @@ function GitHubSection() {
                       )}
                       {updated && <span className="hidden sm:inline">{updated}</span>}
                       <GitBranch
-                        className="ml-auto hidden h-3 w-3 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-signal sm:block"
+                        className="ml-auto hidden h-3 w-3 transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-signal sm:block"
                         aria-hidden="true"
                       />
                     </div>

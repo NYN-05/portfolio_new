@@ -55,7 +55,7 @@ function BlogPage() {
               <Reveal key={post.slug} delay={i * 0.06}>
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="group flex flex-col gap-5 rounded-2xl border border-border/80 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 sm:flex-row sm:items-center"
+                  className="group flex flex-col gap-5 rounded-2xl border border-border/80 bg-card p-6 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 sm:flex-row sm:items-center"
                 >
                   <img
                     src={post.hero}
@@ -84,7 +84,7 @@ function BlogPage() {
                           {tag}
                         </Badge>
                       ))}
-                      <ArrowUpRight className="ml-auto h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal" />
+                      <ArrowUpRight className="ml-auto h-4 w-4 text-muted-foreground transition-transform transition-colors duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal" />
                     </div>
                   </div>
                 </Link>

@@ -152,7 +152,7 @@ function Navbar() {
             <button
               ref={paletteTriggerRef}
               onClick={() => setPaletteOpen(true)}
-              className="hidden h-11 items-center gap-2 rounded-full border border-border bg-card px-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-signal/40 hover:text-foreground active:scale-[0.98] sm:inline-flex"
+              className="hidden h-11 items-center gap-2 rounded-full border border-border bg-card px-3.5 text-sm text-muted-foreground transition-colors transition-transform duration-200 hover:border-signal/40 hover:text-foreground active:scale-[0.98] sm:inline-flex"
               aria-label="Open command palette"
               aria-haspopup="dialog"
             >
@@ -169,7 +169,7 @@ function Navbar() {
               </a>
             </Button>
             <button
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-all duration-200 active:scale-95 md:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors transition-transform duration-200 active:scale-95 md:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-menu"
