@@ -5,13 +5,13 @@ import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import { Button } from "../components/ui/button";
 import { CONTACT, NAME, ROLE } from "../content/profile";
-import { RESUME } from "../content/career";
+import { RESUME, TECH_STACK_CATEGORIES } from "../content/career";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function ResumeSection({ title, children }) {
   return (
-    <section className="border-t border-border py-10 first:border-t-0 first:pt-0 print:break-inside-avoid">
-      <h2 className="mb-5 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-signal">
+    <section className="border-t border-border py-8 first:border-t-0 first:pt-0 print:break-inside-avoid">
+      <h2 className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-signal">
         {title}
       </h2>
       {children}
@@ -44,11 +44,14 @@ function ResumePage() {
           <Reveal delay={0.08}>
             <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
               <div>
-                <h1 className="font-display text-[clamp(2.75rem,6vw,4.5rem)] font-bold leading-[1.0] tracking-[-0.02em]">
+                <h1 className="font-display text-[clamp(2.5rem,5.5vw,4rem)] font-bold leading-[1.0] tracking-[-0.02em] text-foreground">
                   {NAME}
                 </h1>
-                <p className="mt-3 font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground">
-                  {ROLE} · {CONTACT.email}
+                <p className="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-signal sm:text-sm">
+                  {ROLE} · Software &amp; Intelligent Systems
+                </p>
+                <p className="mt-1 font-mono text-xs text-muted-foreground">
+                  {CONTACT.email} · {CONTACT.github.replace("https://", "")}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 print:hidden">
@@ -64,42 +67,42 @@ function ResumePage() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.14} className="mt-12">
+          <Reveal delay={0.14} className="mt-10">
             <div className="rounded-3xl border border-border bg-card p-6 sm:p-10 print:rounded-none print:border-0 print:bg-transparent print:p-0">
-              <div className="border-b border-border pb-8 print:border-0">
-                <p className="max-w-prose text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+              <div className="border-b border-border pb-6 print:border-0">
+                <p className="max-w-prose text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base">
                   {RESUME.summary}
                 </p>
               </div>
 
-              <div className="grid gap-10 pt-8 lg:grid-cols-[1.3fr_1fr] lg:gap-12">
-                <div className="min-w-0">
+              <div className="grid gap-8 pt-8 lg:grid-cols-[1.3fr_0.9fr] lg:gap-10">
+                <div className="min-w-0 space-y-6">
                   <ResumeSection title="Experience">
                     <ol className="relative space-y-8 border-l border-border pl-6">
-                      {RESUME.experience.map((job, i) => (
-                        <li key={`${job.role}-${i}`} className="relative">
+                      {RESUME.experience.map((job) => (
+                        <li key={job.role + job.company} className="relative">
                           <span
                             aria-hidden="true"
                             className="absolute -left-6 top-1 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-signal bg-card"
                           />
-                          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-signal">
-                            {job.period}
+                          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-signal">
+                            {job.dates}
                           </p>
-                          <h3 className="mt-1 font-display text-lg font-semibold tracking-tight">
+                          <h3 className="mt-1 font-display text-lg font-semibold tracking-tight text-foreground">
                             {job.role}
                           </h3>
-                          <p className="text-[15px] text-muted-foreground">{job.org}</p>
-                          <ul className="mt-3 space-y-1.5">
-                            {job.points.map((point) => (
+                          <p className="text-xs font-mono text-muted-foreground">{job.company}</p>
+                          <ul className="mt-3 space-y-2">
+                            {job.impact.map((point) => (
                               <li
                                 key={point}
-                                className="flex gap-2.5 text-[15px] leading-relaxed text-muted-foreground"
+                                className="flex gap-2 text-xs leading-relaxed text-muted-foreground sm:text-[13px]"
                               >
                                 <span
                                   aria-hidden="true"
-                                  className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-signal/70"
+                                  className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-signal"
                                 />
-                                {point}
+                                <span>{point}</span>
                               </li>
                             ))}
                           </ul>
@@ -107,56 +110,65 @@ function ResumePage() {
                       ))}
                     </ol>
                   </ResumeSection>
-
-                  <ResumeSection title="Education">
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <div>
-                        <h3 className="font-display text-[15px] font-semibold tracking-tight">
-                          {RESUME.education[0].degree}
-                        </h3>
-                        <p className="mt-0.5 text-[15px] text-muted-foreground">
-                          {RESUME.education[0].school}
-                        </p>
-                      </div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                        {RESUME.education[0].period}
-                      </p>
-                    </div>
-                  </ResumeSection>
                 </div>
 
-                <div className="min-w-0 space-y-10">
-                  <ResumeSection title="Highlights">
-                    <ul className="space-y-3">
-                      {RESUME.highlights.map((item) => (
-                          <li
-                            key={item}
-                            className="flex gap-2.5 text-[15px] leading-relaxed text-muted-foreground"
-                          >
-                          <span
-                            aria-hidden="true"
-                            className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-signal"
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
+                <div className="min-w-0 space-y-6">
+                  <ResumeSection title="Education">
+                    {RESUME.education.map((edu) => (
+                      <div key={edu.university} className="space-y-3">
+                        <div className="flex flex-wrap items-baseline justify-between gap-1">
+                          <h3 className="font-display text-base font-semibold tracking-tight text-foreground">
+                            {edu.university}
+                          </h3>
+                          <span className="font-mono text-[10px] font-bold text-signal">
+                            {edu.grade}
+                          </span>
+                        </div>
+                        <p className="font-mono text-xs text-muted-foreground">
+                          {edu.degree} · {edu.dates}
+                        </p>
+                        <div className="pt-2">
+                          <p className="font-mono text-[10px] uppercase tracking-wider text-foreground/80 font-semibold">
+                            Core Coursework:
+                          </p>
+                          <div className="mt-2 flex flex-wrap gap-1.5">
+                            {edu.coursework.map((course) => (
+                              <span
+                                key={course}
+                                className="rounded bg-muted/60 px-2 py-0.5 font-mono text-[10px] text-foreground/90"
+                              >
+                                {course}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </ResumeSection>
 
-                  <ResumeSection title="Skills">
-                    <div className="flex flex-wrap gap-1.5">
-                      {RESUME.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="rounded-full border border-border bg-muted px-2.5 py-1 text-[11px] font-medium text-muted-foreground"
-                        >
-                          {skill}
-                        </span>
+                  <ResumeSection title="Technical Competencies">
+                    <div className="space-y-4">
+                      {TECH_STACK_CATEGORIES.map((cat) => (
+                        <div key={cat.category}>
+                          <p className="font-mono text-[10px] uppercase tracking-wider text-signal font-semibold">
+                            {cat.category}
+                          </p>
+                          <div className="mt-1 flex flex-wrap gap-1.5">
+                            {cat.skills.map((skill) => (
+                              <span
+                                key={skill}
+                                className="rounded-md border border-border/80 bg-muted/30 px-2 py-0.5 font-mono text-[10px] text-foreground/90"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </ResumeSection>
 
-                  <ResumeSection title="Find me">
+                  <ResumeSection title="Contact & Links">
                     <ul className="space-y-2 font-mono text-xs text-muted-foreground">
                       <li>
                         <a
@@ -173,7 +185,7 @@ function ResumePage() {
                           rel="noopener noreferrer"
                           className="transition-colors hover:text-signal"
                         >
-                          github.com/{CONTACT.github.split("/").pop()}
+                          {CONTACT.github.replace("https://", "")}
                         </a>
                       </li>
                       <li>
@@ -183,7 +195,7 @@ function ResumePage() {
                           rel="noopener noreferrer"
                           className="transition-colors hover:text-signal"
                         >
-                          linkedin.com/in/{CONTACT.linkedin.split("/").pop()}
+                          {CONTACT.linkedin.replace("https://", "")}
                         </a>
                       </li>
                     </ul>

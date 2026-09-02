@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import { ArrowUpRight, Menu, Moon, Search, Sun, X } from "lucide-react";
 import { Button } from "./ui/button";
 import CommandPalette from "./CommandPalette";
@@ -26,7 +27,7 @@ function ThemeToggle({ className }) {
       title={dark ? "Switch to light mode" : "Switch to dark mode"}
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.span
+        <m.span
           key={dark ? "moon" : "sun"}
           initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
           animate={{ rotate: 0, opacity: 1, scale: 1 }}
@@ -35,7 +36,7 @@ function ThemeToggle({ className }) {
           aria-hidden="true"
         >
           {dark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </button>
   );
@@ -95,7 +96,7 @@ function Navbar() {
   };
 
   return (
-    <motion.header
+    <m.header
       initial={reduce ? false : { y: -56, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 1.1 }}
@@ -123,29 +124,42 @@ function Navbar() {
             </span>
           </a>
 
-          <div className="hidden items-center gap-1 md:flex" role="list">
+          <ul className="hidden items-center gap-1 md:flex">
             {NAV_ITEMS.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={(e) => scrollToAnchor(e, item.href)}
-                className={cn(
-                  "group relative flex min-h-11 items-center rounded-full px-4 py-2.5 text-sm font-medium transition-colors",
-                  active === item.id ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                )}
-                aria-current={active === item.id ? "true" : undefined}
-              >
-                {item.label}
-                <span
+              <li key={item.id}>
+                <a
+                  href={item.href}
+                  onClick={(e) => scrollToAnchor(e, item.href)}
                   className={cn(
-                    "absolute inset-x-3.5 -bottom-px h-px origin-left bg-signal transition-transform duration-300",
-                    active === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    "group relative flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-sm font-medium transition-colors",
+                    active === item.id ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                   )}
+                  aria-current={active === item.id ? "true" : undefined}
+                >
+                  {item.label}
+                  <span
+                    className={cn(
+                      "absolute inset-x-3.5 -bottom-px h-px origin-left bg-signal transition-transform duration-300",
+                      active === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    )}
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href="/resume"
+                className="group relative flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Resume
+                <span
+                  className="absolute inset-x-3.5 -bottom-px h-px origin-left bg-signal transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
                   aria-hidden="true"
                 />
               </a>
-            ))}
-          </div>
+            </li>
+          </ul>
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -157,7 +171,7 @@ function Navbar() {
               aria-haspopup="dialog"
             >
               <Search className="h-4 w-4" aria-hidden="true" />
-              <span className="hidden md:inline">Search…</span>
+              <span className="hidden lg:inline">Search…</span>
               <kbd className="rounded-md border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px]">
                 Ctrl K
               </kbd>
@@ -182,21 +196,21 @@ function Navbar() {
 
         <AnimatePresence>
           {open && (
-            <motion.div
+            <m.div
               id="mobile-menu"
               data-lenis-prevent
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden border-t border-border bg-background/95 backdrop-blur-xl md:hidden"
             >
-              <motion.nav
+              <m.nav
                 aria-label="Mobile navigation"
                 className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 sm:px-6"
               >
                 {NAV_ITEMS.map((item, i) => (
-                  <motion.a
+                  <m.a
                     key={item.id}
                     href={item.href}
                     onClick={(e) => closeAndGo(e, item.href)}
@@ -213,9 +227,22 @@ function Navbar() {
                       {item.label}
                     </span>
                     <ArrowUpRight className="h-4 w-4 opacity-40" />
-                  </motion.a>
+                  </m.a>
                 ))}
-                <motion.a
+                <m.a
+                  href="/resume"
+                  initial={reduce ? false : { opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: NAV_ITEMS.length * 0.05, duration: 0.3 }}
+                  className="flex items-center justify-between rounded-xl px-3 py-3 text-base font-medium text-muted-foreground"
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="font-mono text-[10px] text-signal">(PDF)</span>
+                    Interactive Resume
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 opacity-40" />
+                </m.a>
+                <m.a
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
@@ -232,8 +259,8 @@ function Navbar() {
                     Command palette
                   </span>
                   <Search className="h-4 w-4 opacity-40" />
-                </motion.a>
-                <motion.div
+                </m.a>
+                <m.div
                   initial={reduce ? false : { opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.3 }}
@@ -246,14 +273,14 @@ function Navbar() {
                       <ArrowUpRight className="h-4 w-4" />
                     </a>
                   </Button>
-                </motion.div>
-              </motion.nav>
-            </motion.div>
+                </m.div>
+              </m.nav>
+            </m.div>
           )}
         </AnimatePresence>
       </nav>
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} triggerRef={paletteTriggerRef} />
-    </motion.header>
+    </m.header>
   );
 }
 

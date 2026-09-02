@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import {
   ArrowUpRight,
   CornerDownLeft,
@@ -138,8 +139,7 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
     el?.scrollIntoView({ block: "nearest" });
   }, [current]);
 
-  useEffect(() => {
-    const onGlobalKey = (e) => {
+  const onGlobalKey = useEffectEvent((e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         if (open) close();
@@ -156,10 +156,12 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
       } else if (e.key === "Escape" && open) {
         close();
       }
-    };
-    window.addEventListener("keydown", onGlobalKey);
-    return () => window.removeEventListener("keydown", onGlobalKey);
-  }, [open, onOpenChange]); // eslint-disable-line react-hooks/exhaustive-deps
+    });
+
+    useEffect(() => {
+      window.addEventListener("keydown", onGlobalKey);
+      return () => window.removeEventListener("keydown", onGlobalKey);
+    }, []);
 
   const onKeyDown = (e) => {
     if (e.key === "Escape") {
@@ -181,7 +183,7 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           role="dialog"
           aria-modal="true"
           aria-label="Command palette"
@@ -197,7 +199,7 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
             className="relative mx-auto flex min-h-full w-full max-w-xl items-start justify-center px-4 pt-[12vh]"
             data-lenis-prevent
           >
-            <motion.div
+            <m.div
               initial={reduce ? false : { opacity: 0, y: -14, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -313,9 +315,9 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
                   toggle
                 </span>
               </div>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

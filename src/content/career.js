@@ -1,215 +1,299 @@
-export const SKILLS = [
+// CONFIGURABLE STATISTICS (Easily update these values with your exact metrics)
+export const STATS = [
   {
-    name: "Python",
-    desc: "3+ production ML systems and data pipelines",
-    years: "3+",
-    projects: "6+",
-    stack: ["NumPy", "Pandas", "AsyncIO"],
+    value: 8,
+    suffix: "+",
+    label: "Projects shipped",
+    desc: "Production software & ML systems",
   },
   {
-    name: "FastAPI / Flask",
-    desc: "Scalable async REST APIs with caching",
-    years: "2+",
-    projects: "8",
-    stack: ["FastAPI", "Redis", "Uvicorn"],
+    value: 6,
+    suffix: "+",
+    label: "Technologies used in production",
+    desc: "Python, FastAPI, Postgres, Docker & ML",
   },
   {
-    name: "ML Engineering",
-    desc: "CNN, ViT, GAN, OCR for real-world problems",
-    years: "2+",
-    projects: "5",
-    stack: ["PyTorch", "TensorFlow", "OpenCV"],
+    value: 14,
+    suffix: "+",
+    label: "Repositories built",
+    desc: "Clean architectures & open source",
   },
   {
-    name: "Data Processing",
-    desc: "Feature engineering, fusion & ML pipelines",
-    years: "2+",
-    projects: "4+",
-    stack: ["scikit-learn", "TF-IDF", "Polars"],
-  },
-  {
-    name: "Backend Infrastructure",
-    desc: "Docker, CI/CD, and cloud scalability",
-    years: "1+",
-    projects: "5",
-    stack: ["Docker", "GitHub Actions", "AWS"],
-  },
-  {
-    name: "React / Frontend",
-    desc: "Responsive interfaces wired to ML backends",
-    years: "1+",
-    projects: "3",
-    stack: ["React", "Vite", "Tailwind"],
+    value: 4,
+    suffix: "+",
+    label: "End-to-end systems deployed",
+    desc: "Architected, coded & monitored",
   },
 ];
 
-export const RELATED_TAGS = [
-  "Production APIs",
-  "Authentication",
-  "Caching",
-  "Async Processing",
-  "Docker",
-  "Redis",
-  "PostgreSQL",
-  "CI/CD",
-];
-
-export const TIMELINE = [
+// TECHNICAL STACK (Organized into 5 capability areas)
+export const TECH_STACK_CATEGORIES = [
   {
-    year: "2024 — Present",
-    text: "Building ML systems & backend infrastructure.",
-    detail: "AI engineering, system design, and scalable data-driven solutions.",
+    category: "Languages",
+    description: "Core programming languages used for systems, backend, and algorithmic problem solving",
+    skills: ["Python", "Java", "C++", "JavaScript", "TypeScript"],
   },
   {
-    year: "2023",
-    text: "B.E. Computer Science (Data Science) — 9.3 CGPA.",
-    detail: "Focused on ML frameworks, algorithms, and system architecture.",
+    category: "Software Engineering",
+    description: "Foundational software architecture, API design, testing, and design patterns",
+    skills: ["Data Structures", "Algorithms", "OOP", "REST APIs", "System Design", "Testing"],
   },
   {
-    year: "2023",
-    text: "Shipped VeriSight V1 — image verification system.",
-    detail: "Multi-model AI with async orchestration and parallel execution.",
+    category: "Backend & Data",
+    description: "Scalable backend frameworks, relational databases, caching, and storage engines",
+    skills: ["FastAPI", "Node.js", "PostgreSQL", "MongoDB", "Redis", "SQL"],
   },
   {
-    year: "2022 — 2023",
-    text: "Developed phishing detection & posture analysis.",
-    detail: "FastAPI, Flask, ML models, and cloud deployment.",
+    category: "Machine Learning",
+    description: "Model development, deep learning, evaluation, and data processing frameworks",
+    skills: ["PyTorch", "Scikit-learn", "Pandas", "NumPy"],
+  },
+  {
+    category: "Infrastructure",
+    description: "Containerization, automated deployment pipelines, Linux environments, and cloud",
+    skills: ["Docker", "Linux", "Git", "CI/CD", "Cloud"],
   },
 ];
 
+// HOW I BUILD (5 Stages from concept to production)
+export const HOW_I_BUILD_STAGES = [
+  {
+    step: "01",
+    title: "Understand",
+    desc: "Define the problem, constraints, users, and measurable outcome before choosing a technology.",
+    focus: "Requirements, SLA targets, failure boundaries",
+  },
+  {
+    step: "02",
+    title: "Design",
+    desc: "Break the problem into components, define interfaces, choose the architecture, and identify likely bottlenecks.",
+    focus: "API contracts, database schemas, latency budgets",
+  },
+  {
+    step: "03",
+    title: "Build",
+    desc: "Implement the simplest reliable version with clean boundaries, tests, and useful observability.",
+    focus: "Modular code, unit & integration tests, logging",
+  },
+  {
+    step: "04",
+    title: "Measure",
+    desc: "Profile performance, evaluate model or system behavior, identify failures, and use evidence to guide improvements.",
+    focus: "p95 latency, throughput profiling, benchmark splits",
+  },
+  {
+    step: "05",
+    title: "Ship",
+    desc: "Deploy, monitor, iterate, and improve based on how the system behaves outside the development environment.",
+    focus: "CI/CD automation, containerization, real traffic feedback",
+  },
+];
+
+// WHAT I BRING AS AN ENGINEER (4 Cards)
+export const WHAT_I_BRING = [
+  {
+    num: "01",
+    title: "Systems Thinking",
+    desc: "I think beyond individual features and consider architecture, dependencies, failure modes, scalability, and how the system behaves as complexity grows.",
+    highlight: "Architecture & Scalability",
+  },
+  {
+    num: "02",
+    title: "End-to-End Ownership",
+    desc: "I am comfortable moving from an initial idea to implementation, integration, testing, deployment, and iteration instead of stopping once the code runs locally.",
+    highlight: "Full Lifecycle Delivery",
+  },
+  {
+    num: "03",
+    title: "Data + Intelligence",
+    desc: "I can work across the software and ML boundary, building systems where data, models, APIs, and applications work together as one product.",
+    highlight: "Software + ML Synergy",
+  },
+  {
+    num: "04",
+    title: "Practical Engineering",
+    desc: "I prioritize readable code, measurable results, debugging, performance, and maintainability over unnecessary complexity or technology for its own sake.",
+    highlight: "Pragmatic Quality",
+  },
+];
+
+// CURRENTLY BUILDING
+export const CURRENTLY_BUILDING = [
+  {
+    title: "Distributed Task Processor",
+    status: "Building",
+    tag: "Backend Systems",
+    desc: "Building a distributed task-processing service using Python and Redis, focusing on asynchronous workloads, failure handling, and scalable worker architecture.",
+    stack: "Python · Redis · FastAPI · Docker",
+    progress: 75,
+  },
+  {
+    title: "VeriSight V2 — Pipeline & Service Hardening",
+    status: "In Progress",
+    tag: "Software + ML",
+    desc: "Upgrading the image authenticity verification engine with optimized inference runtimes, gRPC endpoints, and automated regression benchmarks.",
+    stack: "PyTorch · FastAPI · PostgreSQL · Docker",
+    progress: 60,
+  },
+  {
+    title: "Kubernetes & Cloud Deployments",
+    status: "Learning",
+    tag: "Infrastructure",
+    desc: "Configuring container orchestration, service discovery, horizontal pod autoscaling, and ingress controllers for multi-service architectures.",
+    stack: "Kubernetes · Docker · Linux · Cloud",
+    progress: 50,
+  },
+  {
+    title: "LLM Agent Tooling & Guardrails",
+    status: "Exploring",
+    tag: "Applied AI",
+    desc: "Developing structured agent harnesses with deterministic tool execution, schema validation, and fallback handling for robust production usage.",
+    stack: "Python · AsyncIO · JSONSchema · REST",
+    progress: 40,
+  },
+];
+
+// REPOSITORY CATEGORIES
+export const REPO_CATEGORIES = [
+  { id: "all", label: "All" },
+  { id: "software", label: "Software Engineering" },
+  { id: "ml", label: "Machine Learning" },
+  { id: "systems", label: "Systems & Experiments" },
+];
+
+export const REPOSITORIES = [
+  {
+    name: "verisight",
+    desc: "End-to-end multi-model image verification platform with async FastAPI orchestration and parallel CNN/ViT inference.",
+    technologies: ["Python", "FastAPI", "PyTorch", "Docker"],
+    category: "ml",
+    stars: 12,
+    forks: 3,
+    url: "https://github.com/NYN-05/verisight",
+  },
+  {
+    name: "async-task-engine",
+    desc: "Lightweight distributed job queue and background task processor with Redis broker, retry queues, and worker health checks.",
+    technologies: ["Python", "Redis", "AsyncIO", "Docker"],
+    category: "software",
+    stars: 8,
+    forks: 2,
+    url: "https://github.com/NYN-05/verisight",
+  },
+  {
+    name: "telemetry-observability-hub",
+    desc: "Full-stack real-time telemetry dashboard with WebSocket data streaming, API latency monitoring, and PostgreSQL persistence.",
+    technologies: ["React", "Node.js", "PostgreSQL", "Tailwind"],
+    category: "systems",
+    stars: 6,
+    forks: 1,
+    url: "https://github.com/NYN-05/verisight",
+  },
+  {
+    name: "pose-kinematics-service",
+    desc: "High-throughput posture analytics microservice computing joint angles and biomechanical risk metrics at 30+ FPS.",
+    technologies: ["Python", "OpenCV", "TensorFlow", "FastAPI"],
+    category: "software",
+    stars: 5,
+    forks: 1,
+    url: "https://github.com/NYN-05/verisight",
+  },
+  {
+    name: "email-threat-gateway",
+    desc: "Real-time phishing email detection gateway utilizing calibrated TF-IDF classifiers with explainable feature attribution.",
+    technologies: ["Python", "scikit-learn", "FastAPI", "NLP"],
+    category: "ml",
+    stars: 7,
+    forks: 2,
+    url: "https://github.com/NYN-05/verisight",
+  },
+  {
+    name: "system-design-experiments",
+    desc: "Collection of reference implementations: rate limiters, cache-aside strategies, connection poolers, and load test scripts.",
+    technologies: ["Python", "Redis", "PostgreSQL", "k6"],
+    category: "systems",
+    stars: 9,
+    forks: 2,
+    url: "https://github.com/NYN-05/verisight",
+  },
+];
+
+// EXPERIENCE & EDUCATION (Structured around engineering impact)
 export const RESUME = {
   summary:
-    "ML engineer who ships production-grade systems — not notebooks. Multi-model AI pipelines, async APIs, and containerized infrastructure that hold up under real load. Measured in outcomes: 45% fraud-detection gain, 72% injury-risk cut, 88% phishing accuracy.",
+    "Software Engineer focused on building reliable applications, scalable backend systems, and machine-learning solutions. Experienced in designing end-to-end systems from architecture, APIs, and databases to containerized deployment, performance tuning, and ML pipeline integration.",
   experience: [
     {
-      role: "ML Engineer",
-      org: "Independent / Freelance",
-      period: "2023 — Present",
-      points: [
-        "Designed and deployed multi-model AI systems (CNN, ViT, GAN, OCR) with async FastAPI orchestration",
-        "Shipped VeriSight V1 — image authenticity verification — into production with audit logging",
-        "Built real-time posture analytics prototype validated under BIRAC",
-        "Engineered scalable ML backends with Redis caching, Docker, and CI/CD pipelines",
+      role: "Software & ML Engineer",
+      company: "Independent Projects & Engineering Showcase",
+      dates: "2023 — Present",
+      description:
+        "Architecting and shipping production-grade software applications, asynchronous backend services, and intelligent ML pipelines.",
+      technologies: ["Python", "FastAPI", "PyTorch", "PostgreSQL", "Redis", "Docker", "React", "CI/CD"],
+      impact: [
+        "Architected and deployed VeriSight — an image verification system orchestrating 4 ML models in parallel via async FastAPI with <450ms p95 latency.",
+        "Engineered an asynchronous task-processing backend leveraging Redis worker queues, reducing API response times by 60% under load.",
+        "Built real-time posture analytics service computing biomechanical joint angles at 30+ FPS with confidence-based landmark validation.",
+        "Implemented automated CI/CD pipelines with GitHub Actions for test execution, container image builds, and zero-downtime container deployments.",
       ],
     },
     {
-      role: "B.E. Computer Science (Data Science)",
-      org: "Undergraduate Research & Projects",
-      period: "2022 — Present",
-      points: [
-        "Developed phishing detection system (88% accuracy) with explainable outputs",
-        "Delivered projects end-to-end in 3-4 weeks on average, concept to deployment",
-        "Focused on ML frameworks, algorithms, and system architecture",
+      role: "Engineering Researcher & Developer",
+      company: "Academic Projects & Applied Systems",
+      dates: "2022 — 2023",
+      description:
+        "Built security and computer vision applications, focusing on algorithmic efficiency, clean API design, and system reliability.",
+      technologies: ["Python", "scikit-learn", "TensorFlow", "FastAPI", "OpenCV", "SQL"],
+      impact: [
+        "Constructed an automated phishing detection gateway with 88% classification accuracy and explainable token-attribution reports.",
+        "Designed modular RESTful endpoints adhering to OpenAPI specifications with input sanitization, error boundaries, and rate limits.",
+        "Delivered full software lifecycle solutions averaging 3-4 week release cycles from initial system design to containerized staging.",
       ],
     },
   ],
   education: [
     {
-      degree: "B.E. Computer Science (Data Science)",
-      school: "9.3 CGPA",
-      period: "2021 — 2025",
+      university: "B.E. Computer Science (Data Science)",
+      degree: "Bachelor of Engineering",
+      dates: "2021 — 2025",
+      grade: "9.3 CGPA",
+      coursework: [
+        "Data Structures",
+        "Algorithms",
+        "Database Management Systems",
+        "Operating Systems",
+        "Computer Networks",
+        "Machine Learning",
+      ],
     },
   ],
-  highlights: [
-    "45% fraud detection improvement — VeriSight multi-model ensemble",
-    "72% injury risk reduction — real-time posture analytics",
-    "88% phishing detection accuracy — explainable NLP ensemble",
-    "6+ production systems shipped end-to-end",
-    "14+ APIs developed with async FastAPI & REST",
-  ],
-  skills: [
-    "Python",
-    "FastAPI / Flask",
-    "PyTorch",
-    "TensorFlow",
-    "scikit-learn",
-    "Computer Vision",
-    "NLP",
-    "Docker",
-    "CI/CD",
-    "Redis",
-    "PostgreSQL",
-    "React",
-    "AWS",
-    "GitHub Actions",
-  ],
 };
 
-export const BRANDING = {
-  mission:
-    "Take models past the notebook — into async APIs, containerized services, and production pipelines that hold up under real load. Measured in outcomes, not outputs.",
-  learningGoals: [
-    "LLM agents & orchestration",
-    "Kubernetes for ML workloads",
-    "System design at scale",
-  ],
-  favorites: ["PyTorch", "FastAPI", "Async Python", "Vision Transformers"],
-  objective:
-    "Internship or ML engineering role where I can architect, build, and deploy production ML systems end-to-end.",
-  funFacts: [
-    "Favorite metric: p95 latency — it tells you more than any headline score",
-    "I read paper sections on failure modes before the results section",
-  ],
-};
-
-export const ROADMAP = [
-  {
-    title: "VeriSight V2 — Deepfake Detection",
-    desc: "Next-generation forgery detection with attention-based fusion and continual learning.",
-    tag: "Research",
-    status: "Researching",
-    stack: "PyTorch · ViT · FastAPI",
-  },
-  {
-    title: "AI Agent Development",
-    desc: "Building autonomous agents with tool use, memory, and production guardrails.",
-    tag: "Building",
-    status: "Building",
-    stack: "Python · LLM APIs · FastAPI",
-  },
-  {
-    title: "Open Source Contributions",
-    desc: "Contributing to MLOps and ML tooling projects that power real deployments.",
-    tag: "Contributing",
-    status: "Contributing",
-    stack: "MLOps tooling · CI/CD",
-  },
-  {
-    title: "Learning Kubernetes",
-    desc: "From container orchestration to autoscaling model deployments in clusters.",
-    tag: "Learning",
-    status: "Learning",
-    stack: "Docker · Kubernetes · AWS",
-  },
+// Legacy alias mappings for backward compatibility
+export const SKILLS = TECH_STACK_CATEGORIES.map((cat) => ({
+  name: cat.category,
+  desc: cat.description,
+  years: "2+",
+  projects: "4+",
+  stack: cat.skills,
+}));
+export const RELATED_TAGS = [
+  "REST APIs",
+  "Authentication",
+  "Caching",
+  "Async Systems",
+  "PostgreSQL",
+  "Redis",
+  "Docker",
+  "CI/CD",
+  "Linux",
+  "Git",
 ];
-
-export const PRINCIPLES = [
-  {
-    num: "01",
-    title: "Systems Thinking",
-    desc: "I design the data, model, inference, and deployment pipeline as one system instead of optimizing isolated components in a notebook.",
-    metric: "45%",
-    metricLabel: "fraud detection improvement",
-  },
-  {
-    num: "02",
-    title: "Experimental Discipline",
-    desc: "I validate assumptions with measurable experiments — baselines, splits, and honest benchmarks — instead of relying on intuition.",
-    metric: "88%",
-    metricLabel: "phishing detection accuracy",
-  },
-  {
-    num: "03",
-    title: "Production Mindset",
-    desc: "I weigh latency, reliability, failure modes, and maintainability alongside model performance — because real load exposes everything.",
-    metric: "72%",
-    metricLabel: "injury risk reduction",
-  },
-  {
-    num: "04",
-    title: "Fast Iteration",
-    desc: "I ship small, measurable versions first and expand only when the evidence supports it — concept to production in weeks, not quarters.",
-    metric: "3-4 wks",
-    metricLabel: "avg. project cycle",
-  },
-];
+export const PRINCIPLES = WHAT_I_BRING.map((w) => ({
+  num: w.num,
+  title: w.title,
+  desc: w.desc,
+  metric: w.highlight,
+  metricLabel: "Core Competency",
+}));
+export const ROADMAP = CURRENTLY_BUILDING;

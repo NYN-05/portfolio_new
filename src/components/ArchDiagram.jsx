@@ -1,162 +1,86 @@
 import Reveal from "./Reveal";
 
-const NODE_W = 118;
-const NODE_H = 40;
+const STAGES = [
+  { id: "frontend", name: "Frontend", sub: "React / Client UI", desc: "User request & payload" },
+  { id: "api", name: "API Gateway", sub: "FastAPI / Auth", desc: "Routing, JWT & rate limits", accent: true },
+  { id: "app", name: "Application Layer", sub: "Async Workers", desc: "Orchestration & queues", accent: true },
+  { id: "db", name: "Data & Cache", sub: "Postgres / Redis", desc: "State & response caching" },
+  { id: "ml", name: "ML Inference", sub: "PyTorch / Models", desc: "Feature extraction & fusion", accent: true },
+];
 
-function Node({ x, y, label, sub, accent }) {
+function ArchDiagram() {
   return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={NODE_W}
-        height={NODE_H}
-        rx={10}
-        fill="var(--color-card)"
-        stroke={accent ? "var(--color-signal)" : "var(--color-border)"}
-        strokeWidth={accent ? 1.5 : 1}
-      />
-      <text
-        x={x + NODE_W / 2}
-        y={y + (sub ? 18 : 26)}
-        textAnchor="middle"
-        fontSize={11}
-        fontWeight={600}
-        fill={accent ? "var(--color-signal)" : "var(--color-foreground)"}
-      >
-        {label}
-      </text>
-      {sub && (
-        <text
-          x={x + NODE_W / 2}
-          y={y + 32}
-          textAnchor="middle"
-          fontSize={8}
-          fill="var(--color-muted-foreground)"
-        >
-          {sub}
-        </text>
-      )}
-    </g>
-  );
-}
+    <Reveal as="div" className="my-8">
+      <div className="rounded-2xl border border-border/90 bg-card p-5 sm:p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-border/70 pb-3">
+          <div className="flex items-center gap-2">
+            <span className="flex h-2.5 w-2.5 items-center justify-center">
+              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-signal" />
+            </span>
+            <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-foreground">
+              Technical Architecture Pipeline
+            </span>
+          </div>
+          <span className="font-mono text-[10px] text-muted-foreground">
+            Frontend → API → App Layer → Database → ML Inference
+          </span>
+        </div>
 
-function Flow({ x1, y1, x2, y2, label }) {
-  const path = `M ${x1} ${y1} L ${x2} ${y2}`;
-  return (
-    <g>
-      <path
-        d={path}
-        fill="none"
-        stroke="var(--color-border)"
-        strokeWidth={1.5}
-        markerEnd="url(#arrow)"
-      />
-      <path
-        d={path}
-        fill="none"
-        stroke="var(--color-signal)"
-        strokeWidth={1.5}
-        strokeDasharray="5 7"
-        className="animate-dash"
-        opacity={0.7}
-      />
-      {label && (
-        <text
-          x={(x1 + x2) / 2}
-          y={y1 - 8}
-          textAnchor="middle"
-          fontSize={8}
-          fill="var(--color-muted-foreground)"
-        >
-          {label}
-        </text>
-      )}
-    </g>
-  );
-}
+        {/* Responsive Desktop/Tablet Pipeline Visualization */}
+        <div className="hidden grid-cols-5 items-center gap-2 md:grid">
+          {STAGES.map((stage, i) => (
+            <div key={stage.id} className="relative flex flex-col items-center">
+              <div
+                className={`w-full rounded-xl border p-3.5 text-center transition-all duration-300 ${
+                  stage.accent
+                    ? "border-signal/50 bg-signal/5 shadow-xs shadow-signal/10"
+                    : "border-border bg-muted/40"
+                }`}
+              >
+                <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  Step 0{i + 1}
+                </p>
+                <p className="mt-1 font-display text-sm font-semibold tracking-tight text-foreground">
+                  {stage.name}
+                </p>
+                <p className="mt-0.5 font-mono text-[10px] text-signal">{stage.sub}</p>
+                <p className="mt-1.5 text-[10px] text-muted-foreground">{stage.desc}</p>
+              </div>
 
-function ArrowMarker() {
-  return (
-    <defs>
-      <marker
-        id="arrow"
-        viewBox="0 0 10 10"
-        refX="9"
-        refY="5"
-        markerWidth="7"
-        markerHeight="7"
-        orient="auto-start-reverse"
-        fill="var(--color-signal)"
-      >
-        <path d="M 0 0 L 10 5 L 0 10 z" />
-      </marker>
-    </defs>
-  );
-}
-
-function ArchDiagram({ project }) {
-  const models = project.tags.slice(0, 4);
-  const pipeline = project.caseStudy?.pipeline ?? [];
-  const stepLabels = [
-    "Input",
-    pipeline[0]?.split("—")[0] ?? "Ingest",
-    "Fusion",
-    "Verdict",
-  ];
-
-  const centerY = 110;
-  const io = { x: 16, y: centerY - NODE_H / 2 };
-  const api = { x: 152, y: centerY - NODE_H / 2 };
-  const fusion = { x: 482, y: centerY - NODE_H / 2 };
-  const out = { x: 618, y: centerY - NODE_H / 2 };
-
-  const workerHeights = models.map((_, i) => 14 + i * 44);
-
-  return (
-    <Reveal as="div" className="py-12">
-      <div className="mb-5 flex items-center gap-3">
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-signal/10 text-signal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
-            <rect x="3" y="3" width="7" height="7" rx="1" />
-            <rect x="14" y="3" width="7" height="7" rx="1" />
-            <rect x="3" y="14" width="7" height="7" rx="1" />
-            <rect x="14" y="14" width="7" height="7" rx="1" />
-          </svg>
-        </span>
-        <h2 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">System diagram</h2>
-      </div>
-
-      <div className="overflow-x-auto rounded-2xl border border-border bg-card p-4">
-        <svg
-          viewBox="0 0 750 200"
-          role="img"
-          aria-label={`${project.title} architecture diagram: ${stepLabels.join(" → ")}`}
-          className="mx-auto h-auto w-full min-w-[640px] select-none"
-        >
-          <ArrowMarker />
-          <Node x={io.x} y={io.y} label={stepLabels[0]} />
-          <Node x={api.x} y={api.y} label="Async API" sub="FastAPI" accent />
-          {models.map((model, i) => (
-            <Node key={model} x={320} y={workerHeights[i]} label={model} sub="model" />
+              {i < STAGES.length - 1 && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-3 top-1/2 -translate-y-1/2 text-signal z-10"
+                >
+                  <span className="font-mono text-xs font-bold">&rarr;</span>
+                </div>
+              )}
+            </div>
           ))}
-          <Node x={fusion.x} y={fusion.y} label="Fusion" sub="weighted score" accent />
-          <Node x={out.x} y={out.y} label={stepLabels[3]} sub="verified" />
+        </div>
 
-          <Flow x1={16 + NODE_W} y1={centerY} x2={152} y2={centerY} />
-          {models.map((model, i) => (
-            <g key={model}>
-              <Flow x1={152 + NODE_W} y1={centerY} x2={320} y2={workerHeights[i] + NODE_H / 2} />
-              <Flow
-                x1={320 + NODE_W}
-                y1={workerHeights[i] + NODE_H / 2}
-                x2={482}
-                y2={centerY}
-              />
-            </g>
+        {/* Mobile Stacked Flow */}
+        <div className="flex flex-col gap-2 md:hidden">
+          {STAGES.map((stage, i) => (
+            <div
+              key={stage.id}
+              className={`flex items-center justify-between rounded-xl border p-3 ${
+                stage.accent ? "border-signal/40 bg-signal/5" : "border-border bg-muted/30"
+              }`}
+            >
+              <div>
+                <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
+                  0{i + 1} · {stage.name}
+                </span>
+                <p className="font-mono text-xs font-semibold text-foreground">{stage.sub}</p>
+                <p className="text-[10px] text-muted-foreground">{stage.desc}</p>
+              </div>
+              {i < STAGES.length - 1 && (
+                <span className="font-mono text-xs font-bold text-signal">&darr;</span>
+              )}
+            </div>
           ))}
-          <Flow x1={482 + NODE_W} y1={centerY} x2={618} y2={centerY} label={stepLabels[2]} />
-        </svg>
+        </div>
       </div>
     </Reveal>
   );

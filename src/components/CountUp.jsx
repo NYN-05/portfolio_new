@@ -14,9 +14,10 @@ function CountUp({ value, suffix = "", duration = 1.4, className }) {
   }, [inView, value, duration, reduce, count]);
 
   useEffect(() => {
-    return count.on("change", (latest) => {
+    const unsubscribe = count.on("change", (latest) => {
       if (ref.current) ref.current.textContent = `${Math.round(latest)}${suffix}`;
     });
+    return () => unsubscribe();
   }, [count, suffix]);
 
   return (

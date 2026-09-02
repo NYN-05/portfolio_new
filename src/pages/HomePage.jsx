@@ -2,12 +2,14 @@ import { lazy, Suspense } from "react";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 
-const Projects = lazy(() => import("../components/Projects"));
-const GitHubSection = lazy(() => import("../components/GitHubSection"));
-const AboutSection = lazy(() => import("../components/AboutSection"));
 const Metrics = lazy(() => import("../components/Metrics"));
+const Projects = lazy(() => import("../components/Projects"));
+const Experience = lazy(() => import("../components/Experience"));
+const EngineeringPhilosophy = lazy(() => import("../components/EngineeringPhilosophy"));
+const TechStack = lazy(() => import("../components/TechStack"));
+const GitHubSection = lazy(() => import("../components/GitHubSection"));
 const Roadmap = lazy(() => import("../components/Roadmap"));
-const Principles = lazy(() => import("../components/Principles"));
+const ContactForm = lazy(() => import("../components/ContactForm"));
 const Footer = lazy(() => import("../components/Footer"));
 
 function HomePage() {
@@ -17,12 +19,14 @@ function HomePage() {
       <main id="main-content">
         <Hero />
         <Suspense fallback={null}>
-          <Projects />
-          <GitHubSection />
-          <AboutSection />
           <Metrics />
+          <Projects />
+          <Experience />
+          <TechStack />
+          <EngineeringPhilosophy />
+          <GitHubSection />
           <Roadmap />
-          <Principles />
+          <ContactForm />
           <Footer />
         </Suspense>
       </main>

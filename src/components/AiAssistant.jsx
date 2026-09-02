@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import { Bot, Send, Sparkles, X } from "lucide-react";
-import { CONTACT, NAME, ROLE } from "../content/profile";
+import { CONTACT, NAME } from "../content/profile";
 import { PROJECTS } from "../content/projects";
-import { RESUME, SKILLS } from "../content/career";
+import { RESUME } from "../content/career";
 import { cn } from "../lib/utils";
 import { EASE } from "../lib/motion";
 import { useFocusTrap } from "../hooks/useFocusTrap";
@@ -22,52 +23,47 @@ function answer(query) {
   const match = (words) => words.some((w) => q.includes(w));
 
   if (match(["verisight", "deepfake", "image authenticity", "fraud"])) {
-    const p = PROJECTS[0];
-    return `VeriSight V1 is my flagship project — a multi-layer AI system for image authenticity verification. It runs ${p.tags.slice(1, 5).join(", ")} models in parallel via async FastAPI orchestration and improved fraud detection by 45%. Want the full case study? Just say "case study verisight".`;
+    return `VeriSight is an intelligent verification system running CNN, ViT, GAN, and OCR models in parallel via async FastAPI orchestration, PostgreSQL audit logging, and Redis caching. It improved fraud detection by 45% with sub-500ms p95 latency.`;
   }
-  if (match(["case study", "project ", "case"])) {
-    return `Here are the projects I've documented as full case studies:\n${PROJECTS.map(
-      (p) => `• ${p.title} — ${p.subtitle} (${p.impact}% ${p.impactLabel})`
-    ).join("\n")}\n\nAsk me about any of these or say "case study verisight" and I'll open it.`;
+  if (match(["case study", "project", "things you built", "built"])) {
+    return `Here are the key systems I've built:\n${PROJECTS.map(
+      (p) => `• ${p.title} (${p.categoryLabel}) — ${p.subtitle}`
+    ).join("\n")}\n\nAsk me about any specific project (e.g. "Tell me about VeriSight" or "Distributed Task Backend").`;
   }
-  if (match(["skill", "tech", "stack", "language"])) {
-    return `My core stack:\n${SKILLS.map((s) => `• ${s.name} — ${s.desc}`).join(
-      "\n"
-    )}\n\nPlus production tooling: Docker, CI/CD, Redis, PostgreSQL, AWS, and GitHub Actions.`;
+  if (match(["skill", "tech", "stack", "language", "backend", "database"])) {
+    return `My core toolkit spans 6 areas:\n• Software Engineering: Python, Java, C++, JavaScript, TypeScript\n• Backend: FastAPI, Node.js, REST APIs, Authentication, Async Systems\n• Frontend: React, Next.js, HTML, CSS\n• Data: PostgreSQL, MongoDB, Redis, SQL\n• Machine Learning: PyTorch, TensorFlow, Scikit-learn, Pandas, NumPy\n• Infrastructure: Docker, Git, GitHub Actions, Linux, Cloud`;
   }
   if (match(["experience", "work", "career", "timeline", "history"])) {
-    return `My experience so far:\n${RESUME.experience
-      .map((e) => `• ${e.role} — ${e.org} (${e.period})`)
-      .join("\n")}\n\nShort version: I ship ML systems end-to-end, 3-4 weeks on average.`;
+    return `My experience:\n${RESUME.experience
+      .map((e) => `• ${e.role} — ${e.company} (${e.dates})`)
+      .join("\n")}\n\nI build end-to-end: from API design and databases to ML inference pipelines and containerized CI/CD.`;
   }
   if (match(["resume", "cv", "download", "pdf"])) {
-    return `You can view my interactive resume at /resume — use the "Save as PDF" button there for a printable copy.`;
+    return `You can view and download my interactive printable resume at /resume.`;
   }
-  if (match(["education", "degree", "college", "university", "school", "cgpa"])) {
-    return `${RESUME.education[0].degree} with a ${RESUME.education[0].school} (${RESUME.education[0].period}). Focused on ML frameworks, algorithms, and system architecture.`;
+  if (match(["education", "degree", "college", "university", "school", "cgpa", "coursework"])) {
+    const edu = RESUME.education[0];
+    return `${edu.university} (${edu.dates}) — ${edu.grade}.\nCore Coursework: ${edu.coursework.join(", ")}.`;
   }
   if (match(["contact", "email", "reach", "hire", "message", "talk"])) {
-    return `The best way to reach me is email: ${CONTACT.email}. You can also find me on LinkedIn and GitHub — both linked in the contact section. I'm currently open to internships and ML roles.`;
+    return `The best way to reach me is email: ${CONTACT.email}.\nYou can also find me on LinkedIn (${CONTACT.linkedin}) and GitHub (${CONTACT.github}).`;
   }
-  if (match(["available", "status", "open", "internship", "opportunit", "job"])) {
-    return `I'm currently available for internships and ML engineering roles. My status: building VeriSight V2 (deepfake detection) and learning LLM agents & Kubernetes. Reach me at ${CONTACT.email}.`;
+  if (match(["available", "status", "open", "internship", "opportunit", "job", "role"])) {
+    return `I am currently exploring opportunities in Software Engineering, Backend Engineering, and Machine Learning Engineering. Drop me a line at ${CONTACT.email}!`;
   }
-  if (match(["impact", "result", "outcome", "metrics", "numbers"])) {
-    return `Measured in outcomes:\n${RESUME.highlights.join("\n")}\n\nI track impact in numbers, not just features shipped.`;
-  }
-  if (match(["build", "roadmap", "future", "learning", "currently", "next"])) {
-    return `Currently in motion:\n🚧 VeriSight V2 — deepfake detection research\n🚧 AI agent development\n🚧 Open source contributions\n🚧 Learning Kubernetes\n\nI also keep a "Currently Building" section on the homepage.`;
+  if (match(["build", "methodology", "how do you build", "how i build"])) {
+    return `My 5-stage engineering process:\n01 — Understand (problem, constraints, SLAs)\n02 — Design (interfaces, architecture, bottlenecks)\n03 — Build (clean boundaries, tests, observability)\n04 — Measure (profiling, p95 latencies, benchmarks)\n05 — Ship (CI/CD, containerization, real-world monitoring)`;
   }
   if (match(["hello", "hi", "hey", "yo"])) {
-    return `Hey! I'm ${NAME.split(" ")[0]}'s portfolio assistant. Ask me about his projects, skills, experience, or how to get in touch.`;
+    return `Hey! I'm ${NAME.split(" ")[0]}'s portfolio assistant. Ask me about his software engineering projects, backend systems, ML pipelines, tech stack, or career background.`;
   }
   if (match(["who", "about", "your", "you"])) {
-    return `I'm a client-side assistant for ${NAME} — an ${ROLE} building production-grade ML systems. He designs, ships, and maintains scalable AI infrastructure: multi-model pipelines, async APIs, and containerized backends.`;
+    return `I represent ${NAME} — a Software Engineer building intelligent, production-grade systems (60% Software Engineering / 40% ML). He takes problems from architecture and implementation to deployment, optimization, and monitoring.`;
   }
   if (match(["thank", "thanks"])) {
-    return `Anytime! If you're building something in ML or infrastructure, email ${CONTACT.email} — the inbox is open.`;
+    return `You're welcome! If you have any exciting engineering problems or opportunities, reach out directly at ${CONTACT.email}.`;
   }
-  return `I can answer questions about projects, skills, experience, education, resume, and contact info. Try one of the suggestions below, or ask about a specific project like VeriSight.`;
+  return `I can answer questions about software engineering, backend systems, ML pipelines, tech stack, experience, education, resume, and contact info. Try asking "What projects have you built?" or "What is your tech stack?"`;
 }
 
 function ChatMessage({ role, text }) {
@@ -101,6 +97,7 @@ function AiAssistant() {
     {
       role: "assistant",
       text: `Hi! I'm the ${NAME} portfolio assistant. Ask me about projects, skills, experience, or contact details.`,
+      id: "initial",
     },
   ]);
   const listRef = useRef(null);
@@ -136,17 +133,19 @@ function AiAssistant() {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages, typing, open]);
 
-  const send = (raw) => {
+  const send = useCallback((raw) => {
     const text = raw.trim();
     if (!text || typing) return;
     setInput("");
-    setMessages((m) => [...m, { role: "user", text }]);
+    const id = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+    setMessages((m) => [...m, { role: "user", text, id }]);
     setTyping(true);
     window.setTimeout(() => {
-      setMessages((m) => [...m, { role: "assistant", text: answer(text) }]);
+      const replyId = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+      setMessages((m) => [...m, { role: "assistant", text: answer(text), id: replyId }]);
       setTyping(false);
     }, replyDelay());
-  };
+  }, [typing]);
 
   return (
     <>
@@ -168,7 +167,7 @@ function AiAssistant() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             role="dialog"
             aria-modal="true"
             aria-label="Portfolio assistant chat"
@@ -200,8 +199,8 @@ function AiAssistant() {
               aria-live="polite"
               className="flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-4"
             >
-              {messages.map((msg, i) => (
-                <ChatMessage key={i} role={msg.role} text={msg.text} />
+              {messages.map((msg) => (
+                <ChatMessage key={msg.id} role={msg.role} text={msg.text} />
               ))}
               {typing && (
                 <div className="flex w-full justify-start">
@@ -211,17 +210,17 @@ function AiAssistant() {
                     aria-label="Assistant is typing"
                   >
                     <span className="flex gap-1">
-                      <motion.span
+                      <m.span
                         animate={{ opacity: [0.2, 1, 0.2] }}
                         transition={{ duration: 1, repeat: Infinity, delay: 0 }}
                         className="h-1.5 w-1.5 rounded-full bg-muted-foreground"
                       />
-                      <motion.span
+                      <m.span
                         animate={{ opacity: [0.2, 1, 0.2] }}
                         transition={{ duration: 1, repeat: Infinity, delay: 0.15 }}
                         className="h-1.5 w-1.5 rounded-full bg-muted-foreground"
                       />
-                      <motion.span
+                      <m.span
                         animate={{ opacity: [0.2, 1, 0.2] }}
                         transition={{ duration: 1, repeat: Infinity, delay: 0.3 }}
                         className="h-1.5 w-1.5 rounded-full bg-muted-foreground"
@@ -271,7 +270,7 @@ function AiAssistant() {
                 </button>
               </form>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

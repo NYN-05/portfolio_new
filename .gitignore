@@ -34,3 +34,6 @@ play_test/screenshots/
 play_test/videos/
 play_test/traces/
 play_test/reports/
+
+# Generated knowledge graph
+graphify-out/

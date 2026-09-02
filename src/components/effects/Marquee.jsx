@@ -13,16 +13,6 @@ function Marquee({ items, className }) {
             <span className="ml-12 inline-block h-1.5 w-1.5 rounded-full bg-signal/70" aria-hidden="true" />
           </li>
         ))}
-        {items.map((item, i) => (
-          <li
-            key={`${item}-dup-${i}`}
-            aria-hidden="true"
-            className="flex items-center whitespace-nowrap px-6 font-display text-sm font-medium uppercase tracking-wide text-muted-foreground/90"
-          >
-            {item}
-            <span className="ml-12 inline-block h-1.5 w-1.5 rounded-full bg-signal/70" />
-          </li>
-        ))}
       </ul>
     </div>
   );

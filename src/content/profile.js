@@ -8,60 +8,53 @@ export const INITIALS = "JN";
 
 export const NAME = "Jhashank Nayan";
 
-export const ROLE = "ML Engineer";
+export const ROLE = "Software Engineer";
+
+export const PRIMARY_IDENTITY = "Software Engineer building intelligent systems.";
+
+export const HERO_HEADLINE = "I build software and intelligent systems that solve real problems.";
+
+export const HERO_DESCRIPTION =
+  "Software engineer focused on building reliable applications, scalable backend systems, and machine-learning solutions. I enjoy taking problems from architecture and implementation to deployment, optimization, and everything in between.";
+
+export const TECHNICAL_KEYWORDS =
+  "Software Engineering · Backend · Distributed Systems · Machine Learning · AI · Cloud";
+
+export const OPPORTUNITY_STATEMENT =
+  "Currently exploring opportunities in Software Engineering, Backend Engineering, and Machine Learning Engineering.";
 
 export const NAV_ITEMS = [
   { label: "Work", href: "#projects", id: "projects", num: "01" },
-  { label: "Repositories", href: "#repositories", id: "repositories", num: "02" },
-  { label: "About", href: "#about", id: "about", num: "03" },
-  { label: "Now", href: "#roadmap", id: "roadmap", num: "04" },
-  { label: "Contact", href: "#contact", id: "contact", num: "05" },
-];
-
-export const HERO_IDENTITY = [
-  "ML Engineer",
-  "Computer Vision",
-  "Applied AI",
-  "Systems",
-];
-
-export const TECHNOLOGIES = [
-  "Python",
-  "FastAPI",
-  "PyTorch",
-  "React",
-  "Node.js",
-  "Docker",
-  "AWS",
-  "PostgreSQL",
-  "Redis",
-  "TensorFlow",
-  "scikit-learn",
-  "CI/CD",
+  { label: "Experience", href: "#experience", id: "experience", num: "02" },
+  { label: "Stack", href: "#stack", id: "stack", num: "03" },
+  { label: "About", href: "#about", id: "about", num: "04" },
+  { label: "GitHub", href: "#repositories", id: "repositories", num: "05" },
+  { label: "Contact", href: "#contact", id: "contact", num: "06" },
 ];
 
 export const HERO_ROLES = [
-  "an ML Engineer",
-  "a Systems Architect",
-  "a Data-Driven Problem Solver",
+  "a Software Engineer",
+  "a Backend & Systems Builder",
+  "an Applied ML Engineer",
+  "an End-to-End Problem Solver",
 ];
 
 export const HERO_STATUSES = [
-  "Available for internships & ML roles",
-  "Building VeriSight V2 — deepfake detection",
-  "Learning · LLM agents & Kubernetes",
+  "Open to Software, Backend & ML Roles",
+  "Building distributed task pipelines",
+  "Shipping production-grade systems",
 ];
 
 export const TERMINAL_LINES = [
-  { type: "boot", text: "[ OK ] loading profile · systems online" },
-  { type: "boot", text: "[ OK ] mounted models · config ready" },
-  { type: "comment", text: "cat profile.json" },
+  { type: "boot", text: "[ OK ] kernel init · systems online" },
+  { type: "boot", text: "[ OK ] loaded services: API · DB · Cache · ML Engine" },
+  { type: "comment", text: "cat engineer_profile.json" },
   { type: "brace", text: "{" },
-  { type: "key", text: '"role": "ML Engineer"' },
-  { type: "key", text: '"focus": "production AI systems"' },
-  { type: "key", text: '"pipeline": "ingest → infer → validate"' },
-  { type: "key", text: '"fraud_caught": "+45% vs baseline"' },
-  { type: "key", text: '"status": "open to opportunities"' },
+  { type: "key", text: '"role": "Software Engineer"' },
+  { type: "key", text: '"focus": "Scalable Backends & Intelligent Systems"' },
+  { type: "key", text: '"architecture": "Frontend → API → App Layer → DB → ML"' },
+  { type: "key", text: '"stack": ["Python", "FastAPI", "PostgreSQL", "Redis", "Docker", "PyTorch"]' },
+  { type: "key", text: '"status": "Open to SDE, Backend & ML opportunities"' },
   { type: "brace", text: "}" },
-  { type: "boot", text: "[ OK ] profile rendered" },
+  { type: "boot", text: "[ OK ] health check passing · 0 errors" },
 ];

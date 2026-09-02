@@ -166,7 +166,7 @@ function CaseStudyPage() {
     const module = caseStudies[key];
     if (!module) return null;
     return module();
-  }, [slug, caseStudies]);
+  }, [slug]);
 
   const cs = useMemo(() => {
     const mod = csModule;

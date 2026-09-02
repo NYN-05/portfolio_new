@@ -1,24 +1,25 @@
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
-import { ArrowUpRight, Hammer, Rocket } from "lucide-react";
+import { useInView, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
+import { Hammer, Sparkles, Terminal, Layers } from "lucide-react";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
-import { ROADMAP } from "../content/career";
+import { CURRENTLY_BUILDING } from "../content/career";
 import { cn } from "../lib/utils";
 import { EASE } from "../lib/motion";
 
 const TAG_STYLES = {
-  Research: "border-signal/40 bg-signal/10 text-signal",
-  Building: "border-emerald-500/40 bg-emerald-500/10 text-emerald-600",
-  Contributing: "border-blue-500/40 bg-blue-500/10 text-blue-600",
-  Learning: "border-amber-500/40 bg-amber-500/10 text-amber-600",
+  "Backend Systems": "border-signal/40 bg-signal/10 text-signal",
+  "Software + ML": "border-emerald-500/40 bg-emerald-500/10 text-emerald-500",
+  Infrastructure: "border-blue-500/40 bg-blue-500/10 text-blue-400",
+  "Applied AI": "border-amber-500/40 bg-amber-500/10 text-amber-400",
 };
 
-const STATUS_DOTS = {
-  Research: "animate-pulse-dot bg-signal",
-  Building: "animate-pulse-dot bg-emerald-500",
-  Contributing: "bg-blue-500",
-  Learning: "bg-amber-500",
+const ICONS = {
+  "Backend Systems": Terminal,
+  "Software + ML": Sparkles,
+  Infrastructure: Layers,
+  "Applied AI": Hammer,
 };
 
 function Roadmap() {
@@ -28,89 +29,86 @@ function Roadmap() {
 
   return (
     <section
-      className="scroll-mt-24 border-t border-border bg-card/40 py-16 sm:py-20"
-      id="roadmap"
+      className="scroll-mt-24 py-20 sm:py-24 lg:py-28"
+      id="currently-building"
       aria-labelledby="roadmap-title"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            num="04"
-            eyebrow="In motion"
-            title={
-              <span id="roadmap-title">
-                Currently{" "}
-                <em className="marker relative not-italic">building</em>
-              </span>
-            }
+            num="06"
+            eyebrow="Active engineering &amp; research"
+            title={<span id="roadmap-title">Currently building</span>}
+            intro="Things I'm actively working on, learning, or taking from prototype toward production."
           />
           <Reveal delay={0.1}>
             <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
               <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-emerald-500" aria-hidden="true" />
-              Ships continuously
+              Work in progress
             </span>
           </Reveal>
         </div>
 
-        <ol ref={ref} className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {ROADMAP.map((item, i) => (
-            <motion.li
-              key={item.title}
-              initial={reduce ? false : { opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : undefined}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-              className="group relative flex h-full flex-col bg-card p-6 sm:p-7"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-signal to-signal/30 transition-transform duration-500 group-hover:scale-x-100"
-              />
-              <div className="flex items-center justify-between">
-                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-signal/10 text-signal">
-                  {item.tag === "Research" ? (
-                    <Rocket className="h-3.5 w-3.5" aria-hidden="true" />
-                  ) : (
-                    <Hammer className="h-3.5 w-3.5" aria-hidden="true" />
-                  )}
-                </span>
-                <span
-                  className={cn(
-                    "rounded-full border px-2 py-0.5 font-mono text-[9px] font-medium uppercase tracking-[0.14em]",
-                    TAG_STYLES[item.tag] ?? TAG_STYLES.Building
-                  )}
-                >
-                  {item.tag}
-                </span>
-              </div>
-              <h3 className="mt-5 font-display text-base font-semibold leading-snug tracking-tight">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
-              <div className="mt-4 space-y-1.5 border-t border-border/70 pt-4">
-                <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                  <span
-                    aria-hidden="true"
-                    className={cn("h-1.5 w-1.5 rounded-full", STATUS_DOTS[item.tag] ?? "bg-muted-foreground/40")}
-                  />
-                  Status: {item.status}
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                  {item.stack}
-                </p>
-              </div>
-              <ArrowUpRight
-                aria-hidden="true"
-                className="mt-auto ml-auto h-4 w-4 pt-2 text-muted-foreground/40 transition-transform transition-colors duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal"
-              />
-            </motion.li>
-          ))}
-        </ol>
+        <ol
+          ref={ref}
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {CURRENTLY_BUILDING.map((item, i) => {
+            const Icon = ICONS[item.tag] ?? Terminal;
+            return (
+              <m.li
+                key={item.title}
+                initial={reduce ? false : { opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : undefined}
+                transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
+                className="group relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-card/40 p-5 backdrop-blur-xs transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:bg-card/80"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-signal/10 text-signal">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <span
+                      className={cn(
+                        "rounded-full border px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider",
+                        TAG_STYLES[item.tag] ?? "border-border text-muted-foreground"
+                      )}
+                    >
+                      {item.status}
+                    </span>
+                  </div>
 
-        <Reveal delay={0.15} className="mt-10">
-          <p className="text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Continuous learning, shipped in public
-          </p>
-        </Reveal>
+                  <h3 className="mt-4 font-display text-base font-bold leading-snug tracking-tight text-foreground">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {item.desc}
+                  </p>
+                </div>
+
+                <div className="mt-5 border-t border-border/60 pt-3.5">
+                  <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
+                    <span>Progress</span>
+                    <span className="font-bold text-signal">{item.progress}%</span>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-signal to-amber-500 transition-all duration-500"
+                      style={{ width: `${item.progress}%` }}
+                    />
+                  </div>
+
+                  <p className="mt-2.5 font-mono text-[10px] text-foreground/80">
+                    {item.stack}
+                  </p>
+                </div>
+              </m.li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );

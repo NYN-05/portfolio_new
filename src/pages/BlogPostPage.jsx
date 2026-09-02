@@ -99,8 +99,8 @@ function BlogPostPage() {
 
           <Reveal delay={0.18}>
             <article className="mt-10 max-w-prose space-y-6">
-              {post.content.map((block, i) => (
-                <Block key={i} block={block} />
+              {post.content.map((block) => (
+                <Block key={`${block.type}:${block.text ?? block.items?.join(",")}`} block={block} />
               ))}
             </article>
           </Reveal>
