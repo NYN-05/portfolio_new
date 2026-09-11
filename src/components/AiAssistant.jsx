@@ -5,10 +5,8 @@ import { Bot, Send, Sparkles, X } from "lucide-react";
 import { CONTACT, NAME } from "../content/profile";
 import { PROJECTS } from "../content/projects";
 import { RESUME } from "../content/career";
-import { cn } from "../lib/utils";
-import { EASE } from "../lib/motion";
-import { useFocusTrap } from "../hooks/useFocusTrap";
-import { useScrollLock } from "../hooks/useScrollLock";
+import { cn, EASE } from "../lib/utils";
+import { useFocusTrap, useScrollLock } from "../hooks/useOverlay";
 
 const replyDelay = () => 500 + Math.random() * 400;
 

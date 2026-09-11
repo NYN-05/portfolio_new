@@ -37,23 +37,16 @@ npm run preview # serve production build locally
 ```
 public/              # static assets (images, favicon, manifest, _headers, _redirects)
 src/
+  content/           # projects, profile, career, posts, and case-study data
   lib/
-    content.js       # all copy & data (projects incl. full case studies, skills, timeline)
+    scroll.js        # Lenis-aware route and section scrolling
     utils.js         # cn() class merge helper
   hooks/
     usePageMeta.js   # per-route <title> + meta description
     useGoToSection.js# router-aware anchor scrolling (works from any page + Lenis)
-  pages/
-    HomePage.jsx     # hero + projects + about + principles + footer
-    CaseStudyPage.jsx# /projects/:slug — full case study w/ sticky TOC & scroll-spy
-  components/
-    ui/              # design-system primitives (button, badge, card…)
-    effects/         # decorative pieces (marquee, grid pattern)
-    Reveal.jsx       # scroll-reveal wrapper (Motion whileInView)
-    CountUp.jsx      # animated number counter
-    SectionHeading.jsx
-    Navbar.jsx  Hero.jsx  Projects.jsx  AboutSection.jsx
-    Principles.jsx  Footer.jsx  IntroLoader.jsx
+  pages/             # route-level screens, including lazy-loaded secondary pages
+  components/        # shared sections, navigation, overlays, and UI primitives
+  hooks/             # theme, metadata, overlay, and data-fetching hooks
   App.jsx            # routes + lazy-loaded case study + route scroll effects
   main.jsx           # entry (Lenis provider + React Router)
   index.css          # design tokens, fonts, keyframes, utilities
@@ -71,4 +64,10 @@ Netlify-ready: `public/_headers` ships security headers (CSP, HSTS, cache-contro
 
 ## Content
 
-All copy lives in `src/lib/content.js` — update projects, skills, timeline, or contact links in one place.
+Content is split by domain under `src/content/`. Update projects, profile, career, posts, or an individual case study in the corresponding module.
+
+## End-to-end tests
+
+The Python Playwright suite lives in `play_test/`. Start the Vite server with
+`npm run dev -- --host 0.0.0.0`, then run `python play_test/run_tests.py` or
+override the target with `--base-url` / `BASE_URL`.

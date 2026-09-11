@@ -18,14 +18,15 @@ import {
   TriangleAlert,
   Workflow,
 } from "lucide-react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import PageShell from "../components/PageShell";
 import Reveal from "../components/Reveal";
 import ArchDiagram from "../components/ArchDiagram";
+import PaperCard from "../components/kraft/PaperCard";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { PROJECTS } from "../content/projects";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { projectVariant } from "../components/kraft/variants";
 import { cn } from "../lib/utils";
 
 const caseStudies = import.meta.glob("../content/case-studies/*.js", { import: "default" });
@@ -185,10 +186,8 @@ function CaseStudyPage() {
   if (!project) return <Navigate to="/" replace />;
 
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="min-h-screen">
-        <div className="mx-auto w-full max-w-6xl px-4 pb-14 pt-24 sm:px-6 sm:pt-28 lg:px-8">
+    <PageShell>
+      <div className="mx-auto w-full max-w-6xl px-4 pb-14 pt-24 sm:px-6 sm:pt-28 lg:px-8">
           <Reveal>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
               <Link
@@ -219,19 +218,21 @@ function CaseStudyPage() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:max-w-3xl">
-              {[
-                ["Status", project.status],
-                ["Duration", project.duration],
-                ["Role", project.role],
-                ["Impact", `${project.impact}% ${project.impactLabel}`],
-              ].map(([label, value]) => (
-                <div key={label} className="bg-card px-5 py-4">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
-                  <p className="mt-1 font-display text-[15px] font-semibold tracking-tight">{value}</p>
-                </div>
-              ))}
-            </div>
+            <PaperCard variant={projectVariant[project.slug] || "signal"} tilt={-0.18} className="mt-8 overflow-hidden p-0 lg:max-w-3xl">
+              <div className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2">
+                {[
+                  ["Status", project.status],
+                  ["Duration", project.duration],
+                  ["Role", project.role],
+                  ["Impact", `${project.impact}% ${project.impactLabel}`],
+                ].map(([label, value]) => (
+                  <div key={label} className="bg-card px-5 py-4">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
+                    <p className="mt-1 font-display text-[15px] font-semibold tracking-tight text-ink">{value}</p>
+                  </div>
+                ))}
+              </div>
+            </PaperCard>
           </Reveal>
 
           <Reveal delay={0.24}>
@@ -274,14 +275,16 @@ function CaseStudyPage() {
         </div>
 
         <Reveal className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <img
-            src={project.image}
-            alt={`${project.title} — ${project.subtitle}`}
-            width={1440}
-            height={900}
-            decoding="async"
-            className="aspect-[16/8] w-full rounded-2xl border border-border object-cover shadow-sm"
-          />
+          <PaperCard variant={projectVariant[project.slug] || "signal"} tilt={0.22} className="overflow-hidden p-0">
+            <img
+              src={project.image}
+              alt={`${project.title} — ${project.subtitle}`}
+              width={1440}
+              height={900}
+              decoding="async"
+              className="aspect-[16/8] w-full object-cover"
+            />
+          </PaperCard>
         </Reveal>
 
         <div className="mx-auto w-full max-w-6xl px-4 pb-24 pt-6 sm:px-6 lg:px-8">
@@ -299,31 +302,32 @@ function CaseStudyPage() {
               ))}
 
               <div className="flex flex-col gap-4 py-14">
-                <h2 className="font-display text-2xl font-semibold tracking-tight">More case studies</h2>
+                <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">More case studies</h2>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {related.map((p) => (
-                    <Link
-                      key={p.slug}
-                      to={`/projects/${p.slug}`}
-                      className="group flex min-w-0 items-center gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
-                    >
-                      <img
-                        src={p.image}
-                        alt=""
-                        width={96}
-                        height={64}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-14 w-20 shrink-0 rounded-lg object-cover"
-                      />
-                      <div className="min-w-0">
-                        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-signal">({p.index})</p>
-                        <p className="truncate font-display text-sm font-semibold tracking-tight">{p.title}</p>
-                        <p className="truncate text-xs text-muted-foreground">{p.subtitle}</p>
-                      </div>
-                      <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-muted-foreground transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-signal" />
-                    </Link>
-                  ))}
+                  {related.map((p, idx) => {
+                    const variant = projectVariant[p.slug] || ["signal", "blue", "green", "purple", "amber"][idx % 5];
+                    return (
+                      <Link key={p.slug} to={`/projects/${p.slug}`} className="group block">
+                        <PaperCard variant={variant} tilt={idx % 2 ? 0.22 : -0.22} className="flex min-w-0 items-center gap-4 p-4">
+                          <img
+                            src={p.image}
+                            alt=""
+                            width={96}
+                            height={64}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-14 w-20 shrink-0 rounded-lg border border-ink/10 object-cover"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink/45">({p.index})</p>
+                            <p className="truncate font-display text-sm font-semibold tracking-tight text-ink">{p.title}</p>
+                            <p className="truncate font-mono text-[10px] text-ink/50">{p.subtitle}</p>
+                          </div>
+                          <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-ink/25 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-ink" />
+                        </PaperCard>
+                      </Link>
+                    );
+                  })}
                 </div>
 
                 <div className="mt-2 flex flex-wrap items-center justify-between gap-4 pt-2">
@@ -347,10 +351,8 @@ function CaseStudyPage() {
               </div>
             </article>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </PageShell>
   );
 }
 

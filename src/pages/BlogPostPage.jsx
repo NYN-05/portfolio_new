@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import PageShell from "../components/PageShell";
 import Reveal from "../components/Reveal";
+import PaperCard from "../components/kraft/PaperCard";
 import { Badge } from "../components/ui/badge";
 import { BLOG_POSTS } from "../content/posts";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -50,10 +50,8 @@ function BlogPostPage() {
   if (!post) return <Navigate to="/blog" replace />;
 
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="min-h-screen">
-        <div className="mx-auto w-full max-w-3xl px-4 pb-24 pt-24 sm:px-6 sm:pt-28 lg:px-8">
+    <PageShell>
+      <div className="mx-auto w-full max-w-3xl px-4 pb-24 pt-24 sm:px-6 sm:pt-28 lg:px-8">
           <Reveal>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
               <Link
@@ -111,39 +109,38 @@ function BlogPostPage() {
                 Keep reading
               </p>
               <div className="grid gap-4 sm:grid-cols-2">
-                {related.map((p) => (
-                  <Link
-                    key={p.slug}
-                    to={`/blog/${p.slug}`}
-                    className="group flex min-w-0 items-start gap-4 rounded-2xl border border-border/80 bg-card p-4 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5"
-                  >
-                    <img
-                      src={p.hero}
-                      alt=""
-                      width={128}
-                      height={80}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-16 w-24 shrink-0 rounded-lg object-cover"
-                    />
-                    <div className="min-w-0">
-                      <p className="line-clamp-2 font-display text-sm font-semibold leading-snug tracking-tight">
-                        {p.title}
-                      </p>
-                      <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
-                        {p.readTime} read
-                      </p>
-                    </div>
-                    <ArrowRight className="ml-auto h-4 w-4 shrink-0 self-center text-muted-foreground transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-signal" />
-                  </Link>
-                ))}
+                {related.map((p, idx) => {
+                  const variant = ["signal", "blue"][idx % 2];
+                  return (
+                    <Link key={p.slug} to={`/blog/${p.slug}`} className="group block">
+                      <PaperCard variant={variant} tilt={idx ? 0.22 : -0.22} className="flex min-w-0 items-start gap-4 p-4">
+                        <img
+                          src={p.hero}
+                          alt=""
+                          width={128}
+                          height={80}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-16 w-24 shrink-0 rounded-lg border border-ink/10 object-cover"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="line-clamp-2 font-display text-sm font-semibold leading-snug tracking-tight text-ink group-hover:text-ink">
+                            {p.title}
+                          </p>
+                          <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/45">
+                            {p.readTime} read
+                          </p>
+                        </div>
+                        <ArrowRight className="ml-auto h-4 w-4 shrink-0 self-center text-ink/25 transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-ink" />
+                      </PaperCard>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </Reveal>
         </div>
-      </main>
-      <Footer />
-    </>
+    </PageShell>
   );
 }
 

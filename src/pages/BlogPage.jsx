@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import PageShell from "../components/PageShell";
 import Reveal from "../components/Reveal";
+import PaperCard from "../components/kraft/PaperCard";
 import { Badge } from "../components/ui/badge";
 import { BLOG_POSTS } from "../content/posts";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -14,10 +14,8 @@ function BlogPage() {
   );
 
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="min-h-screen">
-        <div className="mx-auto w-full max-w-4xl px-4 pb-24 pt-24 sm:px-6 sm:pt-28 lg:px-8">
+    <PageShell>
+      <div className="mx-auto w-full max-w-4xl px-4 pb-24 pt-24 sm:px-6 sm:pt-28 lg:px-8">
           <Reveal>
             <div className="flex items-center gap-x-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
               <Link
@@ -51,12 +49,16 @@ function BlogPage() {
           </Reveal>
 
           <div className="mt-14 space-y-6">
-            {BLOG_POSTS.map((post, i) => (
-              <Reveal key={post.slug} delay={i * 0.06}>
-                <Link
-                  to={`/blog/${post.slug}`}
-                  className="group flex flex-col gap-5 rounded-2xl border border-border/80 bg-card p-6 transition-transform transition-colors transition-shadow duration-300 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lg hover:shadow-ink/5 sm:flex-row sm:items-center"
-                >
+            {BLOG_POSTS.map((post, i) => {
+              const variant = ["signal", "blue", "green"][i % 3];
+              return (
+                <Reveal key={post.slug} delay={i * 0.06}>
+                  <Link to={`/blog/${post.slug}`} className="group block">
+                    <PaperCard
+                      variant={variant}
+                      tilt={i % 2 ? 0.22 : -0.22}
+                      className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center"
+                    >
                   <img
                     src={post.hero}
                     alt=""
@@ -87,14 +89,14 @@ function BlogPage() {
                       <ArrowUpRight className="ml-auto h-4 w-4 text-muted-foreground transition-transform transition-colors duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-signal" />
                     </div>
                   </div>
-                </Link>
-              </Reveal>
-            ))}
+                    </PaperCard>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
-        </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </PageShell>
   );
 }
 

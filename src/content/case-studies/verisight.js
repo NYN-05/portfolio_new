@@ -8,20 +8,20 @@ const verisightCaseStudy = {
   dataset:
     "Trained on a multi-source mix: CASIA v2 tampered-image pairs, public GAN-synthetic datasets, and curated real-world document scans. Augmented with compression, resizing, and recoloring to simulate realistic upload paths, with strict train/validation splits to keep the ensemble honest.",
   architecture:
-    "An async FastAPI orchestrator fans one image out to four parallel workers — a CNN tamper detector, a fine-tuned ViT authenticity classifier, a GAN-artifact detector, and an OCR metadata cross-check — then fuses their outputs into a single verdict with a calibrated confidence score.",
+    "Frontend (React) → API Gateway (FastAPI + JWT + rate limits) → Application Layer (AsyncIO + asyncio.gather) → Data & Cache (PostgreSQL + Redis) → Parallel ML Inference (CNN tamper detector + ViT authenticity classifier + GAN-artifact detector + OCR metadata cross-check) → Fusion & audit. The orchestrator fans one image to four workers concurrently with strict timeout policies and confidence calibration, then emits a single verdict with per-model trace.",
   pipeline: [
     "Upload & preprocess — normalize size, color, and compression to a canonical form",
-    "Parallel inference — all four models run concurrently via asyncio.gather",
-    "Fusion scoring — weighted ensemble with per-model confidence calibration",
-    "Verdict & audit — final trust score plus an auditable per-model trace",
+    "Parallel inference — all four models run concurrently via asyncio.gather with timeout policies",
+    "Fusion scoring — weighted ensemble with per-model confidence calibration and failure isolation",
+    "Verdict & audit — final trust score plus an auditable per-model trace and structured logs",
   ],
   model:
-    "EfficientNet-B0 CNN for tamper localization features, a fine-tuned ViT-B/16 for global authenticity, a progressive-resizing GAN detector trained on synthetic artifact signals, and Tesseract-based OCR to verify embedded text consistency.",
+    "EfficientNet-B0 CNN for tamper localization, fine-tuned ViT-B/16 for global authenticity, progressive-resizing GAN detector for synthetic artifacts, and Tesseract OCR for text consistency — orchestrated as an async ensemble, not a monolith.",
   challenges: [
-    "Latency vs. accuracy — four models per request had to stay under production latency budgets",
+    "Head-of-line blocking — four models per request had to stay under sub-500ms p95 without one slow worker stalling the batch",
     "Class imbalance — synthetic and tampered examples were far rarer than genuine images",
-    "Adversarial robustness — compressed, re-screened, or recolored forgeries tried to hide artifacts",
-    "Cold-start loading — warming four model weights without stalling the first request",
+    "Adversarial robustness — compressed, re-screened, or recolored forgeries tried to hide frequency-domain artifacts",
+    "Cold-start loading — warming four model weights without stalling the first request; clean REST contracts with full auditability",
   ],
   results: [
     "45% improvement in fraud detection over the previous single-model baseline",

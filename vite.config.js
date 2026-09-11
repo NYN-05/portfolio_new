@@ -1,9 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 
 export default defineConfig({
   plugins: [tailwindcss(), react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(import.meta.dirname, './src'),
+    },
+  },
   build: {
     target: 'esnext',
     outDir: 'dist',
@@ -14,6 +20,8 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('lucide-react')) return 'icons';
+            // Keep Three.js + R3F out of the initial vendor — they are lazy-loaded via FloatingScene
+            if (id.includes('three') || id.includes('@react-three')) return undefined;
             return 'vendor';
           }
         },
@@ -29,10 +37,7 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    allowedHosts: ['missions-zinc-commands-compatibility.trycloudflare.com'],
-    hmr: {
-      overlay: false,
-    },
+    hmr: { overlay: false },
   },
   css: {
     devSourcemap: false,

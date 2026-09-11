@@ -14,10 +14,8 @@ import {
 import { CONTACT, NAV_ITEMS } from "../content/profile";
 import { PROJECTS } from "../content/projects";
 import { useGoToSection } from "../hooks/useGoToSection";
-import { cn } from "../lib/utils";
-import { EASE } from "../lib/motion";
-import { useFocusTrap } from "../hooks/useFocusTrap";
-import { useScrollLock } from "../hooks/useScrollLock";
+import { cn, EASE } from "../lib/utils";
+import { useFocusTrap, useScrollLock } from "../hooks/useOverlay";
 const noopEvent = { preventDefault: () => {} };
 
 function buildActions(goTo, navigate) {

@@ -8,19 +8,19 @@ const preventiveMovementIntelligenceCaseStudy = {
   dataset:
     "Self-curated exercise video dataset covering squats, lunges, push-ups, and deadlifts, annotated with landmark quality and failure cases, plus public pose-estimation datasets for transfer tuning.",
   architecture:
-    "FastAPI service receives video frames, runs MoveNet landmark extraction, converts keypoints into biomechanical joint angles, and scores movement quality against exercise-specific risk profiles in real time.",
+    "Client frame stream → FastAPI ingestion → Application Layer (AsyncIO + bounded queue) → MoveNet Thunder landmark extraction → Biomechanical engine (joint angle kinematics) → Risk scoring service. Every component fits inside a 33ms frame budget at 30+ FPS with confidence-based filtering.",
   pipeline: [
-    "Frame ingestion — streamed with bounded latency per frame",
-    "Landmark extraction — MoveNet Thunder single-person pose inference",
-    "Angle computation — shoulder, hip, and knee joint kinematics",
-    "Risk scoring — exercise-specific thresholds produce a live risk index",
+    "Frame ingestion — streamed with bounded latency per frame; occlusion-aware buffering",
+    "Landmark extraction — MoveNet Thunder single-person pose inference with confidence filtering",
+    "Angle computation — shoulder, hip, and knee joint kinematics from validated keypoints",
+    "Risk scoring — exercise-specific thresholds produce a live risk index; noisy frames are dropped, not scored",
   ],
   model:
-    "MoveNet Thunder for single-shot pose estimation, with a lightweight post-processing layer that rejects low-confidence landmark frames to keep scoring stable.",
+    "MoveNet Thunder for single-shot pose estimation plus a lightweight post-processing layer that rejects low-confidence landmark frames to keep scoring stable — accuracy comes from filtering, not bigger models.",
   challenges: [
-    "Occlusion and camera angle corrupted landmark estimates mid-rep",
-    "Lighting changes between sessions broke naive background assumptions",
-    "Real-time budget — inference + scoring had to stay under a single frame window",
+    "Fitting ingestion, landmark extraction, and kinetic scoring inside a strict 33ms frame budget",
+    "Occlusion and camera angle corrupted landmark estimates mid-rep; lighting changes broke naive assumptions",
+    "Graceful handling of occluded frames — camera occlusion must not poison downstream angles",
   ],
   results: [
     "72% reduction in measured injury-risk exposure during supervised training",

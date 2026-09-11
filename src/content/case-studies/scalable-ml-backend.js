@@ -8,19 +8,20 @@ const scalableMLBackendCaseStudy = {
   dataset:
     "Synthetic load tests (k6) modeling realistic request patterns — bursts, cache hits, and cold starts — to validate the architecture under pressure.",
   architecture:
-    "FastAPI with async processing at every layer, Redis for response caching, Docker images for model and API packaging, and a CI/CD pipeline that builds, tests, and ships automatically.",
+    "FastAPI API Gateway → Application Layer (AsyncIO + Redis task queues + worker pools with health monitoring) → Data & Cache (PostgreSQL + Redis response cache + connection pooling) → CI/CD (GitHub Actions → Docker → zero-downtime rolling deploys). Request ingestion is decoupled from processing; workers drain queues and cache hot results.",
   pipeline: [
-    "Build — tests and lint gate every change",
-    "Package — reproducible Docker images for model and API",
-    "Deploy — CI/CD pipeline pushes to production",
-    "Serve — async FastAPI behind Redis caching",
+    "Ingest — FastAPI accepts jobs without blocking on heavy compute",
+    "Queue — Redis task queues with retry semantics and worker health checks",
+    "Execute — worker pool processes jobs; response cache serves repeat requests",
+    "Ship — CI/CD builds container images, runs tests, and rolling-deploys without downtime",
   ],
   model:
-    "Not a single model — the deliverable is the runtime: cached inference results, graceful cold-start handling, and horizontal scaling headroom for any model payload.",
+    "Not a single model — the deliverable is the runtime: cached inference results, graceful degradation under burst, cache invalidation across distributed instances, and horizontal scaling headroom for any model payload.",
   challenges: [
-    "Cache invalidation — stale predictions are worse than slow ones",
+    "Graceful degradation during traffic bursts — without head-of-line blocking on server threads",
+    "Cache invalidation across distributed instances — stale predictions are worse than slow ones",
+    "Zero-downtime rolling container deployments — every deploy must be repeatable and reversible",
     "Cold starts — model weights can't load in a request's time budget",
-    "Operational overhead — every deploy must be repeatable and reversible",
   ],
   results: [
     "60% reduction in API latency under realistic load",

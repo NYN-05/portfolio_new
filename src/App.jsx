@@ -3,12 +3,12 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, LazyMotion, MotionConfig, useReducedMotion, domAnimation } from "motion/react";
 import * as m from "motion/react-m";
 import { useLenis } from "lenis/react";
-import { EASE } from "./lib/motion";
 import { scrollToSectionWithRetry, scrollToTopImmediate } from "./lib/scroll";
+import { EASE } from "./lib/utils";
 import IntroLoader from "./components/IntroLoader";
 import ErrorBoundary from "./components/ErrorBoundary";
 import HomePage from "./pages/HomePage";
-import AmbientBackground from "./components/effects/AmbientBackground";
+import AmbientBackground from "./components/AmbientBackground";
 import AiAssistant from "./components/AiAssistant";
 import BackToTop from "./components/BackToTop";
 import PageLoader from "./components/PageLoader";
@@ -17,6 +17,7 @@ const CaseStudyPage = lazy(() => import("./pages/CaseStudyPage"));
 const ResumePage = lazy(() => import("./pages/ResumePage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
+const SpotlightDemo = lazy(() => import("./pages/SpotlightDemo"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function RouteEffects() {
@@ -109,6 +110,14 @@ function App() {
                   element={
                     <Suspense fallback={<PageLoader />}>
                       <CaseStudyPage />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/spotlight-demo"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <SpotlightDemo />
                     </Suspense>
                   }
                 />

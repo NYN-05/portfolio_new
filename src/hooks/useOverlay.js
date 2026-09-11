@@ -6,16 +6,13 @@ const FOCUSABLE_SELECTOR =
 export function useFocusTrap(ref, active) {
   useEffect(() => {
     if (!active) return;
-
     const onKeyDown = (e) => {
       if (e.key !== "Tab") return;
       const container = ref.current;
       const focusables = container?.querySelectorAll(FOCUSABLE_SELECTOR);
       if (!focusables?.length) return;
-
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
-
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
@@ -24,8 +21,17 @@ export function useFocusTrap(ref, active) {
         first.focus();
       }
     };
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [ref, active]);
+}
+
+export function useScrollLock(active) {
+  useEffect(() => {
+    if (!active) return;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [active]);
 }

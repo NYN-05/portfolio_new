@@ -23,18 +23,28 @@ function Footer() {
               </p>
             </div>
 
-            <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-5">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  onClick={(e) => scrollTo(e, item.href)}
-                  className="py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  {item.label}
+            <div className="flex flex-wrap items-center gap-6">
+              <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-4">
+                {NAV_ITEMS.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={(e) => scrollTo(e, item.href)}
+                    className="py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+              <nav aria-label="Secondary footer" className="flex items-center gap-3 border-l border-border/60 pl-6">
+                <a href="/resume" className="py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/70 transition-colors hover:text-signal">
+                  Resume
                 </a>
-              ))}
-            </nav>
+                <a href="/blog" className="py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/70 transition-colors hover:text-signal">
+                  Blog
+                </a>
+              </nav>
+            </div>
 
             <button
               type="button"

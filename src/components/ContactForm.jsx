@@ -1,199 +1,116 @@
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, CheckCircle2, Download, GitBranch, Globe, Mail } from "lucide-react";
+import { ArrowRight, CheckCircle2, Mail, GitBranch, Globe, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import SectionHeading from "./SectionHeading";
+import PaperCard from "./kraft/PaperCard";
 import { CONTACT } from "../content/profile";
 
-const FIELD_CLASSES =
-  "h-12 w-full rounded-xl border border-border/80 bg-background/80 px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-signal/50 focus-visible:ring-2 focus-visible:ring-ring/40";
+const FIELD =
+  "h-11 w-full rounded-[10px] border-[1.4px] border-ink/12 bg-card px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink/35 focus:border-signal/40 focus-visible:ring-2 focus-visible:ring-ink/10";
 
 function ContactForm() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
-
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(
-      `[Portfolio Inquiry] Project / Opportunity from ${form.name || "a visitor"}`
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${form.name}`,
-        `Email: ${form.email}`,
-        "",
-        `Message:`,
-        form.message,
-      ].join("\n")
-    );
+    const subject = encodeURIComponent(`[Portfolio Inquiry] from ${form.name || "a visitor"}`);
+    const body = encodeURIComponent([`Name: ${form.name}`, `Email: ${form.email}`, "", `Message:`, form.message].join("\n"));
     window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
     setSent(true);
   };
 
   return (
-    <section className="scroll-mt-24 py-20 sm:py-24 lg:py-28" id="contact" aria-labelledby="contact-title">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14 items-start">
-          {/* Left 5 Cols: Copy & Direct Contact Options */}
-          <div className="lg:col-span-5 space-y-6">
+    <section className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24" id="contact" aria-labelledby="contact-title">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 kraft-paper opacity-[0.32]" />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 items-start">
+          <div className="space-y-5 lg:col-span-5">
             <SectionHeading
               num="07"
-              eyebrow="Get in touch"
+              eyebrow="Contact · say hi"
               title={<span id="contact-title">Have a problem worth solving?</span>}
-              intro="I'm interested in building useful software, intelligent systems, and technically challenging products."
+              intro="Open to Software, Backend & ML roles — let's talk architecture and outcomes."
             />
-
-            <div className="space-y-3 pt-2">
-              <p className="font-mono text-xs font-bold uppercase tracking-wider text-signal">
-                Direct Contact &amp; Profiles
-              </p>
-
-              <div className="space-y-2">
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  className="flex items-center justify-between rounded-xl border border-border/80 bg-card/40 p-3.5 text-sm text-foreground transition-colors hover:border-signal/40 hover:text-signal"
-                >
-                  <span className="flex items-center gap-2.5 font-mono text-xs">
-                    <Mail className="h-4 w-4 text-signal" />
-                    {CONTACT.email}
-                  </span>
-                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
-                </a>
-
-                <a
-                  href={CONTACT.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between rounded-xl border border-border/80 bg-card/40 p-3.5 text-sm text-foreground transition-colors hover:border-signal/40 hover:text-signal"
-                >
-                  <span className="flex items-center gap-2.5 font-mono text-xs">
-                    <Globe className="h-4 w-4 text-signal" />
-                    LinkedIn Profile
-                  </span>
-                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
-                </a>
-
-                <a
-                  href={CONTACT.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between rounded-xl border border-border/80 bg-card/40 p-3.5 text-sm text-foreground transition-colors hover:border-signal/40 hover:text-signal"
-                >
-                  <span className="flex items-center gap-2.5 font-mono text-xs">
-                    <GitBranch className="h-4 w-4 text-signal" />
-                    GitHub Profile
-                  </span>
-                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
-                </a>
-
-                <a
-                  href="/resume"
-                  className="flex items-center justify-between rounded-xl border border-border/80 bg-card/40 p-3.5 text-sm text-foreground transition-colors hover:border-signal/40 hover:text-signal"
-                >
-                  <span className="flex items-center gap-2.5 font-mono text-xs">
-                    <Download className="h-4 w-4 text-signal" />
-                    Interactive Resume
-                  </span>
-                  <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
-                </a>
-              </div>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="inline-flex items-center gap-2 rounded-full border-[1.4px] border-ink bg-ink px-4 py-2 font-mono text-xs font-medium text-background shadow-[3px_3px_0_color-mix(in_srgb,var(--ink)_12%,transparent)] transition-transform hover:translate-y-[1px] hover:shadow-[1.5px_2px_0_var(--ink)]"
+                style={{ borderRadius: "255px 14px 220px 14px / 14px 255px 14px 220px" }}
+              >
+                <Mail className="h-3.5 w-3.5" /> {CONTACT.email}
+              </a>
+              <a
+                href={CONTACT.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-card px-3.5 py-2 font-mono text-xs font-medium text-ink/65 shadow-[2px_2px_0_color-mix(in_srgb,var(--ink)_8%,transparent)] hover:border-signal/20 sm:inline-flex"
+              >
+                <Globe className="h-3.5 w-3.5 text-signal" /> LinkedIn
+              </a>
+              <a
+                href={CONTACT.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-card px-3.5 py-2 font-mono text-xs font-medium text-ink/65 shadow-[2px_2px_0_color-mix(in_srgb,var(--ink)_8%,transparent)] hover:border-signal/20 sm:inline-flex"
+              >
+                <GitBranch className="h-3.5 w-3.5" /> GitHub
+              </a>
             </div>
-
-            <div className="rounded-xl border border-border/60 bg-muted/20 p-4">
-              <p className="text-xs leading-relaxed text-muted-foreground">
-                <strong className="text-foreground">Positioning:</strong> Open to Software Engineering, Backend Engineering, and Machine Learning opportunities.
-              </p>
+            <div className="hidden rounded-[10px] border border-dashed border-ink/12 bg-card/60 p-3 font-mono text-[11px] leading-relaxed text-ink/45 sm:block" style={{ borderRadius: "12px 4px 12px 4px / 4px 12px 4px 12px" }}>
+              <span className="font-semibold text-ink/70">→</span> Prefer a quick note? This form opens your mail client — no tracking, no backend.
             </div>
           </div>
 
-          {/* Right 7 Cols: Clean Form */}
           <div className="lg:col-span-7">
-            <form
-              onSubmit={onSubmit}
-              className="space-y-4 rounded-3xl border border-border/80 bg-card/50 p-6 sm:p-8 backdrop-blur-xs shadow-sm"
-              aria-label="Project inquiry form"
-            >
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <PaperCard tilt={0.22} tape={{ top: -10, right: 18, rotate: 2.2 }} className="p-0">
+              <form onSubmit={onSubmit} className="space-y-4 p-5 sm:p-6" aria-label="Contact form">
+                <div className="flex items-center gap-2 border-b border-dashed border-ink/10 pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/40">
+                  <Send className="h-3.5 w-3.5 text-signal" /> Missive
+                  <span className="ml-auto rounded-full bg-ink px-2 py-0.5 text-[10px] font-bold tracking-widest text-background">01</span>
+                </div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <label htmlFor="cf-name" className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink/55">
+                      Name
+                    </label>
+                    <input id="cf-name" name="name" required autoComplete="name" maxLength={80} value={form.name} onChange={set("name")} placeholder="Ada Lovelace" className={FIELD} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label htmlFor="cf-email" className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink/55">
+                      Email
+                    </label>
+                    <input id="cf-email" name="email" type="email" required autoComplete="email" maxLength={254} value={form.email} onChange={set("email")} placeholder="you@company.com" className={FIELD} />
+                  </div>
+                </div>
                 <div className="space-y-1.5">
-                  <label
-                    htmlFor="cf-name"
-                    className="font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
-                  >
-                    Name
+                  <label htmlFor="cf-msg" className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink/55">
+                    Message
                   </label>
-                  <input
-                    id="cf-name"
-                    name="name"
-                    type="text"
+                  <textarea
+                    id="cf-msg"
+                    name="message"
                     required
-                    autoComplete="name"
-                    maxLength={80}
-                    value={form.name}
-                    onChange={set("name")}
-                    placeholder="Your name"
-                    className={FIELD_CLASSES}
+                    rows={3}
+                    maxLength={2000}
+                    value={form.message}
+                    onChange={set("message")}
+                    placeholder="Project, opportunity, or technical challenge..."
+                    className="w-full rounded-[10px] border-[1.4px] border-ink/12 bg-card p-3.5 text-sm text-ink outline-none placeholder:text-ink/30 focus:border-signal/30"
+                    style={{ borderRadius: "10px 4px 10px 4px / 4px 10px 4px 10px" }}
                   />
                 </div>
-
-                <div className="space-y-1.5">
-                  <label
-                    htmlFor="cf-email"
-                    className="font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
-                  >
-                    Email
-                  </label>
-                  <input
-                    id="cf-email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    maxLength={254}
-                    value={form.email}
-                    onChange={set("email")}
-                    placeholder="you@company.com"
-                    className={FIELD_CLASSES}
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="cf-msg"
-                  className="font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="cf-msg"
-                  name="message"
-                  required
-                  rows={5}
-                  maxLength={2000}
-                  value={form.message}
-                  onChange={set("message")}
-                  placeholder="Tell me about the project, opportunity, or technical challenge..."
-                  className="w-full rounded-xl border border-border/80 bg-background/80 p-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-signal/50 focus-visible:ring-2 focus-visible:ring-ring/40"
-                />
-              </div>
-
-              {sent && (
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-500">
-                  <CheckCircle2 className="h-4 w-4" />
-                  Email client opened with pre-filled message!
-                </div>
-              )}
-
-              <Button type="submit" size="lg" className="w-full sm:w-auto">
-                Let&apos;s talk
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </form>
+                {sent && (
+                  <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-2 font-mono text-xs text-emerald-700">
+                    <CheckCircle2 className="h-4 w-4" /> Email client opened — message pre-filled.
+                  </div>
+                )}
+                <Button type="submit" size="lg" className="w-full rounded-full shadow-[4px_5px_0_var(--ink)] hover:translate-y-[1px] hover:shadow-[2px_3px_0_var(--ink)] sm:w-auto">
+                  Let&apos;s talk <ArrowRight className="h-4 w-4" />
+                </Button>
+              </form>
+            </PaperCard>
           </div>
         </div>
       </div>

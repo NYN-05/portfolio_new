@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Terminal } from "lucide-react";
 import { Button } from "../components/ui/button";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import PageShell from "../components/PageShell";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 function NotFoundPage() {
   usePageMeta("404 — Page not found | Jhashank Nayan");
 
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="flex min-h-screen items-center justify-center px-4 py-28">
+    <PageShell>
+      <div className="flex min-h-[60vh] items-center justify-center px-4 py-28">
         <div className="text-center">
           <p className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-signal/10 font-mono text-xl font-bold text-signal">
             404
@@ -38,9 +36,8 @@ function NotFoundPage() {
             </Button>
           </div>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </PageShell>
   );
 }
 
