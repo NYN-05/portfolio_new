@@ -61,8 +61,7 @@ function Navbar() {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
       let current = "home";
-      for (let i = SPY_SECTION_IDS.length - 1; i >= 0; i--) {
-        const id = SPY_SECTION_IDS[i];
+      for (const id of [...SPY_SECTION_IDS].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 160) {
           current = id;
@@ -137,10 +136,10 @@ function Navbar() {
                 >
                   {item.label}
                   <span
-                    className={cn(
-                      "absolute inset-x-4 bottom-1.5 h-px origin-center bg-signal transition-transform duration-300",
-                      active === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    )}
+className={cn(
+                        "absolute inset-x-4 bottom-1.5 h-px bg-signal transition-opacity duration-300",
+                        active === item.id ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      )}
                     aria-hidden="true"
                   />
                 </a>

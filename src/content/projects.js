@@ -5,7 +5,11 @@ export const FEATURED_SLUGS = [
 ];
 
 export function getFeaturedProjects() {
-  return FEATURED_SLUGS.map((slug) => PROJECTS.find((p) => p.slug === slug)).filter(Boolean);
+  return FEATURED_SLUGS.reduce((projects, slug) => {
+    const project = PROJECTS.find((p) => p.slug === slug);
+    if (project) projects.push(project);
+    return projects;
+  }, []);
 }
 
 export const PROJECTS = [

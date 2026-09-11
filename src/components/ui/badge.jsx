@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { cva } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
-export const badgeVariants = cva(
+const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
   {
     variants: {

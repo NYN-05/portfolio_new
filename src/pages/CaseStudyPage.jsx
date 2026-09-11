@@ -161,10 +161,11 @@ function CaseStudyPage() {
   const index = useMemo(() => PROJECTS.findIndex((p) => p.slug === slug), [slug]);
 
   const csModule = useMemo(() => {
-    const key = `../content/case-studies/${slug}.js`;
-    const module = caseStudies[key];
-    if (!module) return null;
-    return module();
+    const entry = Object.entries(caseStudies).find(
+      ([path]) => path === `../content/case-studies/${slug}.js`
+    );
+    if (!entry) return null;
+    return entry[1]();
   }, [slug]);
 
   const cs = useMemo(() => {

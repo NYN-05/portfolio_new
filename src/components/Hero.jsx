@@ -9,6 +9,13 @@ import { CONTACT, HERO_POSITIONING } from "../content/profile";
 import { useGoToSection } from "../hooks/useGoToSection";
 import { EASE } from "../lib/utils";
 
+const SOCIALS = [
+  { label: "GitHub", href: CONTACT.github },
+  { label: "LinkedIn", href: CONTACT.linkedin },
+  { label: "X", href: CONTACT.x },
+  { label: "Email", href: `mailto:${CONTACT.email}` },
+];
+
 const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.075, delayChildren: 0.12 } },
@@ -22,13 +29,6 @@ const item = {
 function Hero() {
   const reduce = useReducedMotion();
   const goTo = useGoToSection();
-
-  const socials = [
-    { label: "GitHub", href: CONTACT.github },
-    { label: "LinkedIn", href: CONTACT.linkedin },
-    { label: "X", href: CONTACT.x },
-    { label: "Email", href: `mailto:${CONTACT.email}` },
-  ];
 
   return (
     <section
@@ -97,7 +97,7 @@ function Hero() {
               </span>
               <span className="h-px w-6 bg-border" aria-hidden="true" />
               <ul className="flex items-center gap-4">
-                {socials.map((s, i) => (
+                {SOCIALS.map((s, i) => (
                   <li key={s.label}>
                     <m.a
                       variants={item}
@@ -113,8 +113,8 @@ function Hero() {
                       ) : (
                         s.label
                       )}
-                      <span aria-hidden="true" className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-signal transition-transform duration-300 group-hover:scale-x-100" />
-                      {i < socials.length - 1 && <span className="ml-4 text-signal/20">/</span>}
+                      <span aria-hidden="true" className="absolute inset-x-0 -bottom-0.5 h-px bg-signal opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      {i < SOCIALS.length - 1 && <span className="ml-4 text-signal/20">/</span>}
                     </m.a>
                   </li>
                 ))}

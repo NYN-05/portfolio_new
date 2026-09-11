@@ -26,14 +26,12 @@ skills/
 *.sln
 *.sw?
 
-# Playwright test artifacts (the play_test suite itself IS tracked)
+# Playwright test artifacts and MCP tooling
 __pycache__/
 *.py[cod]
 .pytest_cache/
-play_test/screenshots/
-play_test/videos/
-play_test/traces/
-play_test/reports/
+play_test/
+.playwright-mcp/
 
 # Generated knowledge graph
 graphify-out/

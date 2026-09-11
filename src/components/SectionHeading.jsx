@@ -7,7 +7,7 @@ function SectionHeading({ num, eyebrow, title, intro, className }) {
       <div className="flex items-center gap-3">
         {eyebrow && (
           <p className="flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-[0.2em] text-signal">
-            {num && <span className="text-muted-foreground">[{num}]</span>}
+            {num ? <span className="text-muted-foreground">[{num}]</span> : null}
             {eyebrow}
           </p>
         )}

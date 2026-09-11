@@ -66,7 +66,7 @@ function ProjectCard({ project, eager = false }) {
         <div className="mt-auto flex items-center gap-3 pt-5">
           <Link
             to={`/projects/${project.slug}`}
-            className="inline-flex h-9 items-center gap-1.5 rounded-full bg-signal px-4 text-sm font-medium text-background transition-all hover:bg-signal/85 hover:shadow-[0_0_20px_rgba(255,138,61,0.25)]"
+            className="inline-flex h-9 items-center gap-1.5 rounded-full bg-signal px-4 text-sm font-medium text-background transition-[background-color,box-shadow] hover:bg-signal/85 hover:shadow-[0_0_20px_rgba(255,138,61,0.25)]"
           >
             View Project
             <ArrowRight className="h-3.5 w-3.5" />

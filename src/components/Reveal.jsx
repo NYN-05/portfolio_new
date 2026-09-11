@@ -4,7 +4,7 @@ import { EASE } from "../lib/utils";
 
 function Reveal({ children, className, delay = 0, y = 28, as = "div", ...props }) {
   const reduce = useReducedMotion();
-  const Comp = m[as];
+  const Comp = as === "section" ? m.section : m.div;
 
   return (
     <Comp

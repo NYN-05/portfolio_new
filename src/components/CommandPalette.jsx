@@ -173,7 +173,7 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
       setActive((a) => Math.max(a - 1, 0));
     } else if (e.key === "Enter") {
       e.preventDefault();
-      filtered[current]?.run();
+      filtered.at(current)?.run();
       close();
     }
   };
@@ -221,7 +221,7 @@ function CommandPalette({ open, onOpenChange, triggerRef = null }) {
                   role="combobox"
                   aria-expanded="true"
                   aria-controls="palette-listbox"
-                  aria-activedescendant={filtered[current] ? `palette-action-${current}` : undefined}
+                  aria-activedescendant={filtered.at(current) ? `palette-action-${current}` : undefined}
                   className="h-13 w-full bg-transparent py-4 text-sm text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/40"
                 />
                 <button

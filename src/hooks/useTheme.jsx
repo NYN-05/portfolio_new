@@ -27,7 +27,7 @@ export function ThemeProvider({ children }) {
     const timer = window.setTimeout(() => root.classList.remove("theme-transition"), 450);
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", THEME_COLORS[theme]);
+      ?.setAttribute("content", theme === "dark" ? THEME_COLORS.dark : THEME_COLORS.light);
     try {
       window.localStorage.setItem(STORAGE_KEY, theme);
     } catch {

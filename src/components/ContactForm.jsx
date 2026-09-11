@@ -86,38 +86,56 @@ function ContactForm() {
                   <span className="ml-auto rounded-full bg-signal px-2 py-0.5 text-[10px] font-bold tracking-widest text-background">01</span>
                 </div>
                 <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-                  <input
-                    name="name"
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="contact-name" className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                      Your name
+                    </label>
+                    <input
+                      id="contact-name"
+                      name="name"
+                      required
+                      autoComplete="name"
+                      maxLength={80}
+                      value={form.name}
+                      onChange={set("name")}
+                      placeholder="Alice"
+                      className={FIELD}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="contact-email" className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                      Email
+                    </label>
+                    <input
+                      id="contact-email"
+                      name="email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      maxLength={254}
+                      value={form.email}
+                      onChange={set("email")}
+                      placeholder="you@email.com"
+                      className={FIELD}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="contact-message" className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                    Message
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
                     required
-                    autoComplete="name"
-                    maxLength={80}
-                    value={form.name}
-                    onChange={set("name")}
-                    placeholder="Your name"
-                    className={FIELD}
-                  />
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    maxLength={254}
-                    value={form.email}
-                    onChange={set("email")}
-                    placeholder="you@email.com"
-                    className={FIELD}
+                    rows={3}
+                    maxLength={2000}
+                    value={form.message}
+                    onChange={set("message")}
+                    placeholder="What would you like to build together?"
+                    className="w-full rounded-2xl border border-border bg-background/60 p-3.5 text-sm text-foreground outline-none backdrop-blur placeholder:text-muted-foreground focus:border-signal/40"
                   />
                 </div>
-                <textarea
-                  name="message"
-                  required
-                  rows={3}
-                  maxLength={2000}
-                  value={form.message}
-                  onChange={set("message")}
-                  placeholder="What would you like to build together?"
-                  className="w-full rounded-2xl border border-border bg-background/60 p-3.5 text-sm text-foreground outline-none backdrop-blur placeholder:text-muted-foreground focus:border-signal/40"
-                />
                 {sent && (
                   <div className="flex items-center gap-2 rounded-full border border-status/20 bg-status/5 px-3 py-2 font-mono text-xs text-status">
                     <CheckCircle2 className="h-4 w-4" /> Email client opened — message pre-filled.
