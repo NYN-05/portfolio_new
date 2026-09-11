@@ -1,9 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 const STORAGE_KEY = "portfolio-theme";
-const THEME_COLORS = { light: "#f4f1ea", dark: "#12141c" };
+const THEME_COLORS = { light: "#F5F5F5", dark: "#08090D" };
 
-const ThemeContext = createContext({ theme: "light", toggleTheme: () => {} });
+const ThemeContext = createContext({ theme: "dark", toggleTheme: () => {} });
 
 function getInitialTheme() {
   let stored;
@@ -21,10 +21,9 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    // Add the transition class before toggling so the color change animates,
-    // then remove it once the transition window has elapsed.
     root.classList.add("theme-transition");
-    root.classList.toggle("dark", theme === "dark");
+    root.classList.remove("light", "dark");
+    root.classList.add(theme);
     const timer = window.setTimeout(() => root.classList.remove("theme-transition"), 450);
     document
       .querySelector('meta[name="theme-color"]')

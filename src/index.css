@@ -62,6 +62,7 @@
   --color-ring: var(--ring);
   --color-ink: var(--ink);
   --color-signal: var(--signal);
+  --color-status: var(--status);
 
   --font-sans: "Instrument Sans Variable", "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
@@ -77,7 +78,8 @@
   --animate-drift-a: drift-a 26s ease-in-out infinite alternate;
   --animate-drift-b: drift-b 32s ease-in-out infinite alternate;
   --animate-float-y: float-y 6s ease-in-out infinite;
-  --animate-sketch-jiggle: sketch-jiggle 0.35s ease-out;
+  --animate-orbital: orbital 60s linear infinite;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
 
   @keyframes pulse-dot {
     0%, 100% { opacity: 1; }
@@ -101,61 +103,67 @@
     50% { transform: translateY(-10px) rotate(1deg); }
   }
 
-  @keyframes sketch-jiggle {
-    0% { transform: rotate(-0.6deg) scale(1); }
-    50% { transform: rotate(0.6deg) scale(1.01); }
-    100% { transform: rotate(0deg) scale(1); }
+  @keyframes orbital {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
 :root {
-  color-scheme: light;
-  --background: hsl(42 18% 92%);
-  --foreground: hsl(40 14% 10%);
-  --card: hsl(43 35% 98%);
-  --card-foreground: hsl(40 14% 10%);
-  --popover: hsl(43 35% 98%);
-  --popover-foreground: hsl(40 14% 10%);
-  --primary: hsl(17 90% 47%);
-  --primary-foreground: hsl(40 30% 98%);
-  --secondary: hsl(40 18% 90%);
-  --secondary-foreground: hsl(40 14% 12%);
-  --muted: hsl(42 16% 88%);
-  --muted-foreground: hsl(40 10% 42%);
-  --accent: hsl(40 20% 88%);
-  --accent-foreground: hsl(40 14% 10%);
-  --destructive: hsl(0 72% 45%);
-  --destructive-foreground: hsl(40 30% 98%);
-  --border: hsl(40 14% 78%);
-  --input: hsl(40 14% 78%);
-  --ring: hsl(17 90% 47%);
-  --ink: hsl(40 14% 10%);
-  --signal: hsl(17 90% 47%);
+  color-scheme: dark;
+  --background: #08090D;
+  --foreground: #F5F5F5;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-foreground: #F5F5F5;
+  --popover: #0E1015;
+  --popover-foreground: #F5F5F5;
+  --primary: #FF8A3D;
+  --primary-foreground: #08090D;
+  --secondary: rgba(255, 255, 255, 0.06);
+  --secondary-foreground: #F5F5F5;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #8A8D96;
+  --accent: rgba(255, 138, 61, 0.1);
+  --accent-foreground: #FF8A3D;
+  --destructive: #ef4444;
+  --destructive-foreground: #F5F5F5;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #FF8A3D;
+  --ink: #F5F5F5;
+  --signal: #FF8A3D;
+  --status: #45D483;
 }
 
-.dark {
-  color-scheme: dark;
-  --background: hsl(228 22% 6%);
-  --foreground: hsl(40 20% 95%);
-  --card: hsl(226 20% 9.5%);
-  --card-foreground: hsl(40 20% 95%);
-  --popover: hsl(226 20% 9.5%);
-  --popover-foreground: hsl(40 20% 95%);
-  --primary: hsl(17 92% 54%);
-  --primary-foreground: hsl(228 22% 6%);
-  --secondary: hsl(226 16% 15%);
-  --secondary-foreground: hsl(40 20% 90%);
-  --muted: hsl(226 16% 14%);
-  --muted-foreground: hsl(224 12% 64%);
-  --accent: hsl(226 16% 16%);
-  --accent-foreground: hsl(40 20% 95%);
-  --destructive: hsl(0 70% 55%);
-  --destructive-foreground: hsl(40 30% 98%);
-  --border: hsl(226 14% 17%);
-  --input: hsl(226 14% 17%);
-  --ring: hsl(17 92% 56%);
-  --ink: hsl(40 20% 95%);
-  --signal: hsl(17 92% 54%);
+.light {
+  color-scheme: light;
+  --background: #F5F5F5;
+  --foreground: #08090D;
+  --card: rgba(0, 0, 0, 0.03);
+  --card-foreground: #08090D;
+  --popover: #FFFFFF;
+  --popover-foreground: #08090D;
+  --primary: #FF8A3D;
+  --primary-foreground: #08090D;
+  --secondary: rgba(0, 0, 0, 0.05);
+  --secondary-foreground: #08090D;
+  --muted: rgba(0, 0, 0, 0.05);
+  --muted-foreground: #6B7280;
+  --accent: rgba(255, 138, 61, 0.08);
+  --accent-foreground: #FF8A3D;
+  --destructive: #dc2626;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: #FF8A3D;
+  --ink: #08090D;
+  --signal: #FF8A3D;
+  --status: #16a34a;
 }
 
 html.theme-transition,
@@ -166,7 +174,8 @@ html.theme-transition *::after {
     background-color 0.35s ease,
     border-color 0.35s ease,
     color 0.2s ease,
-    fill 0.35s ease !important;
+    fill 0.35s ease,
+    box-shadow 0.35s ease !important;
 }
 
 @layer base {
@@ -212,7 +221,7 @@ html.theme-transition *::after {
   }
 
   :root,
-  .dark {
+  .light {
     color-scheme: light;
     --background: #ffffff !important;
     --foreground: #111111 !important;
@@ -223,7 +232,7 @@ html.theme-transition *::after {
     --accent: #f4f4f4 !important;
     --accent-foreground: #111111 !important;
     --border: #d4d4d4 !important;
-    --signal: #b03a0a !important;
+    --signal: #FF8A3D !important;
     --ink: #111111 !important;
     --primary-foreground: #ffffff !important;
   }
@@ -240,16 +249,6 @@ html.theme-transition *::after {
   .ambient-bg {
     display: none !important;
   }
-
-  .resume-page {
-    padding-top: 0 !important;
-  }
-
-  .resume-page > * {
-    max-width: 100% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
 }
 
 @layer utilities {
@@ -257,80 +256,96 @@ html.theme-transition *::after {
     font-family: var(--font-display);
   }
 
-  .grain {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 160px 160px;
-  }
-
-  .dot-grid {
-    background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1px);
-    background-size: 26px 26px;
-  }
-
-  /* KRAFT — paper & sketch system (replaces generic card) */
-  .kraft-paper {
-    background:
-      radial-gradient(ellipse at 30% 20%, color-mix(in srgb, var(--signal) 6%, transparent) 0%, transparent 55%),
-      radial-gradient(ellipse at 85% 85%, color-mix(in srgb, var(--ink) 4%, transparent) 0%, transparent 50%),
-      var(--card);
-    position: relative;
-  }
-
-  .kraft-paper::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0.06;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
-    mix-blend-mode: multiply;
-  }
-
-  .kraft-card {
+  /* ── Glassmorphism Card System ── */
+  .glass-card {
     background: var(--card);
-    border: 1.5px solid var(--border);
+    border: 1px solid var(--border);
     border-radius: 16px;
-    /* hand-drawn irregular corners */
-    border-radius: 255px 15px 225px 22px / 18px 225px 22px 255px;
     box-shadow:
-      5px 6px 0 color-mix(in srgb, var(--ink) 14%, transparent),
-      0 8px 32px color-mix(in srgb, var(--ink) 10%, transparent);
+      0 4px 24px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(255, 138, 61, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.2),
+      0 0 20px rgba(255, 138, 61, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .light .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .light .glass-card:hover {
+    border-color: rgba(255, 138, 61, 0.25);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 0 20px rgba(255, 138, 61, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  /* ── Glow Border ── */
+  .glow-border {
     position: relative;
-    transform: rotate(-0.2deg);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
   }
 
-  .kraft-card:hover {
-    transform: rotate(0.35deg) translateY(-4px);
-    box-shadow:
-      8px 10px 0 color-mix(in srgb, var(--ink) 16%, transparent),
-      0 16px 40px color-mix(in srgb, var(--ink) 14%, transparent);
-    border-color: color-mix(in srgb, var(--signal) 45%, var(--border));
-  }
-
-  .kraft-stack::before,
-  .kraft-stack::after {
+  .glow-border::after {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -1px;
     border-radius: inherit;
-    border: 1.5px solid var(--border);
-    background: var(--card);
-    z-index: -1;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
     pointer-events: none;
   }
 
-  .kraft-stack::before {
-    transform: rotate(-1.1deg) translate(4px, 6px);
-    opacity: 0.55;
+  .glow-border:hover::after {
+    border-color: rgba(255, 138, 61, 0.3);
   }
 
-  .kraft-stack::after {
-    transform: rotate(1.4deg) translate(-2px, 4px);
-    opacity: 0.32;
+  /* ── Technical Grid ── */
+  .tech-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
+  .light .tech-grid {
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* ── Orbital Ring ── */
+  .orbital-ring {
+    border: 1px solid rgba(255, 138, 61, 0.12);
+    border-radius: 50%;
+    position: absolute;
+  }
+
+  /* ── Dot Grid ── */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .light .dot-grid {
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* ── Sketch Accent (kept for italic emphasis) ── */
   .sketch-underline {
     position: relative;
     display: inline-block;
@@ -339,34 +354,20 @@ html.theme-transition *::after {
   .sketch-underline::after {
     content: "";
     position: absolute;
-    left: -4px;
-    right: -6px;
-    bottom: 0.08em;
-    height: 0.32em;
-    background: color-mix(in srgb, var(--signal) 18%, transparent);
-    border-radius: 255px 12px 200px 14px / 12px 200px 14px 255px;
+    left: -2px;
+    right: -4px;
+    bottom: 0.05em;
+    height: 0.28em;
+    background: rgba(255, 138, 61, 0.2);
+    border-radius: 4px;
     z-index: -1;
-    transform: rotate(-0.4deg);
+    transform: rotate(-0.5deg);
   }
 
-  .tape {
-    position: absolute;
-    width: 72px;
-    height: 22px;
-    background: color-mix(in srgb, var(--signal) 12%, var(--card) 88%);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    opacity: 0.9;
-    transform: rotate(-3deg);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    backdrop-filter: blur(2px);
-  }
-
-  .tape::after {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    border: 1px dashed color-mix(in srgb, var(--ink) 10%, transparent);
-    opacity: 0.4;
+  /* ── Noise Texture Overlay ── */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
   }
 
   .text-balance {

@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Mail, GitBranch, Globe, Send } from "lucide-react";
+import { ArrowRight, CheckCircle2, MapPin, Mail, Send } from "lucide-react";
 import { Button } from "./ui/button";
-import SectionHeading from "./SectionHeading";
-import PaperCard from "./kraft/PaperCard";
+import Reveal from "./Reveal";
 import { CONTACT } from "../content/profile";
 
 const FIELD =
-  "h-11 w-full rounded-[10px] border-[1.4px] border-ink/12 bg-card px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink/35 focus:border-signal/40 focus-visible:ring-2 focus-visible:ring-ink/10";
+  "h-11 w-full rounded-full border border-border bg-background/60 px-4 text-sm text-foreground outline-none backdrop-blur transition-colors placeholder:text-muted-foreground focus:border-signal/50 focus-visible:ring-2 focus-visible:ring-signal/20";
 
 function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -22,96 +21,115 @@ function ContactForm() {
   };
 
   return (
-    <section className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24" id="contact" aria-labelledby="contact-title">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 kraft-paper opacity-[0.32]" />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 items-start">
-          <div className="space-y-5 lg:col-span-5">
-            <SectionHeading
-              num="07"
-              eyebrow="Contact · say hi"
-              title={<span id="contact-title">Have a problem worth solving?</span>}
-              intro="Open to Software, Backend & ML roles — let's talk architecture and outcomes."
-            />
-            <div className="flex flex-wrap gap-2">
-              <a
-                href={`mailto:${CONTACT.email}`}
-                className="inline-flex items-center gap-2 rounded-full border-[1.4px] border-ink bg-ink px-4 py-2 font-mono text-xs font-medium text-background shadow-[3px_3px_0_color-mix(in_srgb,var(--ink)_12%,transparent)] transition-transform hover:translate-y-[1px] hover:shadow-[1.5px_2px_0_var(--ink)]"
-                style={{ borderRadius: "255px 14px 220px 14px / 14px 255px 14px 220px" }}
-              >
-                <Mail className="h-3.5 w-3.5" /> {CONTACT.email}
-              </a>
-              <a
-                href={CONTACT.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-card px-3.5 py-2 font-mono text-xs font-medium text-ink/65 shadow-[2px_2px_0_color-mix(in_srgb,var(--ink)_8%,transparent)] hover:border-signal/20 sm:inline-flex"
-              >
-                <Globe className="h-3.5 w-3.5 text-signal" /> LinkedIn
-              </a>
-              <a
-                href={CONTACT.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-card px-3.5 py-2 font-mono text-xs font-medium text-ink/65 shadow-[2px_2px_0_color-mix(in_srgb,var(--ink)_8%,transparent)] hover:border-signal/20 sm:inline-flex"
-              >
-                <GitBranch className="h-3.5 w-3.5" /> GitHub
-              </a>
-            </div>
-            <div className="hidden rounded-[10px] border border-dashed border-ink/12 bg-card/60 p-3 font-mono text-[11px] leading-relaxed text-ink/45 sm:block" style={{ borderRadius: "12px 4px 12px 4px / 4px 12px 4px 12px" }}>
-              <span className="font-semibold text-ink/70">→</span> Prefer a quick note? This form opens your mail client — no tracking, no backend.
-            </div>
-          </div>
+    <section id="contact" aria-labelledby="contact-title" className="relative scroll-mt-24 py-20 sm:py-24 lg:py-28">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 tech-grid opacity-20" />
+      <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal/[0.03] blur-[120px]" />
 
-          <div className="lg:col-span-7">
-            <PaperCard tilt={0.22} tape={{ top: -10, right: 18, rotate: 2.2 }} className="p-0">
-              <form onSubmit={onSubmit} className="space-y-4 p-5 sm:p-6" aria-label="Contact form">
-                <div className="flex items-center gap-2 border-b border-dashed border-ink/10 pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/40">
-                  <Send className="h-3.5 w-3.5 text-signal" /> Missive
-                  <span className="ml-auto rounded-full bg-ink px-2 py-0.5 text-[10px] font-bold tracking-widest text-background">01</span>
-                </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <label htmlFor="cf-name" className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink/55">
-                      Name
-                    </label>
-                    <input id="cf-name" name="name" required autoComplete="name" maxLength={80} value={form.name} onChange={set("name")} placeholder="Ada Lovelace" className={FIELD} />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <Reveal>
+            <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-signal">[06] Contact</p>
+            <h2 id="contact-title" className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.65rem] leading-[1.1]">
+              Let&apos;s Build Something Great
+            </h2>
+            <p className="mx-auto mt-3 max-w-[52ch] text-muted-foreground">
+              I&apos;m always open to discussing new projects, ideas, collaborations, or opportunities.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-12 sm:gap-8">
+          {/* info card */}
+          <Reveal className="sm:col-span-4">
+            <div className="glass-card flex h-full flex-col justify-between p-6">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-signal">Contact Info</p>
+                <div className="mt-5 space-y-4">
+                  <div className="flex items-start gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border bg-background/60 text-foreground">
+                      <Mail className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">Email</p>
+                      <a href={`mailto:${CONTACT.email}`} className="text-sm font-medium text-foreground transition-colors hover:text-signal">
+                        {CONTACT.email}
+                      </a>
+                    </div>
                   </div>
-                  <div className="space-y-1.5">
-                    <label htmlFor="cf-email" className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink/55">
-                      Email
-                    </label>
-                    <input id="cf-email" name="email" type="email" required autoComplete="email" maxLength={254} value={form.email} onChange={set("email")} placeholder="you@company.com" className={FIELD} />
+                  <div className="flex items-start gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border bg-background/60 text-foreground">
+                      <MapPin className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">Location</p>
+                      <p className="text-sm font-medium text-foreground">{CONTACT.location}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="space-y-1.5">
-                  <label htmlFor="cf-msg" className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink/55">
-                    Message
-                  </label>
-                  <textarea
-                    id="cf-msg"
-                    name="message"
+              </div>
+
+              {/* availability */}
+              <div className="mt-6 flex items-center gap-2 rounded-full border border-status/20 bg-status/5 px-4 py-2.5">
+                <span className="h-2 w-2 animate-pulse-dot rounded-full bg-status shadow-[0_0_8px_rgba(69,212,131,0.6)]" aria-hidden="true" />
+                <span className="font-mono text-xs font-medium text-status">Available for opportunities</span>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* form */}
+          <Reveal delay={0.1} className="sm:col-span-8">
+            <div className="glass-card p-6 sm:p-8">
+              <form onSubmit={onSubmit} aria-label="Contact form" className="space-y-4">
+                <div className="flex items-center gap-2 border-b border-border pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                  <Send className="h-3.5 w-3.5 text-signal" />
+                  Send a message
+                  <span className="ml-auto rounded-full bg-signal px-2 py-0.5 text-[10px] font-bold tracking-widest text-background">01</span>
+                </div>
+                <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                  <input
+                    name="name"
                     required
-                    rows={3}
-                    maxLength={2000}
-                    value={form.message}
-                    onChange={set("message")}
-                    placeholder="Project, opportunity, or technical challenge..."
-                    className="w-full rounded-[10px] border-[1.4px] border-ink/12 bg-card p-3.5 text-sm text-ink outline-none placeholder:text-ink/30 focus:border-signal/30"
-                    style={{ borderRadius: "10px 4px 10px 4px / 4px 10px 4px 10px" }}
+                    autoComplete="name"
+                    maxLength={80}
+                    value={form.name}
+                    onChange={set("name")}
+                    placeholder="Your name"
+                    className={FIELD}
+                  />
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    maxLength={254}
+                    value={form.email}
+                    onChange={set("email")}
+                    placeholder="you@email.com"
+                    className={FIELD}
                   />
                 </div>
+                <textarea
+                  name="message"
+                  required
+                  rows={3}
+                  maxLength={2000}
+                  value={form.message}
+                  onChange={set("message")}
+                  placeholder="What would you like to build together?"
+                  className="w-full rounded-2xl border border-border bg-background/60 p-3.5 text-sm text-foreground outline-none backdrop-blur placeholder:text-muted-foreground focus:border-signal/40"
+                />
                 {sent && (
-                  <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-2 font-mono text-xs text-emerald-700">
+                  <div className="flex items-center gap-2 rounded-full border border-status/20 bg-status/5 px-3 py-2 font-mono text-xs text-status">
                     <CheckCircle2 className="h-4 w-4" /> Email client opened — message pre-filled.
                   </div>
                 )}
-                <Button type="submit" size="lg" className="w-full rounded-full shadow-[4px_5px_0_var(--ink)] hover:translate-y-[1px] hover:shadow-[2px_3px_0_var(--ink)] sm:w-auto">
-                  Let&apos;s talk <ArrowRight className="h-4 w-4" />
+                <Button type="submit" size="lg">
+                  Send Message
+                  <ArrowRight className="h-4 w-4" />
                 </Button>
               </form>
-            </PaperCard>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

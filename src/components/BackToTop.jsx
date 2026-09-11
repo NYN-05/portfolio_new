@@ -20,13 +20,13 @@ function BackToTop() {
       aria-label="Back to top"
       onClick={() => lenis?.scrollTo(0, { duration: 1.2 })}
       className={cn(
-        "fixed bottom-24 right-5 z-[45] flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-lg shadow-ink/10 transition-all duration-300 hover:border-signal/40 hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:right-6",
+        "fixed bottom-6 right-5 z-[45] flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur shadow-lg transition-all duration-300 hover:border-signal/40 hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:right-6",
         visible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0"
       )}
     >
-      <ArrowUp className="h-5 w-5" aria-hidden="true" />
+      <ArrowUp className="h-4 w-4" aria-hidden="true" />
     </button>
   );
 }

@@ -8,9 +8,9 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-ink text-background shadow-sm hover:bg-ink/85 hover:shadow",
+        default: "bg-signal text-background shadow-sm hover:bg-signal/85 hover:shadow",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline: "border border-border bg-card text-foreground shadow-xs hover:border-foreground/30 hover:bg-accent/60",
+        outline: "border border-border bg-transparent text-foreground shadow-xs hover:border-signal/40 hover:bg-accent",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "text-foreground hover:bg-accent hover:text-accent-foreground",
         link: "text-signal underline-offset-4 hover:underline",

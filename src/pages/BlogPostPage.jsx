@@ -3,8 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import PageShell from "../components/PageShell";
 import Reveal from "../components/Reveal";
-import PaperCard from "../components/kraft/PaperCard";
-import { Badge } from "../components/ui/badge";
+import GlassCard from "../components/ui/GlassCard";
 import { BLOG_POSTS } from "../content/posts";
 import { usePageMeta } from "../hooks/usePageMeta";
 
@@ -43,7 +42,7 @@ function BlogPostPage() {
   );
 
   usePageMeta(
-    post ? `${post.title} — Jhashank Nayan` : "Jhashank Nayan — ML Engineer",
+    post ? `${post.title} — Jhashank` : "Jhashank",
     post?.excerpt
   );
 
@@ -52,94 +51,88 @@ function BlogPostPage() {
   return (
     <PageShell>
       <div className="mx-auto w-full max-w-3xl px-4 pb-24 pt-24 sm:px-6 sm:pt-28 lg:px-8">
-          <Reveal>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              <Link
-                to="/blog"
-                className="group inline-flex items-center gap-2 transition-colors hover:text-signal"
-              >
-                <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
-                All articles
-              </Link>
-              <span className="h-1 w-1 rounded-full bg-border" aria-hidden="true" />
-              <span className="text-signal">Article</span>
-            </div>
-          </Reveal>
+        <Reveal>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            <Link to="/blog" className="group inline-flex items-center gap-2 transition-colors hover:text-signal">
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
+              All articles
+            </Link>
+            <span className="h-1 w-1 rounded-full bg-border" aria-hidden="true" />
+            <span className="text-signal">Article</span>
+          </div>
+        </Reveal>
 
-          <Reveal delay={0.08}>
-            <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-              <time dateTime={post.date}>{post.date}</time>
-              <span className="h-1 w-1 rounded-full bg-border" aria-hidden="true" />
-              <span>{post.readTime} read</span>
-            </div>
-            <h1 className="mt-4 font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.02em] text-balance">
-              {post.title}
-            </h1>
-            <div className="mt-5 flex flex-wrap gap-1.5">
-              {post.tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="text-muted-foreground">
-                  {tag}
-                </Badge>
+        <Reveal delay={0.08}>
+          <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+            <time dateTime={post.date}>{post.date}</time>
+            <span className="h-1 w-1 rounded-full bg-border" aria-hidden="true" />
+            <span>{post.readTime} read</span>
+          </div>
+          <h1 className="mt-4 font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.02em] text-balance">
+            {post.title}
+          </h1>
+          <div className="mt-5 flex flex-wrap gap-1.5">
+            {post.tags.map((tag) => (
+              <span key={tag} className="rounded-full border border-border bg-background/40 px-2.5 py-1 font-mono text-[10px] text-muted-foreground">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.14} className="mt-8">
+          <img
+            src={post.hero}
+            alt=""
+            width={1440}
+            height={810}
+            decoding="async"
+            className="aspect-[16/9] w-full rounded-2xl border border-border object-cover shadow-sm"
+          />
+        </Reveal>
+
+        <Reveal delay={0.18}>
+          <article className="mt-10 max-w-prose space-y-6">
+            {post.content.map((block) => (
+              <Block key={`${block.type}:${block.text ?? block.items?.join(",")}`} block={block} />
+            ))}
+          </article>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="mt-16 border-t border-border pt-8">
+            <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              Keep reading
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {related.map((p) => (
+                <Link key={p.slug} to={`/blog/${p.slug}`} className="group block">
+                  <GlassCard className="flex min-w-0 items-start gap-4 p-4">
+                    <img
+                      src={p.hero}
+                      alt=""
+                      width={128}
+                      height={80}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-16 w-24 shrink-0 rounded-lg border border-border object-cover"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <p className="line-clamp-2 font-display text-sm font-semibold leading-snug tracking-tight text-foreground">
+                        {p.title}
+                      </p>
+                      <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
+                        {p.readTime} read
+                      </p>
+                    </div>
+                    <ArrowRight className="ml-auto h-4 w-4 shrink-0 self-center text-muted-foreground/30 transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-foreground" />
+                  </GlassCard>
+                </Link>
               ))}
             </div>
-          </Reveal>
-
-          <Reveal delay={0.14} className="mt-8">
-            <img
-              src={post.hero}
-              alt=""
-              width={1440}
-              height={810}
-              decoding="async"
-              className="aspect-[16/9] w-full rounded-2xl border border-border object-cover shadow-sm"
-            />
-          </Reveal>
-
-          <Reveal delay={0.18}>
-            <article className="mt-10 max-w-prose space-y-6">
-              {post.content.map((block) => (
-                <Block key={`${block.type}:${block.text ?? block.items?.join(",")}`} block={block} />
-              ))}
-            </article>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <div className="mt-16 border-t border-border pt-8">
-              <p className="mb-4 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                Keep reading
-              </p>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {related.map((p, idx) => {
-                  const variant = ["signal", "blue"][idx % 2];
-                  return (
-                    <Link key={p.slug} to={`/blog/${p.slug}`} className="group block">
-                      <PaperCard variant={variant} tilt={idx ? 0.22 : -0.22} className="flex min-w-0 items-start gap-4 p-4">
-                        <img
-                          src={p.hero}
-                          alt=""
-                          width={128}
-                          height={80}
-                          loading="lazy"
-                          decoding="async"
-                          className="h-16 w-24 shrink-0 rounded-lg border border-ink/10 object-cover"
-                        />
-                        <div className="min-w-0 flex-1">
-                          <p className="line-clamp-2 font-display text-sm font-semibold leading-snug tracking-tight text-ink group-hover:text-ink">
-                            {p.title}
-                          </p>
-                          <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/45">
-                            {p.readTime} read
-                          </p>
-                        </div>
-                        <ArrowRight className="ml-auto h-4 w-4 shrink-0 self-center text-ink/25 transition-transform transition-colors duration-300 group-hover:translate-x-0.5 group-hover:text-ink" />
-                      </PaperCard>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
+      </div>
     </PageShell>
   );
 }

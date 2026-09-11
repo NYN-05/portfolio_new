@@ -21,7 +21,7 @@ function IntroLoader() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="font-display text-4xl font-bold tracking-tight sm:text-5xl"
       >
-        JN
+        JH.
       </m.span>
       <m.p
         initial={reduce ? { opacity: 1 } : { opacity: 0 }}

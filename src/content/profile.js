@@ -1,29 +1,29 @@
 export const CONTACT = {
-  email: "jnyn2005@gmail.com",
+  email: "jhashank@example.com",
   linkedin: "https://linkedin.com/in/jhashanknayan",
   github: "https://github.com/NYN-05",
+  x: "https://x.com/",
+  location: "Chennai, India",
 };
 
-export const INITIALS = "JN";
+export const INITIALS = "JH";
 
-export const NAME = "Jhashank Nayan";
+export const NAME = "Jhashank";
 
-export const ROLE = "Software Engineer";
+export const ROLE = "Student · Developer · Problem Solver";
 
-export const HERO_HEADLINE = "I build software and intelligent systems that solve real problems.";
+export const HERO_HEADLINE = "I build ideas for the digital world.";
 
 export const TECHNICAL_KEYWORDS =
-  "Software Engineering · Backend · Distributed Systems · Machine Learning · AI · Cloud";
+  "Explore · Build · Learn · Create · Repeat";
 
 export const HERO_POSITIONING =
-  "Software engineer building reliable backends, distributed systems, and applied ML — from architecture to production.";
+  "Exploring the intersection of technology, creativity, and real-world impact.";
 
 export const NAV_ITEMS = [
-  { label: "Work", href: "#featured", id: "featured", num: "01" },
-  { label: "Proof", href: "#proof", id: "proof", num: "02" },
-  { label: "Experience", href: "#experience", id: "experience", num: "03" },
-  { label: "Capabilities", href: "#capabilities", id: "capabilities", num: "04" },
-  { label: "Approach", href: "#approach", id: "approach", num: "05" },
-  { label: "Building", href: "#building", id: "building", num: "06" },
-  { label: "Contact", href: "#contact", id: "contact", num: "07" },
+  { label: "Home", href: "#home", id: "home", num: "01" },
+  { label: "About", href: "#about", id: "about", num: "02" },
+  { label: "Projects", href: "#projects", id: "projects", num: "03" },
+  { label: "Blog", href: "#blog", id: "blog", num: "04" },
+  { label: "Contact", href: "#contact", id: "contact", num: "05" },
 ];
