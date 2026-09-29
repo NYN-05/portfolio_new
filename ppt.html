@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Future of AI - Presentation</title>
+
+    <style>
+        /*
+         * GLOBAL STYLES & THEME DEFINITION
+         * Black background, Orange/Grey accents
+         */
+        :root {
+            --bg-black: #000000;
+            --accent-orange: #FF7F00; /* Vibrant Orange */
+            --text-grey: #E0E0E0; /* Light readable grey */
+            --secondary-grey: #555555;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-grey);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* The main container that acts like the slide projector */
+        .presentation-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh; /* Controls the 'slide' height */
+            background: linear-gradient(145deg, #0a0a0a, #111111);
+            box-shadow: 0 10px 30px rgba(255, 127, 0, 0.2);
+            border: 1px solid rgba(255, 127, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Individual Slides */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none; /* Ensures slides are non-interactive when hidden */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+            pointer-events: auto;
+        }
+
+        /* Styling for headers/titles */
+        h1, h2 {
+            color: var(--accent-orange);
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        /* Content Layout */
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* List Styling */
+        .list-item {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            line-height: 1.6;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent-orange);
+        }
+
+        /* Buttons and Navigation */
+        .navigation-controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 127, 0, 0.2);
+        }
+
+        .nav-button {
+            background-color: var(--accent-orange);
+            color: var(--bg-black);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.1s;
+        }
+
+        .nav-button:hover {
+            background-color: #ff9933; /* Slightly lighter orange on hover */
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            background-color: var(--secondary-grey);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        /* Specific Slide Styling */
+        #slide-1 h1 {
+            color: var(--text-grey);
+            font-size: 4em;
+            border-bottom: none;
+        }
+
+        #slide-4 .highlight {
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+
+        <!-- SLIDE 1: Title Slide -->
+        <div class="slide active" id="slide-1">
+            <div>
+                <div class="slide-content">
+                    <h1>🧠 ARTIFICIAL INTELLIGENCE</h1>
+                    <h2 style="color: var(--text-grey); font-size: 2em;">Understanding the Engine of the Future</h2>
+                    <p style="font-size: 1.5em; color: var(--accent-orange);">A Look at AI's Scope, Impact, and Potential.</p>
+                </div>
+            </div>
+            <div class="navigation-controls">
+                <button class="nav-button" onclick="changeSlide(-1)" id="prev-btn-1" disabled>Previous</button>
+                <button class="nav-button" onclick="changeSlide(1)" id="next-btn-1">Next Slide →</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Definition & Concepts -->
+        <div class="slide" id="slide-2">
+            <div>
+                <div class="slide-content">
+                    <h2>💡 What is AI?</h2>
+                    <p style="font-size: 1.2em;">AI refers to systems designed to perform tasks that typically require human intelligence, such as
+learning, decision-making, and problem-solving.</p>
+                    <h3 style="margin-top: 30px; color: var(--accent-orange);">Key Pillars:</h3>
+                    <div class="list-item">
+                        <span style="color: var(--accent-orange); font-weight: bold;">🤖 Machine Learning (ML):</span> Algorithms that learn patterns
+from data without explicit programming.
+                    </div>
+                    <div class="list-item">
+                        <span style="color: var(--accent-orange); font-weight: bold;">🧠 Deep Learning (DL):</span> A subset of ML using artificial
+neural networks with many layers (e.g., for image recognition).
+                    </div>
+                    <div class="list-item">
+                        <span style="color: var(--accent-orange); font-weight: bold;">⚙️ NLP (Natural Language Processing):</span> Enables computers
+to understand, interpret, and generate human language (like chatbots).
+                    </div>
+                </div>
+            </div>
+            <div class="navigation-controls">
+                <button class="nav-button" onclick="changeSlide(-1)">← Previous</button>
+                <button class="nav-button" onclick="changeSlide(1)">Next Slide →</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Applications -->
+        <div class="slide" id="slide-3">
+            <div>
+                <div class="slide-content">
+                    <h2>🌎 Where is AI Used Today?</h2>
+                    <p style="font-size: 1.2em;">AI has moved beyond theory and is integrated into nearly every modern industry.</p>
+                    <div class="list-item">
+                        <strong>🏥 Healthcare:</strong> Diagnosing diseases (analyzing X-rays) and accelerating drug discovery.
+                    </div>
+                    <div class="list-item">
+                        <strong>🚗 Transportation:</strong> Powering self-driving cars and optimizing logistics routes.
+                    </div>
+                    <div class="list-item">
+                        <strong>💰 Finance:</strong> Detecting fraudulent transactions and high-frequency trading.
+                    </div>
+                    <div class="list-item">
+                        <strong>🖼️ Creativity & Media:</strong> Generating realistic images, text, and music (Generative AI).
+                    </div>
+                </div>
+            </div>
+            <div class="navigation-controls">
+                <button class="nav-button" onclick="changeSlide(-1)">← Previous</button>
+                <button class="nav-button" onclick="changeSlide(1)">Next Slide →</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Impact & Future -->
+        <div class="slide" id="slide-4">
+            <div>
+                <div class="slide-content">
+                    <h2>⚠️ The Future: Potential & Ethics</h2>
+                    <h3 style="color: var(--accent-orange);">✨ Potential:</h3>
+                    <p class="list-item">Solving climate models and complex scientific challenges.</p>
+                    <p class="list-item">Personalizing education and improving accessibility for all.</p>
+                    <h3 style="color: var(--accent-orange); margin-top: 20px;">⚖️ Ethical Considerations:</h3>
+                    <p class="list-item" style="color: #CC8800;">Bias and Fairness: AI models can inherit human bias if trained on flawed data.</p>
+                    <p class="list-item" style="color: #CC8800;">Job Displacement: Requires workforce retraining and adaptation.</p>
+                    <p class="list-item" style="color: #CC8800;">Privacy: Massive data collection raises serious privacy concerns.</p>
+                </div>
+            </div>
+            <div class="navigation-controls">
+                <button class="nav-button" onclick="changeSlide(-1)">← Previous</button>
+                <button class="nav-button" onclick="changeSlide(1)">Conclusion →</button>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Conclusion -->
+        <div class="slide" id="slide-5">
+            <div>
+                <div class="slide-content" style="text-align: center;">
+                    <h2 style="font-size: 3.5em; border-bottom: none; margin-bottom: 30px;">🚀 Conclusion: The AI Partnership</h2>
+                    <p style="font-size: 1.5em; margin-bottom: 20px;">AI is not a replacement for human creativity, but a powerful tool that augments
+our abilities.</p>
+                    <p style="font-size: 2em; color: var(--accent-orange);">The key is responsible innovation and collaboration.</p>
+                    <h3 style="margin-top: 50px; color: var(--text-grey);">Q&A</h3>
+                </div>
+            </div>
+            <div class="navigation-controls">
+                <button class="nav-button" onclick="changeSlide(-1)">← Review</button>
+                <button class="nav-button" disabled>End Presentation</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // JavaScript for Slide Navigation
+        const slides = document.querySelectorAll('.slide');
+        let currentSlideIndex = 0;
+        const totalSlides = slides.length;
+
+        /**
+         * Hides all slides and then shows the slide at the given index.
+         * @param {number} index - The index of the slide to display.
+         */
+        function showSlide(index) {
+            // 1. Remove 'active' class from all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            // 2. Add 'active' class to the target slide
+            slides[index].classList.add('active');
+
+            // 3. Update internal index
+            currentSlideIndex = index;
+
+            // 4. Update button states
+            updateButtons();
+        }
+
+        /**
+         * Changes the slide by incrementing or decrementing the index.
+         * @param {number} direction - 1 for next, -1 for previous.
+         */
+        function changeSlide(direction) {
+            let newIndex = currentSlideIndex + direction;
+
+            // Prevent moving before the first slide (index 0)
+            if (newIndex < 0) {
+                newIndex = 0;
+            }
+            // Prevent moving past the last slide (index totalSlides - 1)
+            else if (newIndex >= totalSlides) {
+                newIndex = totalSlides - 1;
+            }
+
+            showSlide(newIndex);
+        }
+
+        /**
+         * Updates the 'disabled' state of the navigation buttons.
+         */
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn-1');
+            const nextBtn = document.getElementById('next-btn-1');
+            const finalNextBtn = document.getElementById('next-btn-1'); // Reusing structure for simplicity
+
+            // Disable 'Previous' on the first slide
+            if (currentSlideIndex === 0) {
+                document.querySelector('.slide:first-child .nav-button:nth-child(1)').disabled = true;
+            } else {
+                document.querySelector('.slide:first-child .nav-button:nth-child(1)').disabled = false;
+            }
+
+            // Disable 'Next' on the last slide
+            if (currentSlideIndex === totalSlides - 1) {
+                document.querySelector('.slide:nth-child(' + totalSlides + ') .nav-button:nth-child(2)').disabled = true;
+            } else {
+                 document.querySelector('.slide:nth-child(' + totalSlides + ') .nav-button:nth-child(2)').disabled = false;
+            }
+        }
+
+        // Initialize the presentation on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(0);
+        });
+
+    </script>
+</body>
+</html>
